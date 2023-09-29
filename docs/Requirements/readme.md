@@ -2,8 +2,8 @@
 
 | Requirement | Description |
 |:-----------:|:-----------:|
-|     FR1     | The system recognizes the userís hands position.                                                                           |
-|     FR2     | The system identifies the positions that represent letters in the Mexican Sign Language.                                   |
-|     FR3     | The system writes a text containing the transcription of the userís signs.                                                 |
-|     FR4     | The system gives feedback to the user when it recognizes a sign or gesture correctly.                                      |
-|     FR5     | The system has visual indicators to let the user know its current state (such as ìReady for captureî, ìTranscribingî, etc. |
+|     FR1     | The system recognizes the user‚Äôs hands position.                                                                            |
+|     FR2     | The system identifies the positions that represent letters in the Mexican Sign Language.                                    |
+|     FR3     | The system writes a text containing the transcription of the user‚Äôs signs.                                                  |
+|     FR4     | The system gives feedback to the user when it recognizes a sign or gesture correctly.                                       |
+|     FR5     | The system has visual indicators to let the user know its current state (such as ‚ÄúReady for capture‚Äù, ‚ÄúTranscribing‚Äù, etc). |
