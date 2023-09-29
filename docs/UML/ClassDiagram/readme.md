@@ -102,17 +102,17 @@
 <tbody>
   <tr>
     <td rowspan="2">Attributes</td>
-    <td>A1</td>
+    <td>-letter : Char
+</td>
   </tr>
   <tr>
-    <td>A2</td>
   </tr>
   <tr>
     <td rowspan="2">Methods</td>
-    <td>M1</td>
+    <td> +<<Create>>SignInfo(word : Char)</td>
   </tr>
   <tr>
-    <td>M2</td>
+    <td>+GetLetter() : Char</td>
   </tr>
 </tbody>
 </table>
@@ -124,19 +124,11 @@
   </tr>
 </thead>
 <tbody>
-  <tr>
-    <td rowspan="2">Attributes</td>
-    <td>A1</td>
-  </tr>
-  <tr>
-    <td>A2</td>
-  </tr>
+
   <tr>
     <td rowspan="2">Methods</td>
-    <td>M1</td>
+    <td>+DrawSign(image : Matrix, sign : SignInfo) : void </td>
   </tr>
-  <tr>
-    <td>M2</td>
-  </tr>
+
 </tbody>
 </table>
