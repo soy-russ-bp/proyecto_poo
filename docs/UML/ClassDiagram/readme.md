@@ -109,7 +109,7 @@
   </tr>
   <tr>
     <td rowspan="2">Methods</td>
-    <td> +<<Create>>SignInfo(word : Char)</td>
+    <td>+&lt;&lt;Create&gt;&gt;SignInfo(word : Char)</td>
   </tr>
   <tr>
     <td>+GetLetter() : Char</td>
