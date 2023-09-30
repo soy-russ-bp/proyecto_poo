@@ -29,18 +29,11 @@
 </thead>
 <tbody>
   <tr>
-    <td rowspan="2">Attributes</td>
-    <td>A1</td>
-  </tr>
-  <tr>
-    <td>A2</td>
-  </tr>
-  <tr>
     <td rowspan="2">Methods</td>
-    <td>M1</td>
+    <td><<"Create">>Webcam(camIndex : Int)</td>
   </tr>
   <tr>
-    <td>M2</td>
+    <td>+GetFrame() : Matrix</td>
   </tr>
 </tbody>
 </table>
