@@ -30,7 +30,7 @@
 <tbody>
   <tr>
     <td rowspan="2">Methods</td>
-    <td><<"Create">>Webcam(camIndex : Int)</td>
+    <td>+&lt;&lt;Create>>Webcam(camIndex : Int)</td>
   </tr>
   <tr>
     <td>+GetFrame() : Matrix</td>
@@ -47,14 +47,14 @@
 <tbody>
   <tr>
     <td rowspan="1">Attributes</td>
-    <td>model : Model </td>
+    <td>-model : Model </td>
   </tr>
   <tr>
     <td rowspan="2">Methods</td>
-    <td> <<“Create”>>HandsRecognizer(model : Model)</td>
+    <td>+&lt;&lt;Create&gt;&gt;HandsRecognizer(model : Model)</td>
   </tr>
   <tr>
-    <td>GetLandmarks(image : Matrix) : List<“Vector3”> </td>
+    <td>+GetLandmarks(image : Matrix) : List&lt;Vector3&gt;</td>
   </tr>
 </tbody>
 </table>
@@ -68,16 +68,16 @@
 <tbody>
   <tr>
     <td rowspan="2">Attributes</td>
-    <td>model : Model</td>
+    <td>-model : Model</td>
   </tr>
   <tr>
   </tr>
   <tr>
     <td rowspan="2">Methods</td>
-    <td><<"Create">>SingsRecognizer(model:Model)</td>
+    <td>+&lt;&lt;Create&gt;&gt;SingsRecognizer(model : Model)</td>
   </tr>
   <tr>
-    <td>GetSign(landmarks:List<Vector3>):SingInfo</td>
+    <td>+GetSign(landmarks : List&lt;Vector3&gt;) : SingInfo</td>
   </tr>
 </tbody>
 </table>
@@ -113,18 +113,13 @@
   </tr>
 </thead>
 <tbody>
-
   <tr>
     <td rowspan="2">Methods</td>
-    <td>+DrawSign(image : Matrix, sign : SignInfo) : void 
-      >
-    </td>
-      </tr>
+    <td>+DrawLandmarks(image : Matrix, landmarks : List<Vector3>) : void</td>
+  </tr>
   <tr>
-    <td>+DrawLandmarks(image : Matrix, landmarks : List<Vector3>) : void
+    <td>+DrawSign(image : Matrix, sign : SignInfo) : void</td>
   </tr>
-    
-  </tr>
-
 </tbody>
+
 </table>
