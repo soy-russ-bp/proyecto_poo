@@ -127,7 +127,14 @@
 
   <tr>
     <td rowspan="2">Methods</td>
-    <td>+DrawSign(image : Matrix, sign : SignInfo) : void </td>
+    <td>+DrawSign(image : Matrix, sign : SignInfo) : void 
+      >
+    </td>
+      </tr>
+  <tr>
+    <td>+DrawLandmarks(image : Matrix, landmarks : List<Vector3>) : void
+  </tr>
+    
   </tr>
 
 </tbody>
