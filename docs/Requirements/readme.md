@@ -7,3 +7,8 @@
 |     FR3     | The system writes a text containing the transcription of the user’s signs.                                                  |
 |     FR4     | The system gives feedback to the user when it recognizes a sign or gesture correctly.                                       |
 |     FR5     | The system has visual indicators to let the user know its current state (such as “Ready for capture”, “Transcribing”, etc). |
+
+---
+
+![](UserStories.png)
+![](AcceptanceCriteria.png)
