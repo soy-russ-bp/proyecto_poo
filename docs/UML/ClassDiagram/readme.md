@@ -1,6 +1,6 @@
 # Diagram:
 
-[img]
+![](ClassDiagram.png)
 
 # Classes:
 
