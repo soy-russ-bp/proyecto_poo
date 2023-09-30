@@ -78,17 +78,16 @@
 <tbody>
   <tr>
     <td rowspan="2">Attributes</td>
-    <td>A1</td>
+    <td>model : Model</td>
   </tr>
   <tr>
-    <td>A2</td>
   </tr>
   <tr>
     <td rowspan="2">Methods</td>
-    <td>M1</td>
+    <td><<"Create">>SingsRecognizer(model:Model)</td>
   </tr>
   <tr>
-    <td>M2</td>
+    <td>GetSign(landmarks:List<Vector3>):SingInfo</td>
   </tr>
 </tbody>
 </table>
@@ -127,7 +126,14 @@
 
   <tr>
     <td rowspan="2">Methods</td>
-    <td>+DrawSign(image : Matrix, sign : SignInfo) : void </td>
+    <td>+DrawSign(image : Matrix, sign : SignInfo) : void 
+      >
+    </td>
+      </tr>
+  <tr>
+    <td>+DrawLandmarks(image : Matrix, landmarks : List<Vector3>) : void
+  </tr>
+    
   </tr>
 
 </tbody>
