@@ -22,7 +22,6 @@ The relevance of this project lies in the creation of a tool that can have a sig
 
 <img style="width:100vw; height:270px" src="Assets/logo.png"/>
 
-:point_up: [First review](../../tree/First-Review)
 
  [Contributions](docs/Contributions/readme.md)
  
