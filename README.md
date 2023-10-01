@@ -1,16 +1,16 @@
 # A R J É - First review
 
-### Objective
+### Objective:
 
 Our main objective is to be able to use the object-oriented programming paradigm in a project that could serve as a precursor to a product with real significance. The "ARJÉ project is a sign language to natural language transcriber.
 
 For the Greek philosophers, Arjé meant the first element or the fundamental principle of things, and one of our goals is precisely for this project to be the fundamental principle of a world in which communication and language or speech disabilities are not a barrier to the full and enriching interaction of all individuals.
 
-### Relevance
+### Relevance:
 
 The relevance of this project lies in the creation of a tool that can have a significant impact on the lives of individuals with hearing and speech disabilities (deaf-mute individuals). Facilitating communication between deaf-mute individuals and hearing individuals is essential for their full participation in society. Moreover, this type of technology can find applications in educational, workplace, medical, and social settings, contributing to equal opportunities and the inclusion of individuals.
 
-### Limitations 
+### Limitations:
 
 - The system should ideally be bidirectional, meaning it should facilitate communication between sign language users and non-sign language users by translating both from sign language to natural language (in this case, written language) and from natural or spoken language to sign language. However, in our project, we will focus solely on transcribing from sign language to natural language.
 
