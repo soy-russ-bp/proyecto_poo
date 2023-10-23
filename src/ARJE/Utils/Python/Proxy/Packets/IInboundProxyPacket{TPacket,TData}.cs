@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using ARJE.Utils.IO;
 
 namespace ARJE.Utils.Python.Proxy.Packets
@@ -7,7 +6,8 @@ namespace ARJE.Utils.Python.Proxy.Packets
     public interface IInboundProxyPacket<TPacket, TData>
         where TPacket : IInboundProxyPacket<TPacket, TData>
     {
-        public static TData Receive(IIdMapper idManager, BinaryReader pipeReader, IReadableBinaryBuffer buffer)
+        public static TData Receive<TBuffer>(IIdMapper idManager, BinaryReader pipeReader, TBuffer buffer)
+            where TBuffer : IReadableBinaryBuffer, IFillableByReader
         {
             int id = pipeReader.ReadInt32();
             // TODO: Check id match

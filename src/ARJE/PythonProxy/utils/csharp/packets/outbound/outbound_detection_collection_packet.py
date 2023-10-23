@@ -1,14 +1,14 @@
-from detection import Detection
-from io_utils import seven_bit_encoding
-from outbound_proxy_packet import OutboundProxyPacket
-from named_pipe import NamedPipe
-from landmarks import Vector3, LandmarkCollection
+from utils.ai.detection import Detection
+from utils.ai.landmarks import Vector3, LandmarkCollection
+from utils.csharp.packets.outbound_proxy_packet import OutboundProxyPacket
+from utils.io import seven_bit_encoding
+from utils.io.named_pipe import NamedPipe
 
 
 TContent = list[Detection]
 
 
-class DetectionCollectionPacket(OutboundProxyPacket[TContent]):
+class OutboundDetectionCollectionPacket(OutboundProxyPacket[TContent]):
 
     def __init__(self, data: TContent):
         super().__init__(data)

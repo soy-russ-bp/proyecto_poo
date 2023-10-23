@@ -1,7 +1,7 @@
 import typing
-import io_utils.endianness as endianness
 import struct
 from io import RawIOBase
+from utils.io import endianness
 
 
 class BinaryWriter:

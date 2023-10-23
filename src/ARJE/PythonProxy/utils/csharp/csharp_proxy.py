@@ -1,7 +1,7 @@
 import typing
-from named_pipe import NamedPipe
-from outbound_proxy_packet import OutboundProxyPacket
-import io_utils.endianness as endianness
+from utils.io.named_pipe import NamedPipe
+from utils.csharp.packets.outbound_proxy_packet import OutboundProxyPacket
+from utils.io import endianness
 
 
 class CSharpProxy:

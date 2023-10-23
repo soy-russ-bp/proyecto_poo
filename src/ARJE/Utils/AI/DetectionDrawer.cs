@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Numerics;
 using Emgu.CV;
 using Emgu.CV.Structure;
+using Matrix = Emgu.CV.Mat;
 
 namespace ARJE.Utils.AI
 {
@@ -20,7 +21,7 @@ namespace ARJE.Utils.AI
             return new Point(xPx, yPx);
         }
 
-        public static void Draw(Mat image, Detection detection)
+        public static void Draw(Matrix image, Detection detection)
         {
             foreach (Vector3 landmark in detection.Landmarks.Positions)
             {

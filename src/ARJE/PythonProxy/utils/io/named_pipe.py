@@ -1,9 +1,9 @@
 import typing
-import io_utils.endianness as endianness
-from io_utils.binary_reader import BinaryReader
-from io_utils.binary_writer import BinaryWriter
 from io import RawIOBase
 from namedpipe import NPopen
+from utils.io import endianness
+from utils.io.binary_reader import BinaryReader
+from utils.io.binary_writer import BinaryWriter
 
 
 class NamedPipe:

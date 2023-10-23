@@ -8,13 +8,13 @@ namespace ARJE.Utils.Python.Proxy
 {
     public sealed class PythonProxy : IDisposable
     {
-        public PythonProxy(string pipeName, IIdMapper idMapper, int capacity = 0)
+        public PythonProxy(string pipeName, IIdMapper idMapper, int bufferCapacity = 0)
         {
             this.Pipe = new NamedPipeClientStream(pipeName);
             this.Reader = new BinaryReader(this.Pipe);
             this.Writer = new BinaryWriter(this.Pipe);
             this.IdMapper = idMapper;
-            this.Buffer = new ReusableBinaryBuffer(capacity);
+            this.Buffer = new ReusableBinaryBuffer(bufferCapacity);
         }
 
         private NamedPipeClientStream Pipe { get; }

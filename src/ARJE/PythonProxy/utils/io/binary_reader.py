@@ -1,16 +1,16 @@
 from __future__ import annotations
 import typing
-import io_utils.endianness as endianness
 from io import IOBase, BytesIO
 import typing_extensions
+from utils.io import endianness
 
 
 class BinaryReader:
 
     def __init__(self, stream: IOBase, leave_open: bool, byte_order: endianness.ByteOrderLiterals = "little"):
-        self._stream: typing.Final[IOBase] = stream
-        self._leave_open: typing.Final[bool] = leave_open
-        self._byte_order: typing.Final[endianness.ByteOrderLiterals] = byte_order
+        self._stream: typing.Final = stream
+        self._leave_open: typing.Final = leave_open
+        self._byte_order: typing.Final = byte_order
 
     @staticmethod
     def from_buffer(buffer: typing_extensions.Buffer, byte_order: endianness.ByteOrderLiterals = "little") -> BinaryReader:

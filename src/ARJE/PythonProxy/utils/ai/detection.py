@@ -1,5 +1,5 @@
 import typing
-from landmarks import LandmarkCollection
+from utils.ai.landmarks import LandmarkCollection
 
 
 class Detection(typing.NamedTuple):
