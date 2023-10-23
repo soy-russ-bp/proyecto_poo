@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Versioning;
-using ARJE.Utils.AI.Solutions.Python.ProxyPackets;
 using ARJE.Utils.Python;
 using ARJE.Utils.Python.Environment;
 using ARJE.Utils.Python.Launcher;
 using ARJE.Utils.Python.Proxy;
+using ARJE.Utils.Python.Proxy.Packets.Inbound;
 using ARJE.Utils.Python.Proxy.Packets.Outbound;
 using Matrix = Emgu.CV.Mat;
 
@@ -36,7 +36,7 @@ namespace ARJE.Utils.AI.Solutions.Python
         public ReadOnlyCollection<Detection> Process(Matrix image)
         {
             this.Proxy.Send<OutboundMatrixPacket, Matrix>(image);
-            return this.Proxy.Receive<DetectionCollectionPacket, ReadOnlyCollection<Detection>>();
+            return this.Proxy.Receive<InboundDetectionCollectionPacket, ReadOnlyCollection<Detection>>();
         }
 
         private class CustomIdMapper : IIdMapper

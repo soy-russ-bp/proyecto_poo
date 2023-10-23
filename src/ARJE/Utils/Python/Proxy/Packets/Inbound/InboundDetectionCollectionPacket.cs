@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Numerics;
-using ARJE.Utils.Python.Proxy.Packets;
+using ARJE.Utils.AI;
 
-namespace ARJE.Utils.AI.Solutions.Python.ProxyPackets
+namespace ARJE.Utils.Python.Proxy.Packets.Inbound
 {
-    internal class DetectionCollectionPacket : IInboundProxyPacket<DetectionCollectionPacket, ReadOnlyCollection<Detection>>
+    public class InboundDetectionCollectionPacket : IInboundProxyPacket<InboundDetectionCollectionPacket, ReadOnlyCollection<Detection>>
     {
-        private DetectionCollectionPacket()
+        private InboundDetectionCollectionPacket()
         {
         }
 
-        static ReadOnlyCollection<Detection> IInboundProxyPacket<DetectionCollectionPacket, ReadOnlyCollection<Detection>>.ReceiveObject(BinaryReader packetReader)
+        static ReadOnlyCollection<Detection> IInboundProxyPacket<InboundDetectionCollectionPacket, ReadOnlyCollection<Detection>>.ReceiveObject(BinaryReader packetReader)
         {
             byte detectionCount = packetReader.ReadByte();
             var detections = new List<Detection>(detectionCount);
@@ -59,6 +59,8 @@ namespace ARJE.Utils.AI.Solutions.Python.ProxyPackets
         private static IList<LandmarkConnection> ReadLandmarksConnections(BinaryReader packetReader)
         {
             return Array.Empty<LandmarkConnection>();
+
+            // TODO ...
             /*
             byte connectionCount = packetReader.ReadByte();
             var connections = new List<LandmarkConnection>(connectionCount);

@@ -19,6 +19,20 @@ namespace ARJE.SignTrainer
     {
         private static void Main()
         {
+            try
+            {
+                App();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                Console.ReadKey();
+                throw;
+            }
+        }
+
+        private static void App()
+        {
             Console.WriteLine("Start");
 
             DirectoryInfo proxyDir = new(Path.Combine(PathUtils.GoUpToFolder(AppContext.BaseDirectory, "ARJE"), "PythonProxy"));
