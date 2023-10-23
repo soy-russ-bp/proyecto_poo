@@ -1,16 +1,8 @@
-import typing
 import struct
-from io import RawIOBase
-from utils.io import endianness
+from utils.io.binary_accessor import BinaryAccessor
 
 
-class BinaryWriter:
-
-    def __init__(self, stream: RawIOBase, leave_open: bool, byte_order: endianness.ByteOrderLiterals = "little"):
-        self._stream: typing.Final[RawIOBase] = stream
-        self._leave_open: typing.Final[bool] = leave_open
-        self._byte_order: typing.Final[endianness.ByteOrderLiterals] = byte_order
-        self._float_byte_order_fmt: typing.Final[str] = endianness.get_float_format(byte_order)
+class BinaryWriter(BinaryAccessor):
 
     def write_bytes(self, data: bytes):
         self._stream.write(data)
@@ -41,13 +33,3 @@ class BinaryWriter:
                 raise ValueError("Char values > 127 are not supported.")
 
             self.write_byte(numVal)
-
-    def close(self):
-        if (not self._leave_open):
-            self._stream.close()
-
-    def __enter__(self):
-        return self
-
-    def __exit__(self, *_):
-        self.close()

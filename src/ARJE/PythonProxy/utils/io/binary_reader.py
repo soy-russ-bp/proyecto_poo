@@ -1,16 +1,11 @@
 from __future__ import annotations
-import typing
-from io import IOBase, BytesIO
 import typing_extensions
+from io import BytesIO
 from utils.io import endianness
+from utils.io.binary_accessor import BinaryAccessor
 
 
-class BinaryReader:
-
-    def __init__(self, stream: IOBase, leave_open: bool, byte_order: endianness.ByteOrderLiterals = "little"):
-        self._stream: typing.Final = stream
-        self._leave_open: typing.Final = leave_open
-        self._byte_order: typing.Final = byte_order
+class BinaryReader(BinaryAccessor):
 
     @staticmethod
     def from_buffer(buffer: typing_extensions.Buffer, byte_order: endianness.ByteOrderLiterals = "little") -> BinaryReader:
@@ -36,13 +31,3 @@ class BinaryReader:
 
     def read_int(self) -> int:
         return self._read_integral_num(4)
-
-    def close(self):
-        if (not self._leave_open):
-            self._stream.close()
-
-    def __enter__(self):
-        return self
-
-    def __exit__(self, *_):
-        self.close()
