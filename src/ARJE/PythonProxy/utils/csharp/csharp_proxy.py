@@ -1,7 +1,11 @@
 import typing
-from utils.io.named_pipe import NamedPipe
-from utils.csharp.packets.outbound_proxy_packet import OutboundProxyPacket
 from utils.io import endianness
+from utils.io.named_pipe import NamedPipe
+from utils.csharp.packets.inbound_proxy_packet import InboundProxyPacket
+from utils.csharp.packets.outbound_proxy_packet import OutboundProxyPacket
+
+
+TObject = typing.TypeVar("TObject")
 
 
 class CSharpProxy:
@@ -17,17 +21,8 @@ class CSharpProxy:
     def byte_order(self) -> endianness.ByteOrderLiterals:
         return self._pipe.byte_order
 
-    def receive_packet(self, type_id: int) -> bytes:
-        actual_type_id: int = self._pipe.reader.read_int()
-        if type_id != actual_type_id:
-            raise RuntimeError(f"Type id mismatch. Expecting: {type_id}. Actual: {actual_type_id}.")
-
-        package_len: int = self._pipe.reader.read_int()
-        if package_len == 0:
-            return bytes(0)
-
-        data: bytes = self._pipe.reader.read_bytes(package_len)
-        return data
+    def receive_object(self, packet: InboundProxyPacket[TObject]) -> TObject:
+        return InboundProxyPacket.receive_object(packet, self._pipe)
 
     def send_packet(self, type_id: int, packet: OutboundProxyPacket[typing.Any]):
         package_len: int = packet.compute_length()

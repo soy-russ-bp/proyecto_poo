@@ -5,13 +5,7 @@ from utils.io import seven_bit_encoding
 from utils.io.named_pipe import NamedPipe
 
 
-TContent = list[Detection]
-
-
-class OutboundDetectionCollectionPacket(OutboundProxyPacket[TContent]):
-
-    def __init__(self, data: TContent):
-        super().__init__(data)
+class OutboundDetectionCollectionPacket(OutboundProxyPacket[list[Detection]]):
 
     def compute_length(self) -> int:
         detection_count = len(self.data)

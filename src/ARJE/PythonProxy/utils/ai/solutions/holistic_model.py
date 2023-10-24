@@ -7,6 +7,7 @@ from mediapipe.python.solutions.holistic import Holistic as HolisticSolution
 from utils.ai.prediction_model import PredictionModel
 from utils.ai.detection import Detection
 from utils.ai.landmarks import LandmarksContainer, LandmarkCollection, LandmarkConnectionSet
+from utils.csharp.packets.inbound.inbound_matrix_packet import TObject as Matrix
 
 
 class _HolisticResult(typing.NamedTuple):
@@ -23,7 +24,7 @@ class HolisticModel(PredictionModel):
     def __init__(self):
         self._solution: typing.Final = HolisticSolution()
 
-    def process(self, image: numpy.typing.NDArray[numpy.uint8]) -> list[Detection]:
+    def process(self, image: Matrix) -> list[Detection]:
         image = opencv.cvtColor(image, opencv.COLOR_BGR2RGB)
         detections = list[Detection]()
         solutionResults: _HolisticResult = self._solution.process(image)  # type: ignore

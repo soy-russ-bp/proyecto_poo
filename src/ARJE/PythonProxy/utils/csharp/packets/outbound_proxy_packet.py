@@ -2,6 +2,7 @@ import typing
 from abc import ABC, abstractmethod
 from utils.io.named_pipe import NamedPipe
 
+
 T = typing.TypeVar("T")
 
 
