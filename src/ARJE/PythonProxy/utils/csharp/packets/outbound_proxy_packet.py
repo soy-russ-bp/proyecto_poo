@@ -18,5 +18,5 @@ class OutboundProxyPacket(ABC, typing.Generic[T]):
         pass
 
     @abstractmethod
-    def send_object(self, pipe_writer: BinaryWriter):
+    def send_object(self, writer: BinaryWriter):
         pass

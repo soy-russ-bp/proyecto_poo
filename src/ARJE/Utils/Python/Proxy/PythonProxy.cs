@@ -1,7 +1,5 @@
 ﻿using System;
-using System.IO;
 using System.IO.Pipes;
-using ARJE.Utils.IO;
 using ARJE.Utils.Python.Proxy.Packets;
 
 namespace ARJE.Utils.Python.Proxy
@@ -11,21 +9,15 @@ namespace ARJE.Utils.Python.Proxy
         public PythonProxy(string pipeName, IIdMapper idMapper, int bufferCapacity = 0)
         {
             this.Pipe = new NamedPipeClientStream(pipeName);
-            this.Reader = new BinaryReader(this.Pipe);
-            this.Writer = new BinaryWriter(this.Pipe);
-            this.IdMapper = idMapper;
-            this.Buffer = new ReusableBinaryBuffer(bufferCapacity);
+            this.Reader = new PacketReader(this.Pipe, bufferCapacity);
+            this.Writer = new PacketWriter(this.Pipe);
         }
 
         private NamedPipeClientStream Pipe { get; }
 
-        private BinaryReader Reader { get; }
+        private PacketReader Reader { get; }
 
-        private BinaryWriter Writer { get; }
-
-        private IIdMapper IdMapper { get; }
-
-        private ReusableBinaryBuffer Buffer { get; }
+        private PacketWriter Writer { get; }
 
         public PythonProxy Start()
         {
@@ -36,19 +28,27 @@ namespace ARJE.Utils.Python.Proxy
         public void Dispose()
         {
             this.Pipe.Dispose();
-            this.Buffer.Dispose();
+            this.Reader.Dispose();
+            this.Writer.Dispose();
         }
 
-        public void Send<TPacket, TData>(TData data)
-            where TPacket : IOutboundProxyPacket<TPacket, TData>
+        public TObject Receive<TObject, TPacket>()
+            where TPacket : IInboundProxyPacket<TObject>, INoArgsPacket, new()
         {
-            IOutboundProxyPacket<TPacket, TData>.Send(this.IdMapper, this.Writer, data);
+            var packet = new TPacket();
+            return this.Receive<TObject, TPacket>(packet);
         }
 
-        public TData Receive<TPacket, TData>()
-            where TPacket : IInboundProxyPacket<TPacket, TData>
+        public TObject Receive<TObject, TPacket>(TPacket packet)
+            where TPacket : IInboundProxyPacket<TObject>
         {
-            return IInboundProxyPacket<TPacket, TData>.Receive(this.IdMapper, this.Reader, this.Buffer);
+            return this.Reader.ReadObject<TObject, TPacket>(packet);
+        }
+
+        public void Send<TPacket>(TPacket packet)
+            where TPacket : IOutboundProxyPacket
+        {
+            this.Writer.WriteObject(packet);
         }
     }
 }

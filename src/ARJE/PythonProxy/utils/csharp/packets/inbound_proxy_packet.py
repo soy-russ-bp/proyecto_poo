@@ -10,5 +10,5 @@ ObjectT = typing.TypeVar("ObjectT")
 class InboundProxyPacket(ABC, typing.Generic[ObjectT]):
 
     @abstractmethod
-    def read_object(self, packet_reader: BinaryReader) -> ObjectT:
+    def read_object(self, reader: BinaryReader) -> ObjectT:
         pass

@@ -3,7 +3,7 @@ using System.IO;
 
 namespace ARJE.Utils.IO
 {
-    public sealed class ReusableBinaryBuffer : IReadableBinaryBuffer, IFillableByReader, IDisposable
+    public sealed class ReusableBinaryBuffer : IDisposable
     {
         public ReusableBinaryBuffer(int capacity = 0)
         {

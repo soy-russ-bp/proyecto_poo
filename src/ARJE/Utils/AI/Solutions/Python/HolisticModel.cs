@@ -27,7 +27,7 @@ namespace ARJE.Utils.AI.Solutions.Python
             this.Proxy = new PythonProxy("SignTrainer", new CustomIdMapper()).Start();
         }
 
-        public PythonProxy Proxy { get; }
+        private PythonProxy Proxy { get; }
 
         public static HolisticModel Start(PythonAppInfo<VenvInfo> appInfo) => new(appInfo);
 
@@ -35,8 +35,8 @@ namespace ARJE.Utils.AI.Solutions.Python
 
         public ReadOnlyCollection<Detection> Process(Matrix image)
         {
-            this.Proxy.Send<OutboundMatrixPacket, Matrix>(image);
-            return this.Proxy.Receive<InboundDetectionCollectionPacket, ReadOnlyCollection<Detection>>();
+            this.Proxy.Send<OutboundMatrixPacket>(image);
+            return this.Proxy.Receive<ReadOnlyCollection<Detection>, InboundDetectionCollectionPacket>();
         }
 
         private class CustomIdMapper : IIdMapper

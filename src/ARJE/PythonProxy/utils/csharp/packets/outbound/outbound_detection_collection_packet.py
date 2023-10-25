@@ -21,22 +21,22 @@ class OutboundDetectionCollectionPacket(OutboundProxyPacket[list[Detection]]):
 
         return length
 
-    def send_object(self, pipe_writer: BinaryWriter):
+    def send_object(self, writer: BinaryWriter):
         detection_count = len(self.wrapped_object)
         if detection_count == 0:
-            pipe_writer.write_byte(0)
+            writer.write_byte(0)
             return
 
-        pipe_writer.write_byte(detection_count)
+        writer.write_byte(detection_count)
 
         detection: Detection
         for detection in self.wrapped_object:
             landmarks: LandmarkCollection = detection.landmarks
-            pipe_writer.write_string(detection.name)
-            pipe_writer.write_int(len(landmarks.positions))
+            writer.write_string(detection.name)
+            writer.write_int(len(landmarks.positions))
 
             landmark_pos: Vector3
             for landmark_pos in detection.landmarks.positions:
-                pipe_writer.write_float(landmark_pos.x)
-                pipe_writer.write_float(landmark_pos.y)
-                pipe_writer.write_float(landmark_pos.z)
+                writer.write_float(landmark_pos.x)
+                writer.write_float(landmark_pos.y)
+                writer.write_float(landmark_pos.z)

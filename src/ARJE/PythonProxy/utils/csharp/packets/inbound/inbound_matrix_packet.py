@@ -9,10 +9,10 @@ ObjectT = numpy.ndarray[typing.Any, numpy.dtype[numpy.uint8]]
 
 class InboundMatrixPacket(InboundProxyPacket[ObjectT]):
 
-    def read_object(self, packet_reader: BinaryReader) -> ObjectT:
-        width: int = packet_reader.read_int()
-        height: int = packet_reader.read_int()
-        pixels: bytes = packet_reader.read_all_bytes()
+    def read_object(self, reader: BinaryReader) -> ObjectT:
+        width: int = reader.read_int()
+        height: int = reader.read_int()
+        pixels: bytes = reader.read_all_bytes()
         flat_array = numpy.frombuffer(pixels, numpy.uint8)
         matrix: ObjectT = flat_array.reshape((height, width, 3))
         return matrix

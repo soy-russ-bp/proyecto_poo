@@ -7,19 +7,15 @@ using ARJE.Utils.AI;
 
 namespace ARJE.Utils.Python.Proxy.Packets.Inbound
 {
-    public class InboundDetectionCollectionPacket : IInboundProxyPacket<InboundDetectionCollectionPacket, ReadOnlyCollection<Detection>>
+    public readonly struct InboundDetectionCollectionPacket : IInboundProxyPacket<ReadOnlyCollection<Detection>>, INoArgsPacket
     {
-        private InboundDetectionCollectionPacket()
+        public ReadOnlyCollection<Detection> ReadObject(BinaryReader reader)
         {
-        }
-
-        static ReadOnlyCollection<Detection> IInboundProxyPacket<InboundDetectionCollectionPacket, ReadOnlyCollection<Detection>>.ReceiveObject(BinaryReader packetReader)
-        {
-            byte detectionCount = packetReader.ReadByte();
+            byte detectionCount = reader.ReadByte();
             var detections = new List<Detection>(detectionCount);
             for (int i = 0; i < detectionCount; i++)
             {
-                Detection detection = ReadDetection(packetReader);
+                Detection detection = ReadDetection(reader);
                 detections.Add(detection);
             }
 
@@ -59,21 +55,6 @@ namespace ARJE.Utils.Python.Proxy.Packets.Inbound
         private static IList<LandmarkConnection> ReadLandmarksConnections(BinaryReader packetReader)
         {
             return Array.Empty<LandmarkConnection>();
-
-            // TODO ...
-            /*
-            byte connectionCount = packetReader.ReadByte();
-            var connections = new List<LandmarkConnection>(connectionCount);
-            for (int connectionI = 0; connectionI < connectionCount; connectionI++)
-            {
-                byte startIndex = packetReader.ReadByte();
-                byte endIndex = packetReader.ReadByte();
-                var connection = new LandmarkConnection(startIndex, endIndex);
-                connections.Add(connection);
-            }
-
-            //return connections;
-            */
         }
     }
 }
