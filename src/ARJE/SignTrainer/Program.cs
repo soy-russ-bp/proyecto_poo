@@ -6,6 +6,7 @@ using ARJE.Utils.AI.Solutions.Hands;
 using ARJE.Utils.IO;
 using ARJE.Utils.Python.Environment;
 using ARJE.Utils.Python.Launcher;
+using ARJE.Utils.Video;
 using Emgu.CV;
 using Emgu.CV.CvEnum;
 using Matrix = Emgu.CV.Mat;
@@ -24,6 +25,7 @@ namespace ARJE.SignTrainer
             }
             catch (Exception ex)
             {
+                Console.WriteLine();
                 Console.WriteLine(ex);
                 Console.ReadKey();
                 throw;
@@ -46,12 +48,11 @@ namespace ARJE.SignTrainer
             };
 
             using Matrix videoFrame = new();
-            using VideoCapture videoCapture = new();
+            using IVideoSource<Matrix> videoSource = new Camera();
 
-            while (videoCapture.IsOpened)
+            while (videoSource.IsOpen)
             {
-                videoCapture.Read(videoFrame);
-                CvInvoke.Flip(videoFrame, videoFrame, FlipType.Horizontal);
+                videoSource.Read(videoFrame);
 
                 HandsDetectionResult detections = model.Process(videoFrame);
                 foreach (HandDetection detection in detections)
