@@ -5,7 +5,7 @@ from mediapipe.python.solutions.holistic import Holistic as HolisticSolution
 from utils.ai.detection_model import DetectionModel
 from utils.ai.detection import Detection
 from utils.ai.landmarks import LandmarksContainer, LandmarkCollection, LandmarkConnectionSet
-from utils.csharp.packets.inbound.inbound_matrix_packet import TObject as Matrix
+from utils.csharp.packets.inbound.inbound_matrix_packet import ObjectT as Matrix
 
 
 class _HolisticResult(typing.NamedTuple):

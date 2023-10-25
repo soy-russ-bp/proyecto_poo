@@ -9,7 +9,7 @@ class PacketWriter:
         self._pipe_writer: typing.Final = pipe_writer
 
     def write_object(self, packet: OutboundProxyPacket[typing.Any]):
-        type_id: int = 202 # TODO
+        type_id: int = 202  # TODO
         packet_length: int = packet.length
         self._pipe_writer.write_int(type_id)
         self._pipe_writer.write_int(packet_length)

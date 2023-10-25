@@ -25,18 +25,18 @@ class CSharpProxy:
         self._packet_writer = PacketWriter(self._pipe.writer)
         return self
 
-    def _not_started_error(self) -> typing.NoReturn:
-        raise RuntimeError("Proxy not started.")
+    def _not_open_error(self) -> typing.NoReturn:
+        raise RuntimeError("Proxy not open.")
 
     def receive_object(self, packet: InboundProxyPacket[ObjectT]) -> ObjectT:
         if self._packet_reader is None:
-            self._not_started_error()
+            self._not_open_error()
 
         return self._packet_reader.read_object(packet)
 
     def send_object(self, packet: OutboundProxyPacket[typing.Any]):
         if self._packet_writer is None:
-            self._not_started_error()
+            self._not_open_error()
 
         self._packet_writer.write_object(packet)
 

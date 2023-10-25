@@ -10,7 +10,7 @@ class OutboundDetectionCollectionPacket(OutboundProxyPacket[list[Detection]]):
     @property
     def length(self) -> int:
         detection_count = len(self.wrapped_object)
-        if (detection_count == 0):
+        if detection_count == 0:
             return 1
 
         length = 1
@@ -23,7 +23,7 @@ class OutboundDetectionCollectionPacket(OutboundProxyPacket[list[Detection]]):
 
     def send_object(self, pipe_writer: BinaryWriter):
         detection_count = len(self.wrapped_object)
-        if (detection_count == 0):
+        if detection_count == 0:
             pipe_writer.write_byte(0)
             return
 
@@ -35,8 +35,8 @@ class OutboundDetectionCollectionPacket(OutboundProxyPacket[list[Detection]]):
             pipe_writer.write_string(detection.name)
             pipe_writer.write_int(len(landmarks.positions))
 
-            landmarkPos: Vector3
-            for landmarkPos in detection.landmarks.positions:
-                pipe_writer.write_float(landmarkPos.x)
-                pipe_writer.write_float(landmarkPos.y)
-                pipe_writer.write_float(landmarkPos.z)
+            landmark_pos: Vector3
+            for landmark_pos in detection.landmarks.positions:
+                pipe_writer.write_float(landmark_pos.x)
+                pipe_writer.write_float(landmark_pos.y)
+                pipe_writer.write_float(landmark_pos.z)

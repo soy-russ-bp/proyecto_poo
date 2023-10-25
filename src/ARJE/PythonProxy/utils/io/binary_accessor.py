@@ -17,7 +17,7 @@ class BinaryAccessor(ABC):
         return self._byte_order
 
     def close(self):
-        if (not self._leave_open):
+        if not self._leave_open:
             self._stream.close()
 
     def __enter__(self):

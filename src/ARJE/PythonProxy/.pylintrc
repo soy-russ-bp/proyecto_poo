@@ -1,5 +1,10 @@
 [MESSAGES CONTROL]
 
-disable=[
-  'no-name-in-module'
-]
+disable=
+    no-member,
+    no-name-in-module,
+    too-few-public-methods,
+    line-too-long,
+    missing-module-docstring,
+    missing-class-docstring,
+    missing-function-docstring

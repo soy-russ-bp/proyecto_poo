@@ -3,7 +3,7 @@ from utils.csharp.packets.inbound_proxy_packet import InboundProxyPacket
 from utils.io.binary_reader import BinaryReader
 
 
-TObject = typing.TypeVar("TObject")
+ObjectT = typing.TypeVar("ObjectT")
 
 
 class PacketReader:
@@ -24,8 +24,8 @@ class PacketReader:
         data: bytes = self._pipe_reader.read_bytes(package_len)
         return data
 
-    def read_object(self, packet: InboundProxyPacket[TObject]) -> TObject:
+    def read_object(self, packet: InboundProxyPacket[ObjectT]) -> ObjectT:
         packet_bytes: bytes = self._read_raw_packet()
         with BinaryReader.from_buffer(packet_bytes, self._pipe_reader.byte_order) as packet_reader:
-            inbound_object: TObject = packet.read_object(packet_reader)
+            inbound_object: ObjectT = packet.read_object(packet_reader)
             return inbound_object

@@ -1,6 +1,6 @@
 from __future__ import annotations
-import typing_extensions
 from io import BytesIO
+import typing_extensions
 from utils.io import endianness
 from utils.io.binary_accessor import BinaryAccessor
 
@@ -14,7 +14,7 @@ class BinaryReader(BinaryAccessor):
 
     def read_bytes(self, count: int | None) -> bytes:
         data: bytes | None = self._stream.read(count)
-        if (data is None):
+        if data is None:
             raise RuntimeError("Pipe broken.")
 
         return data

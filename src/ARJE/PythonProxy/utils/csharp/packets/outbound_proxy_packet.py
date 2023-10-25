@@ -9,8 +9,8 @@ T = typing.TypeVar("T")
 
 class OutboundProxyPacket(ABC, typing.Generic[T]):
 
-    def __init__(self, object: T):
-        self.wrapped_object: typing.Final = object
+    def __init__(self, wrapped_object: T):
+        self.wrapped_object: typing.Final = wrapped_object
 
     @property
     @abstractmethod

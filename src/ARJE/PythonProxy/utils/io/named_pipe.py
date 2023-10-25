@@ -29,8 +29,8 @@ class NamedPipe:
         self._writer = BinaryWriter(self._stream, True, self._byte_order)
         return self
 
-    def _not_started_error(self) -> typing.NoReturn:
-        raise RuntimeError("Pipe not started.")
+    def _not_open_error(self) -> typing.NoReturn:
+        raise RuntimeError("Pipe not open.")
 
     @property
     def byte_order(self) -> endianness.ByteOrderLiterals:
@@ -39,20 +39,20 @@ class NamedPipe:
     @property
     def reader(self) -> BinaryReader:
         if self._reader is None:
-            self._not_started_error()
+            self._not_open_error()
 
         return self._reader
 
     @property
     def writer(self) -> BinaryWriter:
         if self._writer is None:
-            self._not_started_error()
+            self._not_open_error()
 
         return self._writer
 
     def close(self):
         self._pipe.close()
-        self._stream = typing.cast(RawIOBase, None)
+        self._stream = None
 
     def __enter__(self):
         return self
