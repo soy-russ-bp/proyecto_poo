@@ -26,6 +26,7 @@ namespace ARJE.Utils.Python.Proxy.Packets
 
         public void Dispose()
         {
+            this.PipeReader.Dispose();
             this.Buffer.Dispose();
         }
 

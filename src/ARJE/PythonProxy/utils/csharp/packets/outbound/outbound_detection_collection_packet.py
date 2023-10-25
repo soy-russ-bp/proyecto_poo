@@ -1,7 +1,6 @@
 from utils.ai.detection import Detection
 from utils.ai.landmarks import Vector3, LandmarkCollection
 from utils.csharp.packets.outbound_proxy_packet import OutboundProxyPacket
-from utils.io import seven_bit_encoding
 from utils.io.binary_writer import BinaryWriter
 
 
@@ -17,7 +16,7 @@ class OutboundDetectionCollectionPacket(OutboundProxyPacket[list[Detection]]):
         detection: Detection
         for detection in self.wrapped_object:
             landmarks: LandmarkCollection = detection.landmarks
-            length += seven_bit_encoding.get_encoded_len(detection.name) + 4 + (len(landmarks.positions) * (3 * 4))
+            length += 4 + (len(landmarks.positions) * (3 * 4))
 
         return length
 
@@ -32,7 +31,6 @@ class OutboundDetectionCollectionPacket(OutboundProxyPacket[list[Detection]]):
         detection: Detection
         for detection in self.wrapped_object:
             landmarks: LandmarkCollection = detection.landmarks
-            writer.write_string(detection.name)
             writer.write_int(len(landmarks.positions))
 
             landmark_pos: Vector3

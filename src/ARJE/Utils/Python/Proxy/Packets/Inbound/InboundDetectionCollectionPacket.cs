@@ -1,32 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Numerics;
 using ARJE.Utils.AI;
+using ARJE.Utils.AI.Solutions.Hands;
 
 namespace ARJE.Utils.Python.Proxy.Packets.Inbound
 {
-    public readonly struct InboundDetectionCollectionPacket : IInboundProxyPacket<ReadOnlyCollection<Detection>>, INoArgsPacket
+    public readonly struct InboundDetectionCollectionPacket : IInboundProxyPacket<HandsDetectionResult>, INoArgsPacket
     {
-        public ReadOnlyCollection<Detection> ReadObject(BinaryReader reader)
+        public HandsDetectionResult ReadObject(BinaryReader reader)
         {
             byte detectionCount = reader.ReadByte();
-            var detections = new List<Detection>(detectionCount);
+            var detections = new List<HandDetection>(detectionCount);
             for (int i = 0; i < detectionCount; i++)
             {
-                Detection detection = ReadDetection(reader);
+                HandDetection detection = ReadDetection(reader);
                 detections.Add(detection);
             }
 
-            return detections.AsReadOnly();
+            return new HandsDetectionResult(detections);
         }
 
-        private static Detection ReadDetection(BinaryReader packetReader)
+        private static HandDetection ReadDetection(BinaryReader packetReader)
         {
-            string detectionName = packetReader.ReadString();
             LandmarkCollection landmarks = ReadLandmarks(packetReader);
-            return new Detection(detectionName, landmarks);
+            return new HandDetection(landmarks);
         }
 
         private static LandmarkCollection ReadLandmarks(BinaryReader packetReader)

@@ -1,5 +1,5 @@
 from utils.ai.detection import Detection
-from utils.ai.solutions.holistic_model import HolisticModel
+from utils.ai.solutions.hands_model import HandsModel
 from utils.csharp.csharp_proxy import CSharpProxy
 from utils.csharp.packets.inbound.inbound_matrix_packet import InboundMatrixPacket
 from utils.csharp.packets.inbound.inbound_matrix_packet import ObjectT as Matrix
@@ -10,7 +10,7 @@ print(" - App start - ")
 
 
 with CSharpProxy("SignTrainer").start() as proxy:
-    with HolisticModel() as model:
+    with HandsModel() as model:
         print(" - Proxy start - ")
         while True:
             image: Matrix = proxy.receive_object(InboundMatrixPacket())

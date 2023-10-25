@@ -21,7 +21,7 @@ namespace ARJE.Utils.AI
             return new Point(xPx, yPx);
         }
 
-        public static void Draw(Matrix image, Detection detection)
+        public static void Draw(Matrix image, IDetection detection)
         {
             foreach (Vector3 landmark in detection.Landmarks.Positions)
             {

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Runtime.Versioning;
 using ARJE.Utils.Python;
 using ARJE.Utils.Python.Environment;
@@ -10,13 +9,13 @@ using ARJE.Utils.Python.Proxy.Packets.Inbound;
 using ARJE.Utils.Python.Proxy.Packets.Outbound;
 using Matrix = Emgu.CV.Mat;
 
-namespace ARJE.Utils.AI.Solutions.Python
+namespace ARJE.Utils.AI.Solutions.Hands
 {
     [SupportedOSPlatform("windows")]
     [SupportedOSPlatform("macos")]
-    public sealed class HolisticModel : IPredictionModel<Matrix>
+    public sealed class HandsModel : IDetectionModel<HandsDetectionResult, HandDetection, Matrix>
     {
-        private HolisticModel(PythonAppInfo<VenvInfo>? appInfo)
+        private HandsModel(PythonAppInfo<VenvInfo>? appInfo)
         {
             if (appInfo.HasValue)
             {
@@ -29,14 +28,14 @@ namespace ARJE.Utils.AI.Solutions.Python
 
         private PythonProxy Proxy { get; }
 
-        public static HolisticModel Start(PythonAppInfo<VenvInfo> appInfo) => new(appInfo);
+        public static HandsModel Start(PythonAppInfo<VenvInfo> appInfo) => new(appInfo);
 
-        public static HolisticModel StartNoLaunch() => new(null);
+        public static HandsModel StartNoLaunch() => new(null);
 
-        public ReadOnlyCollection<Detection> Process(Matrix image)
+        public HandsDetectionResult Process(Matrix image)
         {
             this.Proxy.Send<OutboundMatrixPacket>(image);
-            return this.Proxy.Receive<ReadOnlyCollection<Detection>, InboundDetectionCollectionPacket>();
+            return this.Proxy.Receive<HandsDetectionResult, InboundDetectionCollectionPacket>();
         }
 
         private class CustomIdMapper : IIdMapper

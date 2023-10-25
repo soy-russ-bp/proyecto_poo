@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Runtime.Versioning;
 using ARJE.Utils.AI;
-using ARJE.Utils.AI.Solutions.Python;
+using ARJE.Utils.AI.Solutions.Hands;
 using ARJE.Utils.IO;
 using ARJE.Utils.Python.Environment;
 using ARJE.Utils.Python.Launcher;
@@ -38,8 +37,13 @@ namespace ARJE.SignTrainer
             DirectoryInfo proxyDir = new(Path.Combine(PathUtils.GoUpToFolder(AppContext.BaseDirectory, "ARJE"), "PythonProxy"));
             PythonAppInfo<VenvInfo> appInfo = new(new VenvInfo(".venv"), proxyDir, "app");
 
-            var holisticModel = HolisticModel.Start(appInfo);
-            // var holisticModel = HolisticModel.StartNoLaunch();
+            Console.Write("Launch proxy? (y/n): ");
+            char key = char.ToLower(Console.ReadKey().KeyChar);
+            var model = key switch
+            {
+                'n' => HandsModel.StartNoLaunch(),
+                _ => HandsModel.Start(appInfo),
+            };
 
             using Matrix videoFrame = new();
             using VideoCapture videoCapture = new();
@@ -49,8 +53,8 @@ namespace ARJE.SignTrainer
                 videoCapture.Read(videoFrame);
                 CvInvoke.Flip(videoFrame, videoFrame, FlipType.Horizontal);
 
-                ReadOnlyCollection<Detection> detections = holisticModel.Process(videoFrame);
-                foreach (Detection detection in detections)
+                HandsDetectionResult detections = model.Process(videoFrame);
+                foreach (HandDetection detection in detections)
                 {
                     DetectionDrawer.Draw(videoFrame, detection);
                 }

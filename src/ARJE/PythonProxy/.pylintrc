@@ -4,6 +4,7 @@ disable=
     no-member,
     no-name-in-module,
     too-few-public-methods,
+    unused-import,
     line-too-long,
     missing-module-docstring,
     missing-class-docstring,
