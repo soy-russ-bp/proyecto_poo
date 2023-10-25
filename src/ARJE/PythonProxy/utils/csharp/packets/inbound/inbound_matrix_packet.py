@@ -9,7 +9,7 @@ TObject = numpy.ndarray[typing.Any, numpy.dtype[numpy.uint8]]
 
 class InboundMatrixPacket(InboundProxyPacket[TObject]):
 
-    def read_object(self, packet: InboundProxyPacket[TObject], packet_reader: BinaryReader) -> TObject:
+    def read_object(self, packet_reader: BinaryReader) -> TObject:
         width: int = packet_reader.read_int()
         height: int = packet_reader.read_int()
         pixels: bytes = packet_reader.read_all_bytes()

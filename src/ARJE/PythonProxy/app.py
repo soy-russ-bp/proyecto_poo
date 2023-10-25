@@ -14,4 +14,4 @@ with HolisticModel() as model:
         while True:
             cam_image: Matrix = proxy.receive_object(InboundMatrixPacket())
             results = model.process(cam_image)
-            proxy.send_packet(202, OutboundDetectionCollectionPacket(results))
+            proxy.send_object(OutboundDetectionCollectionPacket(results))

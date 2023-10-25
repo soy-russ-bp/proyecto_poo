@@ -1,34 +1,44 @@
 import typing
-from utils.io import endianness
 from utils.io.named_pipe import NamedPipe
 from utils.csharp.packets.inbound_proxy_packet import InboundProxyPacket
 from utils.csharp.packets.outbound_proxy_packet import OutboundProxyPacket
+from utils.csharp.packets.packet_reader import PacketReader
+from utils.csharp.packets.packet_writer import PacketWriter
 
 
-TObject = typing.TypeVar("TObject")
+ObjectT = typing.TypeVar("ObjectT")
 
 
 class CSharpProxy:
 
-    def __init__(self, pipe_name: str):
+    def __init__(
+        self,
+        pipe_name: str
+    ):
         self._pipe = NamedPipe(pipe_name)
+        self._packet_reader: PacketReader | None = None
+        self._packet_writer: PacketWriter | None = None
 
     def start(self) -> typing.Self:
         self._pipe.start()
+        self._packet_reader = PacketReader(self._pipe.reader)
+        self._packet_writer = PacketWriter(self._pipe.writer)
         return self
 
-    @property
-    def byte_order(self) -> endianness.ByteOrderLiterals:
-        return self._pipe.byte_order
+    def _not_started_error(self) -> typing.NoReturn:
+        raise RuntimeError("Proxy not started.")
 
-    def receive_object(self, packet: InboundProxyPacket[TObject]) -> TObject:
-        return InboundProxyPacket.receive_object(packet, self._pipe)
+    def receive_object(self, packet: InboundProxyPacket[ObjectT]) -> ObjectT:
+        if self._packet_reader is None:
+            self._not_started_error()
 
-    def send_packet(self, type_id: int, packet: OutboundProxyPacket[typing.Any]):
-        package_len: int = packet.compute_length()
-        self._pipe.writer.write_int(type_id)
-        self._pipe.writer.write_int(package_len)
-        packet.send_object(self._pipe)
+        return self._packet_reader.read_object(packet)
+
+    def send_object(self, packet: OutboundProxyPacket[typing.Any]):
+        if self._packet_writer is None:
+            self._not_started_error()
+
+        self._packet_writer.write_object(packet)
 
     def close(self):
         self._pipe.close()

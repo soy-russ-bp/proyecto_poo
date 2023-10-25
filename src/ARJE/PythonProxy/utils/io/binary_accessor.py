@@ -12,6 +12,10 @@ class BinaryAccessor(ABC):
         self._byte_order: typing.Final = byte_order
         self._float_byte_order_fmt: typing.Final[str] = endianness.get_float_format(byte_order)
 
+    @property
+    def byte_order(self) -> endianness.ByteOrderLiterals:
+        return self._byte_order
+
     def close(self):
         if (not self._leave_open):
             self._stream.close()

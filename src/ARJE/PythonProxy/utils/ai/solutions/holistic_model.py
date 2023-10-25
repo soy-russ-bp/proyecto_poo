@@ -1,10 +1,8 @@
 import typing
-import numpy.typing
-import numpy
 import cv2 as opencv
 import mediapipe.python.solutions.holistic as HolisticConnections
 from mediapipe.python.solutions.holistic import Holistic as HolisticSolution
-from utils.ai.prediction_model import PredictionModel
+from utils.ai.detection_model import DetectionModel
 from utils.ai.detection import Detection
 from utils.ai.landmarks import LandmarksContainer, LandmarkCollection, LandmarkConnectionSet
 from utils.csharp.packets.inbound.inbound_matrix_packet import TObject as Matrix
@@ -17,7 +15,7 @@ class _HolisticResult(typing.NamedTuple):
     face_landmarks: LandmarksContainer | None
 
 
-class HolisticModel(PredictionModel):
+class HolisticModel(DetectionModel):
     H_HAND_CONNECTIONS: LandmarkConnectionSet = getattr(HolisticConnections, "HAND_CONNECTIONS")
     H_FACEMESH_TESSELATION: LandmarkConnectionSet = getattr(HolisticConnections, "FACEMESH_TESSELATION")
 
@@ -43,7 +41,7 @@ class HolisticModel(PredictionModel):
         connections: LandmarkConnectionSet
     ):
 
-        if (solutionResult is None):
+        if solutionResult is None:
             return
 
         landmarks = LandmarkCollection(solutionResult.landmark, connections)

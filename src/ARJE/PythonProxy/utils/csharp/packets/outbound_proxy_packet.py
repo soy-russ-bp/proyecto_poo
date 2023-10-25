@@ -1,6 +1,7 @@
+from __future__ import annotations
 import typing
 from abc import ABC, abstractmethod
-from utils.io.named_pipe import NamedPipe
+from utils.io.binary_writer import BinaryWriter
 
 
 T = typing.TypeVar("T")
@@ -8,13 +9,14 @@ T = typing.TypeVar("T")
 
 class OutboundProxyPacket(ABC, typing.Generic[T]):
 
-    def __init__(self, data: T):
-        self.data = data
+    def __init__(self, object: T):
+        self.wrapped_object: typing.Final = object
 
+    @property
     @abstractmethod
-    def compute_length(self) -> int:
+    def length(self) -> int:
         pass
 
     @abstractmethod
-    def send_object(self, pipe: NamedPipe):
+    def send_object(self, pipe_writer: BinaryWriter):
         pass

@@ -8,8 +8,8 @@ class BinaryWriter(BinaryAccessor):
         self._stream.write(data)
 
     def _write_integral_num(self, data: int, length: int, signed: bool = True):
-        dataAsBytes: bytes = data.to_bytes(length=length, byteorder=self._byte_order, signed=signed)
-        self.write_bytes(dataAsBytes)
+        data_as_bytes: bytes = data.to_bytes(length=length, byteorder=self._byte_order, signed=signed)
+        self.write_bytes(data_as_bytes)
 
     def write_byte(self, data: int):
         self._write_integral_num(data, 1, signed=False)
