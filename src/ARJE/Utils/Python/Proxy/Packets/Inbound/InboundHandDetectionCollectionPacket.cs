@@ -11,48 +11,64 @@ namespace ARJE.Utils.Python.Proxy.Packets.Inbound
     {
         public HandDetectionCollection ReadObject(BinaryReader reader)
         {
-            byte detectionCount = reader.ReadByte();
-            var detections = new List<HandDetection>(detectionCount);
-            for (int i = 0; i < detectionCount; i++)
-            {
-                HandDetection detection = ReadDetection(reader);
-                detections.Add(detection);
-            }
-
+            IList<HandDetection> detections = ReadDetections(reader);
             return new HandDetectionCollection(detections);
         }
 
-        private static HandDetection ReadDetection(BinaryReader packetReader)
+        private static IList<HandDetection> ReadDetections(BinaryReader reader)
         {
-            LandmarkCollection landmarks = ReadLandmarks(packetReader);
+            byte detectionCount = reader.ReadByte();
+            if (detectionCount == 0)
+            {
+                return Array.Empty<HandDetection>();
+            }
+
+            return ReadDetections(reader, detectionCount);
+        }
+
+        private static IList<HandDetection> ReadDetections(BinaryReader reader, int detectionCount)
+        {
+            var detections = new HandDetection[detectionCount];
+            for (int i = 0; i < detectionCount; i++)
+            {
+                detections[i] = ReadDetection(reader);
+            }
+
+            return detections;
+        }
+
+        private static HandDetection ReadDetection(BinaryReader reader)
+        {
+            LandmarkCollection landmarks = ReadLandmarks(reader);
             return new HandDetection(landmarks);
         }
 
-        private static LandmarkCollection ReadLandmarks(BinaryReader packetReader)
+        private static LandmarkCollection ReadLandmarks(BinaryReader reader)
         {
-            IList<Vector3> landmarks = ReadLandmarksPositions(packetReader);
-            IList<LandmarkConnection> connections = ReadLandmarksConnections(packetReader);
+            IList<Vector3> landmarks = ReadLandmarksPositions(reader);
+            IList<LandmarkConnection> connections = ReadLandmarksConnections(reader);
             return new LandmarkCollection(landmarks, connections);
         }
 
-        private static IList<Vector3> ReadLandmarksPositions(BinaryReader packetReader)
+        private static IList<Vector3> ReadLandmarksPositions(BinaryReader reader)
         {
-            int landmarkCount = packetReader.ReadInt32();
-            var landmarks = new List<Vector3>(landmarkCount);
+            int landmarkCount = reader.ReadInt32();
+            var landmarks = new Vector3[landmarkCount];
             for (int landmarkI = 0; landmarkI < landmarkCount; landmarkI++)
             {
-                float x = packetReader.ReadSingle();
-                float y = packetReader.ReadSingle();
-                float z = packetReader.ReadSingle();
+                float x = reader.ReadSingle();
+                float y = reader.ReadSingle();
+                float z = reader.ReadSingle();
                 var landmark = new Vector3(x, y, z);
-                landmarks.Add(landmark);
+                landmarks[landmarkI] = landmark;
             }
 
             return landmarks;
         }
 
-        private static IList<LandmarkConnection> ReadLandmarksConnections(BinaryReader packetReader)
+        private static IList<LandmarkConnection> ReadLandmarksConnections(BinaryReader reader)
         {
+            // TODO
             return Array.Empty<LandmarkConnection>();
         }
     }
