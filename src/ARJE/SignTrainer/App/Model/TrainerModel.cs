@@ -8,7 +8,7 @@ namespace ARJE.SignTrainer.App.Model
 {
     public sealed class TrainerModel
     {
-        public TrainerModel(IVideoSource<Matrix> videoSource, IDetectionModel<HandDetectionCollection, HandDetection, Matrix> detectionModel)
+        public TrainerModel(IAsyncVideoSource<Matrix> videoSource, IDetectionModel<HandDetectionCollection, HandDetection, Matrix> detectionModel)
         {
             ArgumentNullException.ThrowIfNull(videoSource);
             ArgumentNullException.ThrowIfNull(detectionModel);
@@ -17,7 +17,7 @@ namespace ARJE.SignTrainer.App.Model
             this.Detector = detectionModel;
         }
 
-        public IVideoSource<Matrix> VideoSource { get; }
+        public IAsyncVideoSource<Matrix> VideoSource { get; }
 
         public IDetectionModel<HandDetectionCollection, HandDetection, Matrix> Detector { get; }
     }

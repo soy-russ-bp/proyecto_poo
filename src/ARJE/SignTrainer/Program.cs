@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.Versioning;
 using ARJE.SignTrainer.App;
+using Spectre.Console;
 
 namespace ARJE.SignTrainer
 {
@@ -16,9 +17,11 @@ namespace ARJE.SignTrainer
             }
             catch (Exception ex)
             {
-                Console.WriteLine();
-                Console.WriteLine(ex);
+                AnsiConsole.WriteLine();
+                AnsiConsole.WriteLine(ex.ToString());
+#if !DEBUG
                 Console.ReadKey();
+#endif
                 throw;
             }
         }

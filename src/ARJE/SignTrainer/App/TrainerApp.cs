@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Runtime.Versioning;
+using ARJE.SignTrainer.App.Controller;
 using ARJE.SignTrainer.App.Model;
 using ARJE.SignTrainer.App.View;
 using ARJE.Utils.AI.Solutions.Hands;
@@ -8,6 +9,8 @@ using ARJE.Utils.IO;
 using ARJE.Utils.Python.Environment;
 using ARJE.Utils.Python.Launcher;
 using ARJE.Utils.Video;
+using ARJE.Utils.Video.OpenCV;
+using Spectre.Console;
 using Matrix = Emgu.CV.Mat;
 
 namespace ARJE.SignTrainer.App
@@ -18,9 +21,9 @@ namespace ARJE.SignTrainer.App
     {
         public static void Run()
         {
-            Console.WriteLine("Start");
+            AnsiConsole.WriteLine("Start");
 
-            Console.Write("Launch proxy? (y/n): ");
+            AnsiConsole.Write("Launch proxy? (y/n): ");
             char key = char.ToLower(Console.ReadKey().KeyChar);
             HandsModel detectionModel = key switch
             {
@@ -28,12 +31,13 @@ namespace ARJE.SignTrainer.App
                 _ => HandsModel.Start(GetProxyAppInfo()),
             };
 
-            using IVideoSource<Matrix> videoSource = new Camera(flipHorizontally: true);
+            using IAsyncVideoSource<Matrix> videoSource = new AsyncWebcam(flipHorizontally: true);
             var model = new TrainerModel(
                 videoSource,
                 detectionModel);
-            var view = new TrainerView(model);
-            view.Run();
+            var view = new TrainerView();
+            var controller = new TrainerController(model, view);
+            controller.Run();
         }
 
         private static PythonAppInfo<VenvInfo> GetProxyAppInfo()
