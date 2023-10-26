@@ -17,6 +17,11 @@ class BinaryReader(BinaryAccessor):
         if data is None:
             raise RuntimeError("Pipe broken.")
 
+        if count is not None:
+            data_length = len(data)
+            if count != data_length:
+                raise RuntimeError(f"Requested count ({count}) does not match the read count ({data_length}).")
+
         return data
 
     def read_all_bytes(self) -> bytes:
