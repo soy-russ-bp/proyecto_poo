@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 namespace ARJE.Utils.AI
 {
-    public interface IDetectionCollection<TDetection> : IEnumerable<TDetection>
+    public interface IDetectionCollection<TDetection> : IReadOnlyList<TDetection>
         where TDetection : IDetection
     {
-        ReadOnlyCollection<TDetection> Detections { get; }
     }
 }

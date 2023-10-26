@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 namespace ARJE.Utils.Collections
 {
@@ -12,24 +11,7 @@ namespace ARJE.Utils.Collections
                 return Array.Empty<T>();
             }
 
-            int notNullCount = array.Count(item => item != null);
-            if (array.Length == notNullCount)
-            {
-                return array as T[];
-            }
-
-            var newArray = new T[notNullCount];
-            for (int i = 0, newI = 0; i <= notNullCount; i++)
-            {
-                T? item = array[i];
-                if (item != null)
-                {
-                    newArray[newI] = item;
-                    newI++;
-                }
-            }
-
-            return newArray;
+            return Array.FindAll(array, e => e != null) as T[];
         }
     }
 }

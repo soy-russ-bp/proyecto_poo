@@ -13,7 +13,7 @@ namespace ARJE.Utils.AI.Solutions.Hands
 {
     [SupportedOSPlatform("windows")]
     [SupportedOSPlatform("macos")]
-    public sealed class HandsModel : IDetectionModel<HandsDetectionResult, HandDetection, Matrix>
+    public sealed class HandsModel : IDetectionModel<HandDetectionCollection, HandDetection, Matrix>
     {
         private HandsModel(PythonAppInfo<VenvInfo>? appInfo)
         {
@@ -32,10 +32,10 @@ namespace ARJE.Utils.AI.Solutions.Hands
 
         public static HandsModel StartNoLaunch() => new(null);
 
-        public HandsDetectionResult Process(Matrix image)
+        public HandDetectionCollection Process(Matrix image)
         {
             this.Proxy.Send<OutboundMatrixPacket>(image);
-            return this.Proxy.Receive<HandsDetectionResult, InboundDetectionCollectionPacket>();
+            return this.Proxy.Receive<HandDetectionCollection, InboundHandDetectionCollectionPacket>();
         }
 
         private class CustomIdMapper : IIdMapper

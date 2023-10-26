@@ -7,9 +7,9 @@ using ARJE.Utils.AI.Solutions.Hands;
 
 namespace ARJE.Utils.Python.Proxy.Packets.Inbound
 {
-    public readonly struct InboundDetectionCollectionPacket : IInboundProxyPacket<HandsDetectionResult>, INoArgsPacket
+    public readonly struct InboundHandDetectionCollectionPacket : IInboundProxyPacket<HandDetectionCollection>, INoArgsPacket
     {
-        public HandsDetectionResult ReadObject(BinaryReader reader)
+        public HandDetectionCollection ReadObject(BinaryReader reader)
         {
             byte detectionCount = reader.ReadByte();
             var detections = new List<HandDetection>(detectionCount);
@@ -19,7 +19,7 @@ namespace ARJE.Utils.Python.Proxy.Packets.Inbound
                 detections.Add(detection);
             }
 
-            return new HandsDetectionResult(detections);
+            return new HandDetectionCollection(detections);
         }
 
         private static HandDetection ReadDetection(BinaryReader packetReader)

@@ -26,7 +26,7 @@ namespace ARJE.SignTrainer.App.View
             {
                 this.Model.VideoSource.Read(videoFrame);
 
-                HandsDetectionResult detections = this.Model.Detector.Process(videoFrame);
+                HandDetectionCollection detections = this.Model.Detector.Process(videoFrame);
                 foreach (HandDetection detection in detections)
                 {
                     DetectionDrawer.Draw(videoFrame, detection);
