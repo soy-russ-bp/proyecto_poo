@@ -13,7 +13,7 @@ namespace ARJE.Utils.Spectre.Console.Extensions
         {
             foreach (var choice in choices)
             {
-                string styledChoice = StyleUtils.Wrap(choice.Text, choice.Style);
+                string styledChoice = StyleUtils.MarkupWrap(choice.Text, choice.Style);
                 obj.AddChoice(styledChoice);
             }
 
@@ -42,7 +42,7 @@ namespace ARJE.Utils.Spectre.Console.Extensions
                 }
 
                 Style style = converter.Invoke(choice);
-                return StyleUtils.Wrap(choiceString, style);
+                return StyleUtils.MarkupWrap(choiceString, style);
             };
             return obj;
         }

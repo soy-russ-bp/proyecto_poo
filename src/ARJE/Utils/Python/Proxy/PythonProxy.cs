@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO.Pipes;
+using System.Threading.Tasks;
 using ARJE.Utils.Python.Proxy.Packets;
 
 namespace ARJE.Utils.Python.Proxy
@@ -8,10 +9,13 @@ namespace ARJE.Utils.Python.Proxy
     {
         public PythonProxy(string pipeName, IIdMapper idMapper, int bufferCapacity = 0)
         {
+            this.PipeName = pipeName;
             this.Pipe = new NamedPipeClientStream(pipeName);
             this.Reader = new PacketReader(this.Pipe, bufferCapacity);
             this.Writer = new PacketWriter(this.Pipe);
         }
+
+        public string PipeName { get; }
 
         private NamedPipeClientStream Pipe { get; }
 
@@ -19,10 +23,14 @@ namespace ARJE.Utils.Python.Proxy
 
         private PacketWriter Writer { get; }
 
-        public PythonProxy Start()
+        public void Start()
         {
             this.Pipe.Connect();
-            return this;
+        }
+
+        public async Task StartAsync()
+        {
+            await this.Pipe.ConnectAsync();
         }
 
         public void Dispose()

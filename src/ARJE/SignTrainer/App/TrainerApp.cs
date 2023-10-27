@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Runtime.Versioning;
+using System.Threading.Tasks;
 using ARJE.SignTrainer.App.Controller;
 using ARJE.SignTrainer.App.Model;
 using ARJE.SignTrainer.App.View;
@@ -21,22 +22,26 @@ namespace ARJE.SignTrainer.App
     {
         public static void Run()
         {
-            AnsiConsole.WriteLine("Start");
+            bool launchProxy = AnsiConsole.Confirm("Launch proxy?");
+            var detectionModel = new HandsModel();
+            Task detectionModelTask = launchProxy
+                ? detectionModel.StartAsync(GetProxyAppInfo())
+                : detectionModel.StartNoLaunchAsync();
 
-            AnsiConsole.Write("Launch proxy? (y/n): ");
-            char key = char.ToLower(Console.ReadKey().KeyChar);
-            HandsModel detectionModel = key switch
+            if (!launchProxy)
             {
-                'n' => HandsModel.StartNoLaunch(),
-                _ => HandsModel.Start(GetProxyAppInfo()),
-            };
+                AnsiConsole.Write("Waiting for proxy in pipe: ");
+                AnsiConsole.MarkupLine($"\"[{Color.Orange1}]{detectionModel.PipeName}[/]\".");
+            }
+
+            detectionModelTask.Wait();
 
             using IAsyncVideoSource<Matrix> videoSource = new AsyncWebcam(flipHorizontally: true);
             var model = new TrainerModel(
                 videoSource,
                 detectionModel);
-            var view = new TrainerView();
-            var controller = new TrainerController(model, view);
+            var view = new ConsoleTrainerView();
+            var controller = new ConsoleTrainerController(model, view);
             controller.Run();
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Versioning;
+using System.Threading.Tasks;
 using ARJE.Utils.Python;
 using ARJE.Utils.Python.Environment;
 using ARJE.Utils.Python.Launcher;
@@ -15,7 +16,32 @@ namespace ARJE.Utils.AI.Solutions.Hands
     [SupportedOSPlatform("macos")]
     public sealed class HandsModel : IDetectionModel<HandDetectionCollection, HandDetection, Matrix>
     {
-        private HandsModel(PythonAppInfo<VenvInfo>? appInfo)
+        public HandsModel()
+        {
+            this.Proxy = new PythonProxy("SignTrainer", new CustomIdMapper());
+        }
+
+        public string PipeName => this.Proxy.PipeName;
+
+        private PythonProxy Proxy { get; }
+
+        public Task StartAsync(PythonAppInfo<VenvInfo> appInfo)
+        {
+            return this.InternalStartAsync(appInfo);
+        }
+
+        public Task StartNoLaunchAsync()
+        {
+            return this.InternalStartAsync(null);
+        }
+
+        public HandDetectionCollection Process(Matrix image)
+        {
+            this.Proxy.Send<OutboundMatrixPacket>(image);
+            return this.Proxy.Receive<HandDetectionCollection, InboundHandDetectionCollectionPacket>();
+        }
+
+        private async Task InternalStartAsync(PythonAppInfo<VenvInfo>? appInfo)
         {
             if (appInfo.HasValue)
             {
@@ -23,19 +49,7 @@ namespace ARJE.Utils.AI.Solutions.Hands
                 launcher.Run("Python app");
             }
 
-            this.Proxy = new PythonProxy("SignTrainer", new CustomIdMapper()).Start();
-        }
-
-        private PythonProxy Proxy { get; }
-
-        public static HandsModel Start(PythonAppInfo<VenvInfo> appInfo) => new(appInfo);
-
-        public static HandsModel StartNoLaunch() => new(null);
-
-        public HandDetectionCollection Process(Matrix image)
-        {
-            this.Proxy.Send<OutboundMatrixPacket>(image);
-            return this.Proxy.Receive<HandDetectionCollection, InboundHandDetectionCollectionPacket>();
+            await this.Proxy.StartAsync();
         }
 
         private class CustomIdMapper : IIdMapper

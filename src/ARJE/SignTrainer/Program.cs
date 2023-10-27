@@ -20,7 +20,7 @@ namespace ARJE.SignTrainer
             catch (Exception ex)
             {
                 AnsiConsole.WriteLine();
-                AnsiConsole.WriteLine(ex.ToString());
+                AnsiConsole.WriteException(ex);
 #if !DEBUG
                 Console.ReadKey();
 #endif
