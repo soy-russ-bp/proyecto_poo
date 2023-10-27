@@ -1,13 +1,23 @@
 ﻿using ARJE.Utils.AI;
 using ARJE.Utils.AI.Solutions.Hands;
 using Emgu.CV;
-using Matrix = Emgu.CV.Mat;
+using Spectre.Console;
 
 namespace ARJE.SignTrainer.App.View
 {
-    public sealed class TrainerView
+    public sealed class ConsoleTrainerView : BaseTrainerView
     {
-        public void DisplayDetections(HandDetectionCollection detections, ref Matrix frame)
+        public void Clear()
+        {
+            AnsiConsole.Clear();
+        }
+
+        public T Prompt<T>(IPrompt<T> prompt)
+        {
+            return AnsiConsole.Prompt(prompt);
+        }
+
+        public override void DisplayDetections(HandDetectionCollection detections, Mat frame)
         {
             foreach (HandDetection detection in detections)
             {

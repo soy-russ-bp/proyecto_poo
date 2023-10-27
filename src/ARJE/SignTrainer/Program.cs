@@ -11,6 +11,8 @@ namespace ARJE.SignTrainer
     {
         private static void Main()
         {
+            AnsiConsole.WriteLine("- START -");
+
             try
             {
                 TrainerApp.Run();
@@ -24,6 +26,8 @@ namespace ARJE.SignTrainer
 #endif
                 throw;
             }
+
+            AnsiConsole.WriteLine("- END -");
         }
     }
 }
