@@ -7,7 +7,7 @@ namespace ARJE.SignTrainer
 {
     [SupportedOSPlatform("windows")]
     [SupportedOSPlatform("macos")]
-    internal class Program
+    internal static class Program
     {
         private static void Main()
         {

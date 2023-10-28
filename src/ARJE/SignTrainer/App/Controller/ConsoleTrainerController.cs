@@ -27,7 +27,7 @@ namespace ARJE.SignTrainer.App.Controller
 
         public override void Run()
         {
-            this.Model.VideoSource.Start();
+            this.Model.VideoSource.StartGrab();
             this.Model.VideoSource.OnFrameGrabbed += this.OnFrameGrabbed;
 
             do

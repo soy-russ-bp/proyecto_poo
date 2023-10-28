@@ -36,7 +36,7 @@ namespace ARJE.SignTrainer.App
 
             detectionModelTask.Wait();
 
-            using IAsyncVideoSource<Matrix> videoSource = new AsyncWebcam(flipHorizontally: true);
+            using IAsyncVideoSource<Matrix> videoSource = new Webcam(outputFlipType: FlipType.Horizontal);
             var model = new TrainerModel(
                 videoSource,
                 detectionModel);

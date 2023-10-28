@@ -1,38 +1,41 @@
 ﻿using System;
 using Emgu.CV;
-using Emgu.CV.CvEnum;
+using CvFlipType = Emgu.CV.CvEnum.FlipType;
 using Matrix = Emgu.CV.Mat;
 
 namespace ARJE.Utils.Video.OpenCV
 {
-    public abstract class OpenCVCamera : IVideoSource<Matrix>
+    public abstract class OpenCVCamera : IBaseVideoSource<Matrix>
     {
-        public OpenCVCamera(int camIndex = 0, bool flipHorizontally = false)
-        {
-            this.FlipHorizontally = flipHorizontally;
-            this.VideoCapturer = new VideoCapture(camIndex);
-        }
+        public virtual bool IsOpen => this.VideoCapturer.IsOpened;
 
-        public bool IsOpen => this.VideoCapturer.IsOpened;
+        public FlipType OutputFlipType { get; set; }
 
-        public bool FlipHorizontally { get; set; }
-
-        protected VideoCapture VideoCapturer { get; }
-
-        protected Matrix Buffer { get; private set; } = new();
+        protected abstract VideoCapture VideoCapturer { get; }
 
         public virtual void Dispose()
         {
             this.VideoCapturer.Dispose();
-            this.Buffer.Dispose();
             GC.SuppressFinalize(this);
+        }
+
+        protected static CvFlipType CvFlipTypeConverter(FlipType flipType)
+        {
+            return flipType switch
+            {
+                FlipType.Vertical => CvFlipType.Vertical,
+                FlipType.Horizontal => CvFlipType.Horizontal,
+                FlipType.Both => CvFlipType.Both,
+                _ => throw new ArgumentOutOfRangeException(nameof(flipType)),
+            };
         }
 
         protected void FlipIfRequired(Matrix buffer)
         {
-            if (this.FlipHorizontally)
+            if (this.OutputFlipType != FlipType.None)
             {
-                CvInvoke.Flip(buffer, buffer, FlipType.Horizontal);
+                CvFlipType flipType = CvFlipTypeConverter(this.OutputFlipType);
+                CvInvoke.Flip(buffer, buffer, flipType);
             }
         }
     }
