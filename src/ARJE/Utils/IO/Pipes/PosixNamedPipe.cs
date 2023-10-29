@@ -10,9 +10,9 @@ namespace ARJE.Utils.IO.Pipes
         public PosixNamedPipe(string pipeName)
         {
             AnsiConsole.WriteLine("PosixNamedPipe()");
-            this.PipePath = Path.Join("temp", pipeName);
-            Syscall.mkfifo(this.PipePath, FilePermissions.S_IRUSR | FilePermissions.S_IWUSR | FilePermissions.S_IFIFO);
-            AnsiConsole.WriteLine("mkfifo"); // DEBUG (TODO)
+            this.PipePath = GetPipePath(pipeName);
+            int result = Syscall.mkfifo(this.PipePath, FilePermissions.S_IRUSR | FilePermissions.S_IWUSR | FilePermissions.S_IFIFO);
+            AnsiConsole.WriteLine("mkfifo: " + result); // DEBUG (TODO)
             this.FileStream = File.Open(this.PipePath, FileMode.Open);
             AnsiConsole.WriteLine("File.Open");
         }
@@ -28,6 +28,12 @@ namespace ARJE.Utils.IO.Pipes
             return new PosixNamedPipe(pipeName);
         }
 
+        private static string GetPipePath(string pipeName)
+        {
+            string tempPath = Path.GetTempPath();
+            return Path.Combine(tempPath, pipeName);
+        }
+
         public void Connect()
         {
         }
@@ -39,7 +45,9 @@ namespace ARJE.Utils.IO.Pipes
 
         public void Dispose()
         {
+            this.FileStream.Dispose();
             Syscall.unlink(this.PipePath);
+            File.Delete(this.PipePath);
         }
     }
 }
