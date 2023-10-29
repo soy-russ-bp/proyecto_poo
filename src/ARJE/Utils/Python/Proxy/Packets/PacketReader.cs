@@ -2,13 +2,14 @@
 using System.IO;
 using System.IO.Pipes;
 using ARJE.Utils.IO;
+using ARJE.Utils.IO.Pipes;
 
 namespace ARJE.Utils.Python.Proxy.Packets
 {
     public sealed class PacketReader : IDisposable
     {
-        public PacketReader(PipeStream pipe, int bufferCapacity = 0)
-            : this(new BinaryReader(pipe), bufferCapacity)
+        public PacketReader(INamedPipe pipe, int bufferCapacity = 0)
+            : this(new BinaryReader(pipe.Stream), bufferCapacity)
         {
         }
 
