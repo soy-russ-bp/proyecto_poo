@@ -14,7 +14,7 @@ namespace ARJE.Utils.AI.Solutions.Hands
 {
     [SupportedOSPlatform("windows")]
     [SupportedOSPlatform("macos")]
-    public sealed class HandsModel : IDetectionModel<HandDetectionCollection, HandDetection, Matrix>
+    public sealed class HandsModel : IDetectionModel<HandDetectionCollection, HandDetection, Matrix>, IDisposable
     {
         public HandsModel()
         {
@@ -39,6 +39,11 @@ namespace ARJE.Utils.AI.Solutions.Hands
         {
             this.Proxy.Send<OutboundMatrixPacket>(image);
             return this.Proxy.Receive<HandDetectionCollection, InboundHandDetectionCollectionPacket>();
+        }
+
+        public void Dispose()
+        {
+            this.Proxy.Dispose();
         }
 
         private async Task InternalStartAsync(PythonAppInfo<VenvInfo>? appInfo)

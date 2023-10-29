@@ -47,6 +47,7 @@ namespace ARJE.Utils.Video.OpenCV
         {
             this.VideoCapturer.ImageGrabbed -= this.FrameGrabbedNotify;
             this.VideoCapturer.Stop();
+            this.FrameBuffer.Dispose();
             base.Dispose();
         }
 
