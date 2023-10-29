@@ -17,7 +17,7 @@ namespace ARJE.Utils.IO.Pipes
             AnsiConsole.WriteLine("File.Open");
         }
 
-        public Stream Stream => throw new System.NotImplementedException();
+        public Stream Stream => this.FileStream;
 
         public FileStream FileStream { get; }
 
