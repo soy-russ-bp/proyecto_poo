@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using OpenCvSharp;
+using ARJE.Utils.OpenCvSharp.Extensions;
 using Matrix = OpenCvSharp.Mat;
 
 namespace ARJE.Utils.Python.Proxy.Packets.Outbound
@@ -14,17 +14,7 @@ namespace ARJE.Utils.Python.Proxy.Packets.Outbound
             this.Matrix = matrix;
         }
 
-        public int Length => (sizeof(int) * 2) + this.GetMatrixRawData().Length;
-
-        private byte[] GetMatrixRawData()
-        {
-            var newimage = this.Matrix.Reshape(1);
-            newimage.GetArray(out byte[] bytes);
-            return bytes;
-            // TODO
-            //this.Matrix.GetArray(out Vec3b[] matrixData);
-            //return matrixData.;
-        }
+        public int Length => (sizeof(int) * 2) + this.Matrix.GetByteCount();
 
         private Matrix Matrix { get; }
 
@@ -34,7 +24,7 @@ namespace ARJE.Utils.Python.Proxy.Packets.Outbound
         {
             writer.Write(this.Matrix.Width);
             writer.Write(this.Matrix.Height);
-            writer.Write(this.GetMatrixRawData());
+            writer.Write(this.Matrix.AsBytes());
         }
     }
 }
