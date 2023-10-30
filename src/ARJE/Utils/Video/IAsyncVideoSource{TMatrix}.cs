@@ -6,6 +6,8 @@
 
         public event FrameGrabbedHandler OnFrameGrabbed;
 
+        public GrabState GrabState { get; }
+
         public void StartGrab();
 
         public void PauseGrab();

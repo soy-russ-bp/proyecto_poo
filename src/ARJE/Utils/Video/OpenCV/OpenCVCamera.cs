@@ -18,22 +18,24 @@ namespace ARJE.Utils.Video.OpenCV
             GC.SuppressFinalize(this);
         }
 
-        protected static FlipMode CvFlipTypeConverter(FlipType flipType)
+        protected static bool TryConvertToFlipMode(FlipType flipType, out FlipMode flipMode)
         {
-            return flipType switch
+            const int NoValue = int.MinValue;
+            flipMode = flipType switch
             {
                 FlipType.Vertical => FlipMode.X,
                 FlipType.Horizontal => FlipMode.Y,
                 FlipType.Both => FlipMode.XY,
-                _ => throw new ArgumentOutOfRangeException(nameof(flipType)),
+                _ => (FlipMode)NoValue,
             };
+
+            return (int)flipMode != NoValue;
         }
 
         protected void FlipIfRequired(Matrix buffer)
         {
-            if (this.OutputFlipType != FlipType.None)
+            if (TryConvertToFlipMode(this.OutputFlipType, out FlipMode flipMode))
             {
-                FlipMode flipMode = CvFlipTypeConverter(this.OutputFlipType);
                 Cv2.Flip(buffer, buffer, flipMode);
             }
         }

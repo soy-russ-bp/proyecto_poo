@@ -11,14 +11,19 @@ namespace ARJE.Utils.Video.OpenCV
         {
             this.VideoCapturer = new VideoCapture(camIndex);
             this.OutputFlipType = outputFlipType;
-            this.FrameBuffer = new();
         }
 
         public event IAsyncVideoSource<Matrix>.FrameGrabbedHandler? OnFrameGrabbed;
 
+        public GrabState GrabState { get; private set; } = GrabState.Stopped;
+
         protected override VideoCapture VideoCapturer { get; }
 
-        private Matrix FrameBuffer { get; }
+        private Matrix FrameBuffer { get; } = new();
+
+        private AutoResetEvent PauseEvent { get; } = new(initialState: false);
+
+        private Task? GrabTask { get; set; }
 
         public Matrix Read()
         {
@@ -29,40 +34,85 @@ namespace ARJE.Utils.Video.OpenCV
 
         public void StartGrab()
         {
-            Task.Run(this.GrabFrames);
+            if (this.GrabState == GrabState.Paused)
+            {
+                this.GrabState = GrabState.Running;
+                this.PauseEvent.Set();
+                return;
+            }
+
+            if (this.GrabState.IsStop())
+            {
+                this.GrabState = GrabState.Running;
+                this.GrabTask = Task.Factory.StartNew(this.GrabFramesTask, TaskCreationOptions.LongRunning);
+            }
         }
 
         public void PauseGrab()
         {
-            // TODO
+            if (this.GrabState == GrabState.Running)
+            {
+                this.GrabState = GrabState.Paused;
+            }
         }
 
         public void StopGrab()
         {
-            this.Dispose();
+            switch (this.GrabState)
+            {
+                case GrabState.Paused:
+                    this.GrabState = GrabState.Stopping;
+                    this.PauseEvent.Set();
+                    break;
+                case GrabState.Running:
+                    this.GrabState = GrabState.Stopping;
+                    break;
+            }
+
+            if (this.GrabTask != null)
+            {
+                this.GrabTask.Wait(100);
+                this.GrabTask = null;
+            }
         }
 
         public override void Dispose()
         {
-            // TODO
+            this.StopGrab();
             this.FrameBuffer.Dispose();
             base.Dispose();
         }
 
-        private Task GrabFrames()
+        private Task GrabFramesTask()
         {
-            // TODO
-            while (true)
+            while (this.GrabState is GrabState.Running or GrabState.Paused)
             {
-                Thread.Sleep(10);
-                this.FrameGrabbedNotify();
+                if (this.GrabState == GrabState.Paused)
+                {
+                    this.PauseEvent.WaitOne();
+                    continue;
+                }
+
+                bool grabbed = !this.VideoCapturer.IsDisposed && this.VideoCapturer.Grab();
+
+                if (grabbed)
+                {
+                    this.NotifyFrameGrabbed();
+                }
+                else
+                {
+                    this.GrabState = GrabState.Stopping;
+                    break;
+                }
             }
+
+            this.GrabState = GrabState.Stopped;
+            return Task.CompletedTask;
         }
 
-        private void FrameGrabbedNotify()
+        private void NotifyFrameGrabbed()
         {
-            // TODO
-            this.VideoCapturer.Read(this.FrameBuffer);
+            this.VideoCapturer.Retrieve(this.FrameBuffer);
             this.FlipIfRequired(this.FrameBuffer);
             this.OnFrameGrabbed?.Invoke(this.FrameBuffer);
         }
