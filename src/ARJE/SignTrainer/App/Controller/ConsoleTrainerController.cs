@@ -4,7 +4,7 @@ using ARJE.SignTrainer.App.View;
 using ARJE.Utils.AI.Solutions.Hands;
 using ARJE.Utils.Spectre.Console.Extensions;
 using Spectre.Console;
-using Matrix = Emgu.CV.Mat;
+using Matrix = OpenCvSharp.Mat;
 
 namespace ARJE.SignTrainer.App.Controller
 {

@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Drawing;
 using System.Numerics;
-using Emgu.CV;
-using Emgu.CV.Structure;
-using Matrix = Emgu.CV.Mat;
+using OpenCvSharp;
+using Matrix = OpenCvSharp.Mat;
+using Point = OpenCvSharp.Point;
+using Size = OpenCvSharp.Size;
 
 namespace ARJE.Utils.AI
 {
@@ -25,8 +25,8 @@ namespace ARJE.Utils.AI
         {
             foreach (Vector3 landmark in detection.Landmarks.Positions)
             {
-                Point pos = NormalizedToPixelCoordinates(new Vector2(landmark.X, landmark.Y), image.Size);
-                CvInvoke.Circle(image, pos, 2, new MCvScalar(0, 165, 255), 5);
+                Point pos = NormalizedToPixelCoordinates(new Vector2(landmark.X, landmark.Y), image.Size());
+                Cv2.Circle(image, pos.X, pos.Y, 2, new Scalar(0, 165, 255), 5);
             }
         }
     }

@@ -8,7 +8,7 @@ using ARJE.Utils.Python.Launcher;
 using ARJE.Utils.Python.Proxy;
 using ARJE.Utils.Python.Proxy.Packets.Inbound;
 using ARJE.Utils.Python.Proxy.Packets.Outbound;
-using Matrix = Emgu.CV.Mat;
+using Matrix = OpenCvSharp.Mat;
 
 namespace ARJE.Utils.AI.Solutions.Hands
 {

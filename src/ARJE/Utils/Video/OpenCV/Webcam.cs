@@ -1,6 +1,7 @@
-﻿using System;
-using Emgu.CV;
-using Matrix = Emgu.CV.Mat;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using OpenCvSharp;
+using Matrix = OpenCvSharp.Mat;
 
 namespace ARJE.Utils.Video.OpenCV
 {
@@ -28,14 +29,12 @@ namespace ARJE.Utils.Video.OpenCV
 
         public void StartGrab()
         {
-            this.VideoCapturer.Start();
-            this.VideoCapturer.ImageGrabbed += this.FrameGrabbedNotify;
+            Task.Run(this.GrabFrames);
         }
 
         public void PauseGrab()
         {
-            this.VideoCapturer.Pause();
-            this.VideoCapturer.ImageGrabbed -= this.FrameGrabbedNotify;
+            // TODO
         }
 
         public void StopGrab()
@@ -45,15 +44,25 @@ namespace ARJE.Utils.Video.OpenCV
 
         public override void Dispose()
         {
-            this.VideoCapturer.ImageGrabbed -= this.FrameGrabbedNotify;
-            this.VideoCapturer.Stop();
+            // TODO
             this.FrameBuffer.Dispose();
             base.Dispose();
         }
 
-        private void FrameGrabbedNotify(object? sender, EventArgs e)
+        private Task GrabFrames()
         {
-            this.VideoCapturer.Retrieve(this.FrameBuffer);
+            // TODO
+            while (true)
+            {
+                Thread.Sleep(10);
+                this.FrameGrabbedNotify();
+            }
+        }
+
+        private void FrameGrabbedNotify()
+        {
+            // TODO
+            this.VideoCapturer.Read(this.FrameBuffer);
             this.FlipIfRequired(this.FrameBuffer);
             this.OnFrameGrabbed?.Invoke(this.FrameBuffer);
         }

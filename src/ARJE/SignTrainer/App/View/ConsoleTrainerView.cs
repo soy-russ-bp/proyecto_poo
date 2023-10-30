@@ -1,7 +1,8 @@
 ﻿using ARJE.Utils.AI;
 using ARJE.Utils.AI.Solutions.Hands;
-using Emgu.CV;
+using OpenCvSharp;
 using Spectre.Console;
+using Matrix = OpenCvSharp.Mat;
 
 namespace ARJE.SignTrainer.App.View
 {
@@ -17,15 +18,15 @@ namespace ARJE.SignTrainer.App.View
             return AnsiConsole.Prompt(prompt);
         }
 
-        public override void DisplayDetections(HandDetectionCollection detections, Mat frame)
+        public override void DisplayDetections(HandDetectionCollection detections, Matrix frame)
         {
             foreach (HandDetection detection in detections)
             {
                 DetectionDrawer.Draw(frame, detection);
             }
 
-            CvInvoke.Imshow("Video test", frame);
-            CvInvoke.WaitKey(1);
+            Cv2.ImShow("Video test", frame);
+            Cv2.WaitKey(1);
         }
     }
 }

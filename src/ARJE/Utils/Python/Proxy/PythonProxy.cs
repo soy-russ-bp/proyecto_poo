@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO.Pipes;
 using System.Threading.Tasks;
 using ARJE.Utils.IO.Pipes;
 using ARJE.Utils.Python.Proxy.Packets;

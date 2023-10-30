@@ -2,7 +2,7 @@
 using ARJE.Utils.AI;
 using ARJE.Utils.AI.Solutions.Hands;
 using ARJE.Utils.Video;
-using Matrix = Emgu.CV.Mat;
+using Matrix = OpenCvSharp.Mat;
 
 namespace ARJE.SignTrainer.App.Model
 {

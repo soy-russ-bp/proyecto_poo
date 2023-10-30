@@ -1,5 +1,5 @@
 ﻿using ARJE.Utils.AI.Solutions.Hands;
-using Matrix = Emgu.CV.Mat;
+using Matrix = OpenCvSharp.Mat;
 
 namespace ARJE.SignTrainer.App.View
 {

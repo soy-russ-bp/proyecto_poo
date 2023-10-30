@@ -12,7 +12,7 @@ using ARJE.Utils.Python.Launcher;
 using ARJE.Utils.Video;
 using ARJE.Utils.Video.OpenCV;
 using Spectre.Console;
-using Matrix = Emgu.CV.Mat;
+using Matrix = OpenCvSharp.Mat;
 
 namespace ARJE.SignTrainer.App
 {

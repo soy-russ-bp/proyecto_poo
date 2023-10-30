@@ -1,13 +1,12 @@
 ﻿using System;
-using Emgu.CV;
-using CvFlipType = Emgu.CV.CvEnum.FlipType;
-using Matrix = Emgu.CV.Mat;
+using OpenCvSharp;
+using Matrix = OpenCvSharp.Mat;
 
 namespace ARJE.Utils.Video.OpenCV
 {
     public abstract class OpenCVCamera : IBaseVideoSource<Matrix>
     {
-        public virtual bool IsOpen => this.VideoCapturer.IsOpened;
+        public virtual bool IsOpen => this.VideoCapturer.IsOpened();
 
         public FlipType OutputFlipType { get; set; }
 
@@ -19,13 +18,13 @@ namespace ARJE.Utils.Video.OpenCV
             GC.SuppressFinalize(this);
         }
 
-        protected static CvFlipType CvFlipTypeConverter(FlipType flipType)
+        protected static FlipMode CvFlipTypeConverter(FlipType flipType)
         {
             return flipType switch
             {
-                FlipType.Vertical => CvFlipType.Vertical,
-                FlipType.Horizontal => CvFlipType.Horizontal,
-                FlipType.Both => CvFlipType.Both,
+                FlipType.Vertical => FlipMode.X,
+                FlipType.Horizontal => FlipMode.Y,
+                FlipType.Both => FlipMode.XY,
                 _ => throw new ArgumentOutOfRangeException(nameof(flipType)),
             };
         }
@@ -34,8 +33,8 @@ namespace ARJE.Utils.Video.OpenCV
         {
             if (this.OutputFlipType != FlipType.None)
             {
-                CvFlipType flipType = CvFlipTypeConverter(this.OutputFlipType);
-                CvInvoke.Flip(buffer, buffer, flipType);
+                FlipMode flipMode = CvFlipTypeConverter(this.OutputFlipType);
+                Cv2.Flip(buffer, buffer, flipMode);
             }
         }
     }
