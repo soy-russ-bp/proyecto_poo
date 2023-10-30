@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Runtime.Versioning;
 using System.Threading.Tasks;
@@ -23,6 +24,9 @@ namespace ARJE.SignTrainer.App
         public static void Run()
         {
             bool launchProxy = AnsiConsole.Confirm("Launch proxy?");
+
+            var stopwatch = Stopwatch.StartNew();
+
             using var detectionModel = new HandsModel();
             Task detectionModelTask = launchProxy
                 ? detectionModel.StartAsync(GetProxyAppInfo())
@@ -42,6 +46,10 @@ namespace ARJE.SignTrainer.App
                 detectionModel);
             var view = new ConsoleTrainerView();
             var controller = new ConsoleTrainerController(model, view);
+
+            stopwatch.Stop();
+            AnsiConsole.WriteLine($"Init time: {stopwatch.Elapsed.TotalSeconds} sec");
+
             controller.Run();
         }
 

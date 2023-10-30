@@ -46,7 +46,7 @@ namespace ARJE.Utils.AI.Solutions.Hands
             this.Proxy.Dispose();
         }
 
-        private async Task InternalStartAsync(PythonAppInfo<VenvInfo>? appInfo)
+        private Task InternalStartAsync(PythonAppInfo<VenvInfo>? appInfo)
         {
             if (appInfo.HasValue)
             {
@@ -54,7 +54,7 @@ namespace ARJE.Utils.AI.Solutions.Hands
                 launcher.Run("Python app");
             }
 
-            await this.Proxy.StartAsync();
+            return this.Proxy.StartAsync();
         }
 
         private class CustomIdMapper : IIdMapper

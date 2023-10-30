@@ -28,9 +28,9 @@ namespace ARJE.Utils.Python.Proxy
             this.Pipe.Connect();
         }
 
-        public async Task StartAsync()
+        public Task StartAsync()
         {
-            await this.Pipe.ConnectAsync();
+            return this.Pipe.ConnectAsync();
         }
 
         public void Dispose()

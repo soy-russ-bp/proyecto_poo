@@ -30,11 +30,9 @@ namespace ARJE.SignTrainer.App.Controller
             this.Model.VideoSource.StartGrab();
             this.Model.VideoSource.OnFrameGrabbed += this.OnFrameGrabbed;
 
-            do
+            while (this.RunLoop())
             {
-                this.View.Clear();
             }
-            while (this.RunLoop());
         }
 
         private static SelectionPrompt<MainMenuOption> CreateMainMenuPrompt()
