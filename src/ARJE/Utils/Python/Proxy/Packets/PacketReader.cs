@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.IO.Pipes;
 using ARJE.Utils.IO;
 using ARJE.Utils.IO.Pipes;
 

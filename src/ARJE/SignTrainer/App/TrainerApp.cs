@@ -1,15 +1,10 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
+﻿using System.Diagnostics;
 using System.Runtime.Versioning;
 using System.Threading.Tasks;
 using ARJE.SignTrainer.App.Controller;
 using ARJE.SignTrainer.App.Model;
 using ARJE.SignTrainer.App.View;
 using ARJE.Utils.AI.Solutions.Hands;
-using ARJE.Utils.IO;
-using ARJE.Utils.Python.Environment;
-using ARJE.Utils.Python.Launcher;
 using ARJE.Utils.Video;
 using ARJE.Utils.Video.OpenCV;
 using Spectre.Console;
@@ -29,7 +24,7 @@ namespace ARJE.SignTrainer.App
 
             using var detectionModel = new HandsModel();
             Task detectionModelTask = launchProxy
-                ? detectionModel.StartAsync(GetProxyAppInfo())
+                ? detectionModel.StartAsync(PythonProxyApp.AppInfo)
                 : detectionModel.StartNoLaunchAsync();
 
             if (!launchProxy)
@@ -38,36 +33,16 @@ namespace ARJE.SignTrainer.App
                 AnsiConsole.MarkupLine($"\"[{Color.Orange1}]{detectionModel.PipeName}[/]\".");
             }
 
-            detectionModelTask.Wait();
-
             using IAsyncVideoSource<Matrix> videoSource = new Webcam(outputFlipType: FlipType.Horizontal);
-            var model = new TrainerModel(
-                videoSource,
-                detectionModel);
+            var model = new TrainerModel(videoSource, detectionModel);
             var view = new ConsoleTrainerView();
             var controller = new ConsoleTrainerController(model, view);
+            detectionModelTask.Wait();
 
             stopwatch.Stop();
             AnsiConsole.WriteLine($"Init time: {stopwatch.Elapsed.TotalSeconds} sec");
 
             controller.Run();
-        }
-
-        private static PythonAppInfo<VenvInfo> GetProxyAppInfo()
-        {
-            string searchPath = GetProxySearchPath();
-            DirectoryInfo proxyDir = new(Path.Combine(searchPath, "PythonProxy"));
-            PythonAppInfo<VenvInfo> appInfo = new(new VenvInfo(".venv"), proxyDir, "app");
-            return appInfo;
-        }
-
-        private static string GetProxySearchPath()
-        {
-            string searchPath = AppContext.BaseDirectory;
-#if DEBUG
-            searchPath = PathUtils.GoUpToFolder(searchPath, "ARJE");
-#endif
-            return searchPath;
         }
     }
 }

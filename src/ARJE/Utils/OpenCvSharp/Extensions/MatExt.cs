@@ -7,7 +7,7 @@ namespace ARJE.Utils.OpenCvSharp.Extensions
     {
         public static int GetByteCount(this Matrix matrix)
         {
-            return (int)matrix.DataEnd - (int)matrix.DataStart;
+            return (int)(matrix.DataEnd - matrix.DataStart);
         }
 
         public static unsafe Span<byte> AsBytes(this Matrix matrix)
