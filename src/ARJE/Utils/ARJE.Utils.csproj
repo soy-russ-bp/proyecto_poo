@@ -21,7 +21,7 @@
 
   <ItemGroup>
     <PackageReference Include="Enums.NET" Version="4.0.1" />
-    <PackageReference Include="Mono.Posix.NETStandard" Version="1.0.0" />
+    <PackageReference Include="Mono.Posix.NETStandard" Version="1.0.0" Condition="$([MSBuild]::IsOsPlatform('OSX'))" />
     <PackageReference Include="OpenCvSharp4" Version="4.6.0.20220608" />
     <PackageReference Include="Spectre.Console" Version="0.47.0" />
     <PackageReference Include="Spectre.Console.Analyzer" Version="0.47.0">

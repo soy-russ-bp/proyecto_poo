@@ -22,7 +22,7 @@ class PosixNamedPipe(PipeConnection):
         }
 
     def wait(self) -> RawIOBase:
-        while not os.path.exists(self._pipe_path):
+        while not os.path.isfile(self._pipe_path):
             time.sleep(1)
 
         # pylint: disable=unspecified-encoding
