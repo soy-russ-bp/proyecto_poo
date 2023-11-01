@@ -51,7 +51,7 @@ namespace ARJE.Utils.AI.Solutions.Hands
             if (appInfo.HasValue)
             {
                 var launcher = new PythonLauncher<VenvInfo>(appInfo.Value);
-                launcher.Run("Python app");
+                launcher.Run("Python app", this.Proxy.PipeName);
             }
 
             return this.Proxy.StartAsync();

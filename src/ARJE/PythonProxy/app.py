@@ -1,3 +1,4 @@
+import app_pipe
 from utils.ai.detection import Detection
 from utils.ai.solutions.hands_model import HandsModel
 from utils.csharp.csharp_proxy import CSharpProxy
@@ -7,9 +8,9 @@ from utils.csharp.packets.outbound.outbound_detection_collection_packet import O
 
 
 print(" - App start - ")
+pipe_name: str = app_pipe.get_pipe_name_in_ctx()
 
-
-with CSharpProxy("SignTrainer").start() as proxy:
+with CSharpProxy(pipe_name).start() as proxy:
     with HandsModel() as model:
         print(" - Proxy start - ")
         while True:

@@ -1,5 +1,7 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Runtime.Versioning;
 using ARJE.Utils.Collections;
 
@@ -34,6 +36,18 @@ namespace ARJE.Utils.Diagnostics.CommandLine
 #warning PlatformNotSupported: CLI.GetTitleCommand(string)
             throw new System.PlatformNotSupportedException();
 #endif
+        }
+
+        public static string JoinArgs(params string?[]? args)
+        {
+            args = ArrayUtils.FilterNull(args);
+            if (args.Length == 0)
+            {
+                return string.Empty;
+            }
+
+            IEnumerable<string> wrappedArgs = args.Select(arg => $"\"{arg}\"");
+            return string.Join(" ", wrappedArgs);
         }
 
         public static void Execute(DirectoryInfo workingDirectory, params string?[]? commands)

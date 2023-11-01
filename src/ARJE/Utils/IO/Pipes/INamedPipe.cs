@@ -6,6 +6,8 @@ namespace ARJE.Utils.IO.Pipes
 {
     public interface INamedPipe : IDisposable
     {
+        public string NameOrPath { get; }
+
         public Stream Stream { get; }
 
         public static abstract INamedPipe Create(string pipeName);

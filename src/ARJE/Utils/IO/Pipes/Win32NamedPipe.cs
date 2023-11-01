@@ -9,8 +9,11 @@ namespace ARJE.Utils.IO.Pipes
     {
         public Win32NamedPipe(string pipeName)
         {
+            this.NameOrPath = pipeName;
             this.PipeStream = new NamedPipeClientStream(pipeName);
         }
+
+        public string NameOrPath { get; }
 
         public Stream Stream => this.PipeStream;
 
