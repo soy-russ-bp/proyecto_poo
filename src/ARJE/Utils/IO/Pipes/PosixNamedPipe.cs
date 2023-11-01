@@ -16,6 +16,7 @@ namespace ARJE.Utils.IO.Pipes
             ArgumentNullException.ThrowIfNull(pipeName);
 
             this.NameOrPath = GetPipePath(pipeName);
+            File.Delete(this.NameOrPath);
         }
 
         public string NameOrPath { get; }

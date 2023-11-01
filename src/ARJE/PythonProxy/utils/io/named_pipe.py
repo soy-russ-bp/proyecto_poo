@@ -1,7 +1,6 @@
 import typing
-from io import RawIOBase
-from namedpipe import NPopen
 from utils.io import endianness
+from utils.io import platform_pipe
 from utils.io.binary_reader import BinaryReader
 from utils.io.binary_writer import BinaryWriter
 
@@ -14,19 +13,15 @@ class NamedPipe:
             mode: typing.Optional[str] = "r+",
             byte_order: endianness.ByteOrderLiterals = "little"
     ):
-        self._pipe: typing.Final = NPopen(
-            mode=mode,
-            bufsize=0,
-            name=pipe_name)
-        self._stream: RawIOBase | None = None
+        self._pipe: typing.Final = platform_pipe.get_platform_connection(pipe_name, mode)
         self._byte_order: typing.Final[endianness.ByteOrderLiterals] = byte_order
         self._reader: BinaryReader | None = None
         self._writer: BinaryWriter | None = None
 
     def start(self) -> typing.Self:
-        self._stream = typing.cast(RawIOBase, self._pipe.wait())
-        self._reader = BinaryReader(self._stream, True, self._byte_order)
-        self._writer = BinaryWriter(self._stream, True, self._byte_order)
+        pipe_stream = self._pipe.wait()
+        self._reader = BinaryReader(pipe_stream, True, self._byte_order)
+        self._writer = BinaryWriter(pipe_stream, True, self._byte_order)
         return self
 
     def _not_open_error(self) -> typing.NoReturn:
@@ -52,7 +47,6 @@ class NamedPipe:
 
     def close(self):
         self._pipe.close()
-        self._stream = None
 
     def __enter__(self):
         return self

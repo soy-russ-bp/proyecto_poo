@@ -2,7 +2,7 @@ import sys
 
 
 def get_pipe_input_type() -> str:
-    if sys.platform.startswith("win32"):
+    if sys.platform.startswith("win"):
         return "name"
 
     return "path"
