@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Runtime.Versioning;
 using System.Threading.Tasks;
 using ARJE.Utils.IO.Pipes;
@@ -14,33 +16,36 @@ namespace ARJE.Utils.Python.Proxy
         {
             this.Pipe = PlatformNamedPipe.Create(pipeName);
             this.PipeName = this.Pipe.NameOrPath;
-            this.Reader = new PacketReader(this.Pipe, bufferCapacity);
-            this.Writer = new PacketWriter(this.Pipe);
+            this.BufferCapacity = bufferCapacity;
         }
 
         public string PipeName { get; }
 
         private INamedPipe Pipe { get; }
 
-        private PacketReader Reader { get; }
+        private int BufferCapacity { get; }
 
-        private PacketWriter Writer { get; }
+        private PacketReader? Reader { get; set; }
+
+        private PacketWriter? Writer { get; set; }
 
         public void Start()
         {
-            this.Pipe.Connect();
+            Stream pipeStream = this.Pipe.Connect();
+            this.CreateReaderAndWriter(pipeStream);
         }
 
-        public Task StartAsync()
+        public async Task StartAsync()
         {
-            return this.Pipe.ConnectAsync();
+            Stream pipeStream = await this.Pipe.ConnectAsync();
+            this.CreateReaderAndWriter(pipeStream);
         }
 
         public void Dispose()
         {
             this.Pipe.Dispose();
-            this.Reader.Dispose();
-            this.Writer.Dispose();
+            this.Reader?.Dispose();
+            this.Writer?.Dispose();
         }
 
         public TObject Receive<TObject, TPacket>()
@@ -53,13 +58,35 @@ namespace ARJE.Utils.Python.Proxy
         public TObject Receive<TObject, TPacket>(TPacket packet)
             where TPacket : IInboundProxyPacket<TObject>
         {
+            if (this.Reader == null)
+            {
+                ThrowNotStarted();
+            }
+
             return this.Reader.ReadObject<TObject, TPacket>(packet);
         }
 
         public void Send<TPacket>(TPacket packet)
             where TPacket : IOutboundProxyPacket
         {
+            if (this.Writer == null)
+            {
+                ThrowNotStarted();
+            }
+
             this.Writer.WriteObject(packet);
+        }
+
+        [DoesNotReturn]
+        private static void ThrowNotStarted()
+        {
+            throw new InvalidOperationException("Proxy not started.");
+        }
+
+        private void CreateReaderAndWriter(Stream pipeStream)
+        {
+            this.Reader = new PacketReader(pipeStream, this.BufferCapacity);
+            this.Writer = new PacketWriter(pipeStream);
         }
     }
 }

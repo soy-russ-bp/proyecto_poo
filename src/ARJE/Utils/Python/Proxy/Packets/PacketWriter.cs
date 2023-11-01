@@ -1,13 +1,13 @@
 ﻿using System;
 using System.IO;
-using ARJE.Utils.IO.Pipes;
+using System.Text;
 
 namespace ARJE.Utils.Python.Proxy.Packets
 {
     public sealed class PacketWriter : IDisposable
     {
-        public PacketWriter(INamedPipe pipe)
-            : this(new BinaryWriter(pipe.Stream))
+        public PacketWriter(Stream pipeStream)
+            : this(new BinaryWriter(pipeStream, Encoding.UTF8, leaveOpen: true))
         {
         }
 

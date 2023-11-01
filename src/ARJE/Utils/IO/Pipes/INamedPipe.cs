@@ -8,12 +8,12 @@ namespace ARJE.Utils.IO.Pipes
     {
         public string NameOrPath { get; }
 
-        public Stream Stream { get; }
+        public bool Connected { get; }
 
         public static abstract INamedPipe Create(string pipeName);
 
-        public void Connect();
+        public Stream Connect();
 
-        public Task ConnectAsync();
+        public Task<Stream> ConnectAsync();
     }
 }

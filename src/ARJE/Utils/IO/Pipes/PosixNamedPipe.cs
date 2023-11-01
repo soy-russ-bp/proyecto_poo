@@ -1,4 +1,5 @@
 ﻿#if OS_MAC
+using System;
 using System.IO;
 using System.Threading.Tasks;
 using Mono.Unix.Native;
@@ -8,47 +9,53 @@ namespace ARJE.Utils.IO.Pipes
 {
     public sealed class PosixNamedPipe : INamedPipe
     {
+        private const FilePermissions FifoMode = FilePermissions.S_IRUSR | FilePermissions.S_IWUSR | FilePermissions.S_IFIFO;
+
         public PosixNamedPipe(string pipeName)
         {
-            AnsiConsole.WriteLine("PosixNamedPipe()");
-            this.PipePath = GetPipePath(pipeName);
-            int result = Syscall.mkfifo(this.PipePath, FilePermissions.S_IRUSR | FilePermissions.S_IWUSR | FilePermissions.S_IFIFO);
-            AnsiConsole.WriteLine("mkfifo: " + result); // DEBUG (TODO)
-            this.FileStream = File.Open(this.PipePath, FileMode.Open);
-            AnsiConsole.WriteLine("File.Open");
+            ArgumentNullException.ThrowIfNull(pipeName);
+
+            this.NameOrPath = GetPipePath(pipeName);
         }
 
-        public Stream Stream => this.FileStream;
+        public string NameOrPath { get; }
 
-        public FileStream FileStream { get; }
+        public bool Connected { get; private set; }
 
-        private string PipePath { get; }
+        private Stream? Stream { get; set; }
 
         public static INamedPipe Create(string pipeName)
         {
             return new PosixNamedPipe(pipeName);
         }
 
-        private static string GetPipePath(string pipeName)
+        public Stream Connect()
         {
-            string tempPath = Path.GetTempPath();
-            return Path.Combine(tempPath, pipeName);
+            PipeUtils.AssertNotConnected(this);
+
+            int result = Syscall.mkfifo(this.NameOrPath, FifoMode);
+            AnsiConsole.WriteLine("mkfifo: " + result); // DEBUG (TODO)
+            this.Stream = new FileStream(this.NameOrPath, FileMode.Open, FileAccess.Read, FileShare.Write, 0);
+            this.Connected = true;
+            return this.Stream;
         }
 
-        public void Connect()
+        public Task<Stream> ConnectAsync()
         {
-        }
-
-        public Task ConnectAsync()
-        {
-            return Task.CompletedTask;
+            return Task.Run(this.Connect);
         }
 
         public void Dispose()
         {
-            this.FileStream.Dispose();
-            Syscall.unlink(this.PipePath);
-            File.Delete(this.PipePath);
+            this.Stream?.Dispose();
+            Syscall.unlink(this.NameOrPath);
+            File.Delete(this.NameOrPath);
+        }
+
+        private static string GetPipePath(string pipeName)
+        {
+            string tempPath = Path.GetTempPath();
+            return Path.Combine(tempPath, pipeName + ".pipe");
         }
     }
 }

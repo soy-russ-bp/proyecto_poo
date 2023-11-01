@@ -1,4 +1,5 @@
 ﻿#if OS_WINDOWS
+using System;
 using System.IO;
 using System.IO.Pipes;
 using System.Threading.Tasks;
@@ -9,13 +10,15 @@ namespace ARJE.Utils.IO.Pipes
     {
         public Win32NamedPipe(string pipeName)
         {
+            ArgumentNullException.ThrowIfNull(pipeName);
+
             this.NameOrPath = pipeName;
             this.PipeStream = new NamedPipeClientStream(pipeName);
         }
 
         public string NameOrPath { get; }
 
-        public Stream Stream => this.PipeStream;
+        public bool Connected { get; private set; }
 
         private NamedPipeClientStream PipeStream { get; }
 
@@ -24,14 +27,18 @@ namespace ARJE.Utils.IO.Pipes
             return new Win32NamedPipe(pipeName);
         }
 
-        public void Connect()
+        public Stream Connect()
         {
+            PipeUtils.AssertNotConnected(this);
+
             this.PipeStream.Connect();
+            this.Connected = true;
+            return this.PipeStream;
         }
 
-        public Task ConnectAsync()
+        public Task<Stream> ConnectAsync()
         {
-            return this.PipeStream.ConnectAsync();
+            return Task.Run(this.Connect);
         }
 
         public void Dispose()
