@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿#if OS_WINDOWS
+using System.IO;
 using System.IO.Pipes;
 using System.Threading.Tasks;
 
@@ -36,3 +37,4 @@ namespace ARJE.Utils.IO.Pipes
         }
     }
 }
+#endif

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿#if OS_MAC
+using System.IO;
 using System.Threading.Tasks;
 using Mono.Unix.Native;
 using Spectre.Console;
@@ -51,3 +52,4 @@ namespace ARJE.Utils.IO.Pipes
         }
     }
 }
+#endif
