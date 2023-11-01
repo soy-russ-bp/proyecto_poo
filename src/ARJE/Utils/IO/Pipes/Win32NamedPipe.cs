@@ -1,4 +1,4 @@
-﻿#if OS_WINDOWS
+﻿#if OS_WINDOWS || DEBUG
 using System;
 using System.IO;
 using System.IO.Pipes;

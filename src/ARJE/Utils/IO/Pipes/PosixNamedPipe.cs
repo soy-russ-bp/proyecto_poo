@@ -1,4 +1,4 @@
-﻿#if OS_MAC
+﻿#if OS_MAC || DEBUG
 using System;
 using System.IO;
 using System.Threading.Tasks;
