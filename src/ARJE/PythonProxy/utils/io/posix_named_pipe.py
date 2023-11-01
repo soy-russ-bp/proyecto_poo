@@ -1,6 +1,7 @@
 from io import RawIOBase
 import typing
 import time
+import stat
 import os
 from utils.io.pipe_connection import PipeConnection
 
@@ -22,7 +23,7 @@ class PosixNamedPipe(PipeConnection):
         }
 
     def wait(self) -> RawIOBase:
-        while not os.path.isfile(self._pipe_path):
+        while not stat.S_ISFIFO(os.stat(self._pipe_path).st_mode):
             time.sleep(1)
 
         # pylint: disable=unspecified-encoding
