@@ -8,9 +8,9 @@ from utils.csharp.packets.outbound.outbound_detection_collection_packet import O
 
 
 print(" - App start - ")
-pipe_name: str = app_pipe.get_pipe_name_in_ctx()
+pipe_identifier: str = app_pipe.get_pipe_identifier_in_ctx()
 
-with CSharpProxy(pipe_name).start() as proxy:
+with CSharpProxy(pipe_identifier).start() as proxy:
     with HandsModel() as model:
         print(" - Proxy start - ")
         while True:

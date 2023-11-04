@@ -1,5 +1,5 @@
 import typing
-from utils.io.named_pipe import NamedPipe
+from utils.io.hybrid_pipe import HybridPipe
 from utils.csharp.packets.inbound_proxy_packet import InboundProxyPacket
 from utils.csharp.packets.outbound_proxy_packet import OutboundProxyPacket
 from utils.csharp.packets.packet_reader import PacketReader
@@ -13,9 +13,9 @@ class CSharpProxy:
 
     def __init__(
         self,
-        pipe_name: str
+        pipe_identifier: str
     ):
-        self._pipe = NamedPipe(pipe_name)
+        self._pipe = HybridPipe(pipe_identifier)
         self._packet_reader: PacketReader | None = None
         self._packet_writer: PacketWriter | None = None
 

@@ -14,14 +14,14 @@ namespace ARJE.Utils.Python.Proxy
     {
         public PythonProxy(string pipeName, IIdMapper idMapper, int bufferCapacity = 0)
         {
-            this.Pipe = PlatformNamedPipe.Create(pipeName);
-            this.PipeName = this.Pipe.NameOrPath;
+            this.Pipe = new HybridPipe(pipeName);
+            this.PipeName = this.Pipe.Identifier;
             this.BufferCapacity = bufferCapacity;
         }
 
         public string PipeName { get; }
 
-        private INamedPipe Pipe { get; }
+        private IPipeServer Pipe { get; }
 
         private int BufferCapacity { get; }
 
@@ -31,13 +31,13 @@ namespace ARJE.Utils.Python.Proxy
 
         public void Start()
         {
-            Stream pipeStream = this.Pipe.Connect();
+            Stream pipeStream = this.Pipe.WaitForConnection();
             this.CreateReaderAndWriter(pipeStream);
         }
 
         public async Task StartAsync()
         {
-            Stream pipeStream = await this.Pipe.ConnectAsync();
+            Stream pipeStream = await this.Pipe.WaitForConnectionAsync();
             this.CreateReaderAndWriter(pipeStream);
         }
 

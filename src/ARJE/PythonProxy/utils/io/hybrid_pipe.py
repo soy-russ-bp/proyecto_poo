@@ -1,19 +1,27 @@
 import typing
+import sys
 from utils.io import endianness
-from utils.io import platform_pipe
 from utils.io.binary_reader import BinaryReader
 from utils.io.binary_writer import BinaryWriter
+from utils.io.pipe_client import PipeClient
+from utils.io.win32_pipe_client import Win32PipeClient
 
 
-class NamedPipe:
+class HybridPipe:
+
+    @staticmethod
+    def _get_platform_client(pipe_identifier: str) -> PipeClient:
+        if sys.platform == "win32":
+            return Win32PipeClient.create(pipe_identifier)
+
+        return None
 
     def __init__(
             self,
-            pipe_name: str,
-            mode: typing.Optional[str] = "r+",
+            pipe_identifier: str,
             byte_order: endianness.ByteOrderLiterals = "little"
     ):
-        self._pipe: typing.Final = platform_pipe.get_platform_connection(pipe_name, mode)
+        self._pipe: typing.Final = HybridPipe._get_platform_client(pipe_identifier)
         self._byte_order: typing.Final[endianness.ByteOrderLiterals] = byte_order
         self._reader: BinaryReader | None = None
         self._writer: BinaryWriter | None = None
