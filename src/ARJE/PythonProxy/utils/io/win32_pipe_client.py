@@ -10,7 +10,7 @@ from utils.io.pipe_client import PipeClient
 class Win32PipeClient(PipeClient):
 
     @staticmethod
-    def _wait_pipe(pipe_identifier: str) -> PyHANDLE:
+    def _connect_pipe(pipe_identifier: str) -> PyHANDLE:
         pipe_path = rf"\\.\pipe\{pipe_identifier}"
         while True:
             try:
@@ -30,16 +30,12 @@ class Win32PipeClient(PipeClient):
                 else:
                     raise error
 
-    def __init__(self, pipe_identifier: str):
-        self._pipe_identifier: typing.Final = pipe_identifier
-        self._stream: RawIOBase | None = None
-
     @staticmethod
     def create(pipe_identifier: str) -> PipeClient:
         return Win32PipeClient(pipe_identifier)
 
-    def wait(self) -> RawIOBase:
-        pipe_handle = Win32PipeClient._wait_pipe(self._pipe_identifier)
+    def connect(self) -> RawIOBase:
+        pipe_handle = Win32PipeClient._connect_pipe(self._pipe_identifier)
         self._stream = Win32RawIO(pipe_handle, True, True)
         return self._stream
 

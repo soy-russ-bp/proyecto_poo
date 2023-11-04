@@ -5,6 +5,7 @@ from utils.io.binary_reader import BinaryReader
 from utils.io.binary_writer import BinaryWriter
 from utils.io.pipe_client import PipeClient
 from utils.io.win32_pipe_client import Win32PipeClient
+from utils.io.unix_sockets_pipe_client import UnixSocketsPipeClient
 
 
 class HybridPipe:
@@ -14,7 +15,7 @@ class HybridPipe:
         if sys.platform == "win32":
             return Win32PipeClient.create(pipe_identifier)
 
-        return None
+        return UnixSocketsPipeClient.create(pipe_identifier)
 
     def __init__(
             self,
@@ -27,7 +28,7 @@ class HybridPipe:
         self._writer: BinaryWriter | None = None
 
     def start(self) -> typing.Self:
-        pipe_stream = self._pipe.wait()
+        pipe_stream = self._pipe.connect()
         self._reader = BinaryReader(pipe_stream, True, self._byte_order)
         self._writer = BinaryWriter(pipe_stream, True, self._byte_order)
         return self

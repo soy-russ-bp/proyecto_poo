@@ -1,9 +1,14 @@
 from __future__ import annotations
+import typing
 from abc import ABC, abstractmethod
 from io import RawIOBase
 
 
 class PipeClient(ABC):
+
+    def __init__(self, pipe_identifier: str):
+        self._pipe_identifier: typing.Final = pipe_identifier
+        self._stream: RawIOBase | None = None
 
     @staticmethod
     @abstractmethod
@@ -11,7 +16,7 @@ class PipeClient(ABC):
         pass
 
     @abstractmethod
-    def wait(self) -> RawIOBase:
+    def connect(self) -> RawIOBase:
         pass
 
     @abstractmethod

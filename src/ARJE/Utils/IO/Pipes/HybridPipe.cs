@@ -12,7 +12,7 @@ namespace ARJE.Utils.IO.Pipes
         {
             ArgumentNullException.ThrowIfNull(pipeName);
 
-            this.Identifier = pipeName;
+            this.Identifier = GetIdentifier(pipeName);
             this.PipeStream = new NamedPipeServerStream(
                 pipeName,
                 PipeDirection.InOut,
@@ -53,6 +53,15 @@ namespace ARJE.Utils.IO.Pipes
         public void Dispose()
         {
             this.PipeStream.Dispose();
+        }
+
+        private static string GetIdentifier(string pipeName)
+        {
+#if OS_LINUX || OS_MAC
+            return Path.Join("tmp", $"CoreFxPipe_{pipeName}.fifo");
+#else
+            return pipeName;
+#endif
         }
     }
 }
