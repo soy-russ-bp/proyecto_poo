@@ -14,7 +14,7 @@ namespace ARJE.Utils.Python.Proxy
     {
         public PythonProxy(string pipeName, IIdMapper idMapper, int bufferCapacity = 0)
         {
-            this.Pipe = new HybridPipe(pipeName);
+            this.Pipe = new HybridPipeServer(pipeName);
             this.PipeName = this.Pipe.Identifier;
             this.BufferCapacity = bufferCapacity;
         }

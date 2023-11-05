@@ -7,7 +7,7 @@ namespace ARJE.Utils.IO.Pipes
     {
         public string Identifier { get; }
 
-        public PipeState State { get; }
+        public bool IsConnected { get; }
 
         public Stream WaitForConnection();
     }

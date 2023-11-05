@@ -4,11 +4,9 @@ using System.IO.Pipes;
 
 namespace ARJE.Utils.IO.Pipes
 {
-    public sealed class HybridPipe : IPipeServer
+    public sealed class HybridPipeServer : IPipeServer
     {
-        private PipeState state;
-
-        public HybridPipe(string pipeName)
+        public HybridPipeServer(string pipeName)
         {
             ArgumentNullException.ThrowIfNull(pipeName);
 
@@ -23,30 +21,13 @@ namespace ARJE.Utils.IO.Pipes
 
         public string Identifier { get; }
 
-        public PipeState State
-        {
-            get
-            {
-                if (!this.PipeStream.IsConnected)
-                {
-                    this.state = PipeState.NotConnected;
-                }
-
-                return this.state;
-            }
-
-            private set => this.state = value;
-        }
+        public bool IsConnected => this.PipeStream.IsConnected;
 
         private NamedPipeServerStream PipeStream { get; }
 
         public Stream WaitForConnection()
         {
-            PipeUtils.AssertNotConnectingOrConnected(this);
-
-            this.State = PipeState.Connecting;
             this.PipeStream.WaitForConnection();
-            this.State = PipeState.Connected;
             return this.PipeStream;
         }
 
