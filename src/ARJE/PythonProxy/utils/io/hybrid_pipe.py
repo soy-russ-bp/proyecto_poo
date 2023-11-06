@@ -22,7 +22,9 @@ class HybridPipe:
         self._writer: BinaryWriter | None = None
 
     def start(self) -> typing.Self:
+        print(f"Connecting to {self._pipe.pipe_identifier}...")
         pipe_stream = self._pipe.connect()
+        print("Connected")
         self._reader = BinaryReader(pipe_stream, True, self._byte_order)
         self._writer = BinaryWriter(pipe_stream, True, self._byte_order)
         return self

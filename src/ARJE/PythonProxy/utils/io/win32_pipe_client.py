@@ -15,13 +15,8 @@ class Win32PipeClient(PipeClient):
         while True:
             try:
                 handle = win32file.CreateFile(
-                    pipe_path,
-                    win32file.GENERIC_READ | win32file.GENERIC_WRITE,
-                    0,
-                    None,
-                    win32file.OPEN_EXISTING,
-                    0,
-                    None
+                    pipe_path, win32file.GENERIC_READ | win32file.GENERIC_WRITE,
+                    0, None, win32file.OPEN_EXISTING, 0, None
                 )
                 return typing.cast(PyHANDLE, handle)
             except pywintypes.error as error:

@@ -10,6 +10,10 @@ class PipeClient(ABC):
         self._pipe_identifier: typing.Final = pipe_identifier
         self._stream: RawIOBase | None = None
 
+    @property
+    def pipe_identifier(self) -> str:
+        return self._pipe_identifier
+
     @staticmethod
     @abstractmethod
     def create(pipe_identifier: str) -> PipeClient:

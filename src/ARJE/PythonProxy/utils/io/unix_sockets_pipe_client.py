@@ -1,4 +1,5 @@
 import sys
+import time
 import socket
 from socket import socket as socketType
 from io import RawIOBase
@@ -14,8 +15,12 @@ class UnixSocketsPipeClient(PipeClient):
             raise RuntimeError("Use Win32PipeClient instead.")
 
         client = socketType(socket.AF_UNIX, socket.SOCK_STREAM)
-        client.connect(pipe_identifier)
-        return client
+        while True:
+            try:
+                client.connect(pipe_identifier)
+                return client
+            except FileNotFoundError:
+                time.sleep(1)
 
     @staticmethod
     def create(pipe_identifier: str) -> PipeClient:

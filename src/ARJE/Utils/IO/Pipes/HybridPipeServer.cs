@@ -39,7 +39,7 @@ namespace ARJE.Utils.IO.Pipes
         private static string GetIdentifier(string pipeName)
         {
 #if OS_LINUX || OS_MAC
-            return Path.Join("tmp", $"CoreFxPipe_{pipeName}");
+            return Path.DirectorySeparatorChar + Path.Join("tmp", $"CoreFxPipe_{pipeName}");
 #else
             return pipeName;
 #endif
