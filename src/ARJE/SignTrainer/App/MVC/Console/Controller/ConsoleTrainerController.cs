@@ -1,12 +1,13 @@
 ﻿using System;
-using ARJE.SignTrainer.App.Model;
-using ARJE.SignTrainer.App.View;
+using ARJE.SignTrainer.App.MVC.Base.Controller;
+using ARJE.SignTrainer.App.MVC.Base.Model;
+using ARJE.SignTrainer.App.MVC.Console.View;
 using ARJE.Utils.AI.Solutions.Hands;
 using ARJE.Utils.Spectre.Console.Extensions;
 using Spectre.Console;
 using Matrix = OpenCvSharp.Mat;
 
-namespace ARJE.SignTrainer.App.Controller
+namespace ARJE.SignTrainer.App.MVC.Console.Controller
 {
     public class ConsoleTrainerController : BaseTrainerController<ConsoleTrainerView>
     {
@@ -32,6 +33,7 @@ namespace ARJE.SignTrainer.App.Controller
 
             while (this.RunLoop())
             {
+                this.View.Clear();
             }
         }
 
@@ -68,6 +70,7 @@ namespace ARJE.SignTrainer.App.Controller
                 case MainMenuOption.Import:
                     break;
                 case MainMenuOption.Create:
+                    new ConsoleModelCreator(this).AskForModelInfo();
                     break;
                 case MainMenuOption.Exit:
                 default:

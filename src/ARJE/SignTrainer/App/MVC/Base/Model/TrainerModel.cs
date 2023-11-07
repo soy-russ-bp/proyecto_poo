@@ -4,7 +4,7 @@ using ARJE.Utils.AI.Solutions.Hands;
 using ARJE.Utils.Video;
 using Matrix = OpenCvSharp.Mat;
 
-namespace ARJE.SignTrainer.App.Model
+namespace ARJE.SignTrainer.App.MVC.Base.Model
 {
     public sealed class TrainerModel
     {

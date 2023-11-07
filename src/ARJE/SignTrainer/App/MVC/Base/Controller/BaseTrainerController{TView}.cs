@@ -1,8 +1,8 @@
 ﻿using System;
-using ARJE.SignTrainer.App.Model;
-using ARJE.SignTrainer.App.View;
+using ARJE.SignTrainer.App.MVC.Base.Model;
+using ARJE.SignTrainer.App.MVC.Base.View;
 
-namespace ARJE.SignTrainer.App.Controller
+namespace ARJE.SignTrainer.App.MVC.Base.Controller
 {
     public abstract class BaseTrainerController<TView>
         where TView : BaseTrainerView
@@ -16,9 +16,9 @@ namespace ARJE.SignTrainer.App.Controller
             this.View = view;
         }
 
-        protected TrainerModel Model { get; }
+        public TrainerModel Model { get; }
 
-        protected TView View { get; }
+        public TView View { get; }
 
         public abstract void Run();
     }
