@@ -4,9 +4,9 @@ from utils.io import endianness
 from utils.io.binary_reader import BinaryReader
 from utils.io.binary_writer import BinaryWriter
 if sys.platform == "win32":
-    from utils.io.win32_pipe_client import Win32PipeClient as PlatformPipeClient
+    from utils.io.pipes.win32_pipe_client import Win32PipeClient as PlatformPipeClient
 else:
-    from utils.io.unix_sockets_pipe_client import UnixSocketsPipeClient as PlatformPipeClient
+    from utils.io.pipes.unix_sockets_pipe_client import UnixSocketsPipeClient as PlatformPipeClient
 
 
 class HybridPipe:

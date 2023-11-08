@@ -4,7 +4,7 @@ from io import RawIOBase
 import win32file
 import pywintypes
 from namedpipe._win32 import Win32RawIO, PyHANDLE
-from utils.io.pipe_client import PipeClient
+from utils.io.pipes.pipe_client import PipeClient
 
 
 class Win32PipeClient(PipeClient):

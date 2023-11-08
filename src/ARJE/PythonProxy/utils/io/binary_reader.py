@@ -1,31 +1,18 @@
-from __future__ import annotations
-from io import BytesIO
-import typing_extensions
-from utils.io import endianness
 from utils.io.binary_accessor import BinaryAccessor
 
 
 class BinaryReader(BinaryAccessor):
 
-    @staticmethod
-    def from_buffer(buffer: typing_extensions.Buffer, byte_order: endianness.ByteOrderLiterals = "little") -> BinaryReader:
-        stream = BytesIO(buffer)
-        return BinaryReader(stream, False, byte_order)
-
-    def read_bytes(self, count: int | None) -> bytes:
+    def read_bytes(self, count: int) -> bytes:
         data: bytes | None = self._stream.read(count)
         if data is None:
             raise RuntimeError("Pipe broken.")
 
-        if count is not None:
-            data_length = len(data)
-            if count != data_length:
-                raise RuntimeError(f"Requested count ({count}) does not match the read count ({data_length}).")
+        data_length = len(data)
+        if count != data_length:
+            raise RuntimeError(f"Requested count ({count}) does not match the read count ({data_length}).")
 
         return data
-
-    def read_all_bytes(self) -> bytes:
-        return self.read_bytes(None)
 
     def _read_integral_num(self, length: int, signed: bool = True) -> int:
         data = self.read_bytes(length)

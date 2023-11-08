@@ -1,5 +1,5 @@
 import typing
-from utils.io.hybrid_pipe import HybridPipe
+from utils.io.pipes.hybrid_pipe import HybridPipe
 from utils.csharp.packets.inbound_proxy_packet import InboundProxyPacket
 from utils.csharp.packets.outbound_proxy_packet import OutboundProxyPacket
 from utils.csharp.packets.packet_reader import PacketReader
