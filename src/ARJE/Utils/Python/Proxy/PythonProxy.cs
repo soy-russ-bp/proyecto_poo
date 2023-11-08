@@ -15,11 +15,10 @@ namespace ARJE.Utils.Python.Proxy
         public PythonProxy(string pipeName, IIdMapper idMapper, int bufferCapacity = 0)
         {
             this.Pipe = new HybridPipeServer(pipeName);
-            this.PipeName = this.Pipe.Identifier;
             this.BufferCapacity = bufferCapacity;
         }
 
-        public string PipeName { get; }
+        public string PipeName => this.Pipe.Identifier;
 
         private IPipeServer Pipe { get; }
 
