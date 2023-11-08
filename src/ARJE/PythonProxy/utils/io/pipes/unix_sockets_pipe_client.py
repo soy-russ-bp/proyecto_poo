@@ -3,7 +3,7 @@ import time
 import socket
 from socket import socket as socketType
 from io import RawIOBase
-from utils.io.pipe_client import PipeClient
+from utils.io.pipes.pipe_client import PipeClient
 from utils.io.socket_io import SocketIo
 
 
