@@ -1,4 +1,6 @@
-﻿namespace ARJE.Utils.Video
+﻿using System.Threading;
+
+namespace ARJE.Utils.Video
 {
     public interface IAsyncVideoSource<TMatrix> : IBaseVideoSource<TMatrix>
     {
@@ -8,7 +10,7 @@
 
         public GrabState GrabState { get; }
 
-        public void StartGrab();
+        public void StartGrab(SynchronizationContext? synchronizationContext);
 
         public void PauseGrab();
 

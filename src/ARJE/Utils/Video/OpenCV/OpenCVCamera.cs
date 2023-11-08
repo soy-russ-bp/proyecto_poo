@@ -2,9 +2,9 @@
 using OpenCvSharp;
 using Matrix = OpenCvSharp.Mat;
 
-namespace ARJE.Utils.Video.OpenCV
+namespace ARJE.Utils.Video.OpenCv
 {
-    public abstract class OpenCVCamera : IBaseVideoSource<Matrix>
+    public abstract class OpenCvCamera : IBaseVideoSource<Matrix>
     {
         public virtual bool IsOpen => this.VideoCapturer.IsOpened();
 
