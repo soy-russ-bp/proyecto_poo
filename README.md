@@ -1,4 +1,3 @@
-
 # A R J É - First review
 
 <img style="width:100vw; height:270px" src="Assets/logo.png"/>
@@ -39,3 +38,5 @@ Regarding contribution metrics and meeting binnacle, you can find the informatio
 ### Video second-review:
 
 [![](https://img.youtube.com/vi/7KNYJq8uZnc/maxresdefault.jpg)](https://www.youtube.com/watch?v=M1LEDCXn_4M)
+
+
