@@ -1,40 +1,41 @@
 
 # A R J É - First review
 
-### Objective:
-
-Our main objective is to be able to use the object-oriented programming paradigm in a project that could serve as a precursor to a product with real significance. The "ARJÉ project is a sign language to natural language transcriber.
-
-For the Greek philosophers, Arjé meant the first element or the fundamental principle of things, and one of our goals is precisely for this project to be the fundamental principle of a world in which communication and language or speech disabilities are not a barrier to the full and enriching interaction of all individuals.
-
-### Relevance:
-
-The relevance of this project lies in the creation of a tool that can have a significant impact on the lives of individuals with hearing and speech disabilities (deaf-mute individuals). Facilitating communication between deaf-mute individuals and hearing individuals is essential for their full participation in society. Moreover, this type of technology can find applications in educational, workplace, medical, and social settings, contributing to equal opportunities and the inclusion of individuals.
-
-### Limitations:
-
-- The system should ideally be bidirectional, meaning it should facilitate communication between sign language users and non-sign language users by translating both from sign language to natural language (in this case, written language) and from natural or spoken language to sign language. However, in our project, we will focus solely on transcribing from sign language to natural language.
-
-- The system only transcribes individual letters of sign language rather than directly translating full phrases. This limitation is due to the complexity involved in direct phrase translation, and the project has a limited timeframe for development. Users will need to manually assemble words or phrases using the Mexican Sign Language alphabet.
-
-- Sign languages are specific to each language, but this program only considers Mexican Sign Language.
-
-- The system may face challenges in adapting to environments with variable lighting conditions or situations where gestures are performed in unconventional ways.
-
 <img style="width:100vw; height:270px" src="Assets/logo.png"/>
 
-[:diamonds: Contributions](docs/Contributions/readme.md)
+
+The Arjé project is an initiative aimed at improving opportunities for individuals with hearing and speech disabilities. This project serves as a fundamental step toward developing technologies that transcend barriers, fostering a more connected, inclusive, and fair world.
+
+### Evolution:
+
+The Arjé project has evolved over time. Initially, we had a functional prototype in Python with minimal functionality. This was primarily to understand how Python libraries worked. However, the code wasn't in the object-oriented programming paradigm, lacked scalability, and lacked modularity. As a result, what was initially programmed in Python had to be re-implemented in C# using the object-oriented paradigm and the MVC (Model-View-Controller) design pattern. 
+<img style="width:90%; height:270px" src="https://www.easyappcode.com/upload/post-792545902.jpg"/>
+
+([Code in MVC HERE]())
+
+Furthermore, after careful evaluation, we decided to adjust the direction of our project while maintaining the same vision but addressing the problem differently. Although our initial aspiration was to develop a complete translator, we realized that more time was needed to achieve that goal. Therefore, for this stage, ARJE, instead of being an interpreter, will function as a dedicated trainer to teach the [sign language alphabet](). This way, you can ensure effective learning.
+
+Finally, as expected, due to the aforementioned changes, many artifacts had to evolve, such as [functional requirements](), [user stories & acceptance criteria](), and the [class diagram](). (We only draw a representation of the class diagram of the MVC pattern used in our project, we do not draw the classes of the connection between C# and Python used so that the python libraries can be programmed in c# and they work on Windows and MacOs.)
+
+
+---
+## Process management
+
+<img style="width:100vw; height:270px" src="https://weaver.com.sg/wp-content/uploads/2020/08/weaver_BPM.png"/>
+
+
+
+We worked in 2 subteams, because some team members have years of experience in C# development, they were in charge of programming on this occasion, while the other team was in charge of documentation, diagrams, artifacts, presentations, etc. This was done so that the people who did the documentation could have the time to learn C# and program in the third installment supported by the experts who will serve as mentors.
+
+Regarding contribution metrics and meeting binnacle, you can find the information here:
+
+[:diamonds: Contributions second-review](docs/Contributions/readme.md)
  
-[:diamonds: Meetings](docs/Meetings/readme.md)
+[:diamonds: Meetings second-review](docs/Meetings/readme.md)
 
-[:diamonds: Requirements](docs/Requirements/FunctionalRequirements.pdf)
-
-[:diamonds: User stories & acceptance criteria](docs/Requirements/UserStories&AcceptanceCriteria.pdf)
-
-[:diamonds: Class diagram](docs/UML/ClassDiagram/readme.md)
 
 ---
 
-### Video:
+### Video second-review:
 
-[![](https://img.youtube.com/vi/7KNYJq8uZnc/maxresdefault.jpg)](https://youtu.be/7KNYJq8uZnc)
+[![](https://img.youtube.com/vi/7KNYJq8uZnc/maxresdefault.jpg)](https://www.youtube.com/watch?v=M1LEDCXn_4M)
