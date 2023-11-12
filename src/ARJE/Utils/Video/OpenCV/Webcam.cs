@@ -1,11 +1,12 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using ARJE.Utils.Threading;
 using OpenCvSharp;
 using Matrix = OpenCvSharp.Mat;
 
-namespace ARJE.Utils.Video.OpenCV
+namespace ARJE.Utils.Video.OpenCv
 {
-    public sealed class Webcam : OpenCVCamera, ISyncVideoSource<Matrix>, IAsyncVideoSource<Matrix>
+    public sealed class Webcam : OpenCvCamera, ISyncVideoSource<Matrix>, IAsyncVideoSource<Matrix>
     {
         public Webcam(int camIndex = 0, FlipType outputFlipType = FlipType.None)
         {
@@ -32,7 +33,7 @@ namespace ARJE.Utils.Video.OpenCV
             return this.FrameBuffer;
         }
 
-        public void StartGrab()
+        public void StartGrab(SynchronizationContext? synchronizationContext)
         {
             if (this.GrabState == GrabState.Paused)
             {
@@ -44,7 +45,7 @@ namespace ARJE.Utils.Video.OpenCV
             if (this.GrabState.IsStop())
             {
                 this.GrabState = GrabState.Running;
-                this.GrabTask = Task.Factory.StartNew(this.GrabFramesTask, TaskCreationOptions.LongRunning);
+                this.GrabTask = Task.Factory.StartNew(() => this.GrabFramesTask(synchronizationContext), CancellationToken.None, TaskCreationOptions.LongRunning, TaskScheduler.Default);
             }
         }
 
@@ -83,7 +84,7 @@ namespace ARJE.Utils.Video.OpenCV
             base.Dispose();
         }
 
-        private Task GrabFramesTask()
+        private Task GrabFramesTask(SynchronizationContext? synchronizationContext)
         {
             while (this.GrabState is GrabState.Running or GrabState.Paused)
             {
@@ -97,7 +98,7 @@ namespace ARJE.Utils.Video.OpenCV
 
                 if (grabbed)
                 {
-                    this.NotifyFrameGrabbed();
+                    this.NotifyFrameGrabbed(synchronizationContext);
                 }
                 else
                 {
@@ -110,11 +111,11 @@ namespace ARJE.Utils.Video.OpenCV
             return Task.CompletedTask;
         }
 
-        private void NotifyFrameGrabbed()
+        private void NotifyFrameGrabbed(SynchronizationContext? synchronizationContext)
         {
             this.VideoCapturer.Retrieve(this.FrameBuffer);
             this.FlipIfRequired(this.FrameBuffer);
-            this.OnFrameGrabbed?.Invoke(this.FrameBuffer);
+            synchronizationContext.SendInCtxOrCurrent(this, webcam => webcam.OnFrameGrabbed?.Invoke(webcam.FrameBuffer));
         }
     }
 }

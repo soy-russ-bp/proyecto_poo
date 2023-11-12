@@ -1,12 +1,15 @@
 ﻿using System;
-using ARJE.SignTrainer.App.Model;
-using ARJE.SignTrainer.App.View;
+using System.Threading.Tasks;
+using ARJE.SignTrainer.App.MVC.Base.Controller;
+using ARJE.SignTrainer.App.MVC.Base.Model;
+using ARJE.SignTrainer.App.MVC.Console.View;
 using ARJE.Utils.AI.Solutions.Hands;
 using ARJE.Utils.Spectre.Console.Extensions;
+using ARJE.Utils.Threading;
 using Spectre.Console;
 using Matrix = OpenCvSharp.Mat;
 
-namespace ARJE.SignTrainer.App.Controller
+namespace ARJE.SignTrainer.App.MVC.Console.Controller
 {
     public class ConsoleTrainerController : BaseTrainerController<ConsoleTrainerView>
     {
@@ -27,12 +30,11 @@ namespace ARJE.SignTrainer.App.Controller
 
         public override void Run()
         {
-            this.Model.VideoSource.StartGrab();
+            var syncCtx = new SingleThreadSynchronizationContext();
+            this.Model.VideoSource.StartGrab(syncCtx);
             this.Model.VideoSource.OnFrameGrabbed += this.OnFrameGrabbed;
-
-            while (this.RunLoop())
-            {
-            }
+            Task.Run(this.RunUI);
+            syncCtx.RunOnCurrentThread();
         }
 
         private static SelectionPrompt<MainMenuOption> CreateMainMenuPrompt()
@@ -58,7 +60,15 @@ namespace ARJE.SignTrainer.App.Controller
             return prompt;
         }
 
-        private bool RunLoop()
+        private void RunUI()
+        {
+            while (this.UILoop())
+            {
+                this.View.Clear();
+            }
+        }
+
+        private bool UILoop()
         {
             MainMenuOption option = this.View.Prompt(this.MainMenuPrompt);
             switch (option)
@@ -68,6 +78,7 @@ namespace ARJE.SignTrainer.App.Controller
                 case MainMenuOption.Import:
                     break;
                 case MainMenuOption.Create:
+                    new ConsoleModelCreator(this).AskForModelInfo();
                     break;
                 case MainMenuOption.Exit:
                 default:
