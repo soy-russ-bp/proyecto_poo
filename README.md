@@ -14,7 +14,7 @@ The Arjé project has evolved over time. Initially, we had a functional prototyp
 
 Furthermore, after careful evaluation, we decided to adjust the direction of our project while maintaining the same vision but addressing the problem differently. Although our initial aspiration was to develop a complete translator, we realized that more time was needed to achieve that goal. Therefore, for this stage, ARJE, instead of being an interpreter, will function as a dedicated trainer to teach the [sign language alphabet](). This way, you can ensure effective learning.
 
-Finally, as expected, due to the aforementioned changes, many artifacts had to evolve, such as [functional requirements](), [user stories & acceptance criteria](), and the [class diagram](). (We only draw a representation of the class diagram of the MVC pattern used in our project, we do not draw the classes of the connection between C# and Python used so that the python libraries can be programmed in c# and they work on Windows and MacOs.)
+Finally, as expected, due to the aforementioned changes, many artifacts had to evolve, such as [functional requirements](), [user stories & acceptance criteria](), and the [class diagram]() (We only draw a representation of the class diagram of the MVC pattern used in our project, the classes of the connection between C# and Python were not drawn, the ones used so that the [MediaPipe Hands](https://mediapipe.readthedocs.io/en/latest/solutions/hands.html) model could be used in C#. The project supports Windows and MacOS.
 
 
 ---
