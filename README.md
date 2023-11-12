@@ -9,7 +9,7 @@ The Arjé project is an initiative aimed at improving opportunities for individu
 ### Evolution:
 
 The Arjé project has evolved over time. Initially, we had a functional prototype in Python with minimal functionality. This was primarily to understand how Python libraries worked. However, the code wasn't in the object-oriented programming paradigm, lacked scalability, and lacked modularity. As a result, what was initially programmed in Python had to be re-implemented in C# using the object-oriented paradigm and the MVC (Model-View-Controller) design pattern. 
-<img style="width:90%; height:270px" src="https://www.easyappcode.com/upload/post-792545902.jpg"/>
+<img style="width:100vw; height:270px" src="https://www.easyappcode.com/upload/post-792545902.jpg"/>
 
 ([Code in MVC HERE]())
 
@@ -21,7 +21,7 @@ Finally, as expected, due to the aforementioned changes, many artifacts had to e
 ---
 ## Process management
 
-<img style="width:100vw; height:270px" src="https://weaver.com.sg/wp-content/uploads/2020/08/weaver_BPM.png"/>
+<img style="width:50vw; height:285px" src="https://weaver.com.sg/wp-content/uploads/2020/08/weaver_BPM.png"/>
 
 
 
