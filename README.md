@@ -8,9 +8,9 @@ The Arjé project is an initiative aimed at improving opportunities for individu
 ### Evolution:
 
 The Arjé project has evolved over time. Initially, we had a functional prototype in Python with minimal functionality. This was primarily to understand how Python libraries worked. However, the code wasn't in the object-oriented programming paradigm, lacked scalability, and lacked modularity. As a result, what was initially programmed in Python had to be re-implemented in C# using the object-oriented paradigm and the MVC (Model-View-Controller) design pattern. 
-<img style="width:100vw; height:270px" src="https://www.easyappcode.com/upload/post-792545902.jpg"/>
+<img style="width:40vw; height:270px" src="https://www.easyappcode.com/upload/post-792545902.jpg"/>
 
-([Code in MVC HERE]())
+([Code in MVC HERE](src/ARJE/SignTrainer/App/MVC))
 
 Furthermore, after careful evaluation, we decided to adjust the direction of our project while maintaining the same vision but addressing the problem differently. Although our initial aspiration was to develop a complete translator, we realized that more time was needed to achieve that goal. Therefore, for this stage, ARJE, instead of being an interpreter, will function as a dedicated trainer to teach the [sign language alphabet](). This way, you can ensure effective learning.
 
@@ -20,7 +20,7 @@ Finally, as expected, due to the aforementioned changes, many artifacts had to e
 ---
 ## Process management
 
-<img style="width:50vw; height:285px" src="https://weaver.com.sg/wp-content/uploads/2020/08/weaver_BPM.png"/>
+<img style="width:40vw; height:290px" src="https://weaver.com.sg/wp-content/uploads/2020/08/weaver_BPM.png"/>
 
 
 
@@ -29,13 +29,12 @@ We worked in 2 subteams, because some team members have years of experience in C
 Regarding contribution metrics and meeting binnacle, you can find the information here:
 
 [:diamonds: Contributions second-review](docs/R2/Contributions/Contributions.md)
- 
-[:diamonds: Meetings second-review](docs/R2/Generic%20and%20Disciplinary%20Competencies/programacion.md)
 
-[:diamonds: Meetings second-review](docs/R2/Binnacle/Binnacle.md)
+[:diamonds: Binnacle second-review](docs/R2/Binnacle/Binnacle.md)
 
+<h3> Generic and disciplinary competencies used:</h3> 
 
----
+[:diamonds: Competencies second-review](docs/R2/Generic%20and%20Disciplinary%20Competencies/programacion.md)
 
 ### Video second-review:
 
