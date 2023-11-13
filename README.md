@@ -28,9 +28,11 @@ We worked in 2 subteams, because some team members have years of experience in C
 
 Regarding contribution metrics and meeting binnacle, you can find the information here:
 
-[:diamonds: Contributions second-review](docs/Contributions/readme.md)
+[:diamonds: Contributions second-review](docs/R2/Contributions/Contributions.md)
  
-[:diamonds: Meetings second-review](docs/Meetings/readme.md)
+[:diamonds: Meetings second-review](docs/R2/Generic%20and%20Disciplinary%20Competencies/programacion.md)
+
+[:diamonds: Meetings second-review](docs/R2/Binnacle/Binnacle.md)
 
 
 ---
