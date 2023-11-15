@@ -6,21 +6,18 @@ using Matrix = OpenCvSharp.Mat;
 
 namespace ARJE.SignTrainer.App.MVC.Base.Model
 {
-    public sealed class TrainerModel
+    public sealed record TrainerModel(
+            IAsyncVideoSource<Matrix> VideoSource,
+            IDetectionModel<HandDetectionCollection, HandDetection, Matrix> Detector,
+            OnDiskModelTrainingConfigCollection ModelTrainingConfigCollection)
     {
-        public TrainerModel(
-            IAsyncVideoSource<Matrix> videoSource,
-            IDetectionModel<HandDetectionCollection, HandDetection, Matrix> detectionModel)
+        public TrainerModel Validate()
         {
-            ArgumentNullException.ThrowIfNull(videoSource);
-            ArgumentNullException.ThrowIfNull(detectionModel);
+            ArgumentNullException.ThrowIfNull(this.VideoSource);
+            ArgumentNullException.ThrowIfNull(this.Detector);
+            ArgumentNullException.ThrowIfNull(this.ModelTrainingConfigCollection);
 
-            this.VideoSource = videoSource;
-            this.Detector = detectionModel;
+            return this;
         }
-
-        public IAsyncVideoSource<Matrix> VideoSource { get; }
-
-        public IDetectionModel<HandDetectionCollection, HandDetection, Matrix> Detector { get; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.IO;
 using System.Runtime.Versioning;
 using System.Threading.Tasks;
 using ARJE.SignTrainer.App.MVC.Base.Model;
@@ -20,9 +21,7 @@ namespace ARJE.SignTrainer.App
         {
             bool launchProxy = AnsiConsole.Confirm("Launch proxy?");
 
-            var stopwatch = Stopwatch.StartNew();
-
-            using var detectionModel = new HandsModel();
+            using var detectionModel = new HandsModel(new HandsModelConfig());
             Task detectionModelTask = launchProxy
                 ? detectionModel.StartAsync(PythonProxyApp.AppInfo)
                 : detectionModel.StartNoLaunchAsync();
@@ -30,11 +29,15 @@ namespace ARJE.SignTrainer.App
             if (!launchProxy)
             {
                 AnsiConsole.Write("Waiting for proxy in pipe: ");
-                AnsiConsole.MarkupLine($"\"[{Color.Orange1}]{detectionModel.PipeName}[/]\".");
+                AnsiConsole.MarkupLine($"\"[{Color.Orange1}]{detectionModel.PipeIdentifier}[/]\".");
             }
 
+            var stopwatch = Stopwatch.StartNew();
+
             using IAsyncVideoSource<Matrix> videoSource = new Webcam(outputFlipType: FlipType.Horizontal);
-            var model = new TrainerModel(videoSource, detectionModel);
+            DirectoryInfo modelsDir = Directory.CreateDirectory("Models");
+            var modelTrainingConfigCollection = new OnDiskModelTrainingConfigCollection(modelsDir);
+            var model = new TrainerModel(videoSource, detectionModel, modelTrainingConfigCollection).Validate();
             var view = new ConsoleTrainerView();
             var controller = new ConsoleTrainerController(model, view);
             detectionModelTask.Wait();

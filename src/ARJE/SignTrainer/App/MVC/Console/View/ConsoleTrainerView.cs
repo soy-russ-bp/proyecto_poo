@@ -1,5 +1,6 @@
 ﻿#pragma warning disable CA1822
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using ARJE.SignTrainer.App.MVC.Base.View;
 using ARJE.Utils.AI;
@@ -22,6 +23,21 @@ namespace ARJE.SignTrainer.App.MVC.Console.View
         public T Prompt<T>(IPrompt<T> prompt)
         {
             return AnsiConsole.Prompt(prompt);
+        }
+
+        public T SelectionPrompt<T>(string title, IEnumerable<T> choices, Func<T, string>? displaySelector = null)
+            where T : notnull
+        {
+            var prompt = new SelectionPrompt<T>()
+            {
+                Title = title,
+                WrapAround = true,
+            };
+
+            prompt.AddChoices(choices);
+            prompt.UseConverter(displaySelector);
+
+            return this.Prompt(prompt);
         }
 
         public T TextPrompt<T>(string prompt, Func<T, bool>? validator = null)

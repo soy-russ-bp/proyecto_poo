@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ARJE.Utils.AI.Configuration;
+using ARJE.Utils.AI.Solutions.Hands;
+using ARJE.Utils.Spectre.Console.Extensions;
 using ARJE.Utils.Text;
+using Spectre.Console;
 
 namespace ARJE.SignTrainer.App.MVC.Console.Controller
 {
@@ -14,20 +18,42 @@ namespace ARJE.SignTrainer.App.MVC.Console.Controller
             this.Controller = controller;
         }
 
+        public enum HandsModelConfigOption
+        {
+            One = 1,
+            Both = 2,
+        }
+
+        public static SelectionPrompt<HandsModelConfigOption> HandsModelConfigPrompt { get; } = CreateHandsModelConfigPrompt();
+
         public ConsoleTrainerController Controller { get; }
 
-        public void AskForModelInfo()
+        public ModelTrainingConfig<HandsModelConfig> AskForTrainingConfig()
         {
             string title = this.AskForTitle();
             int sampleSize = this.AskForSampleSize();
             int samplesPerSecond = this.AskForSamplesPerSecond();
-            int handCount = this.AskForHandCount();
+            HandsModelConfig handsModelConfig = this.AskForHandsModelConfig();
             List<string> labels = this.AskForLabels();
+            return new ModelTrainingConfig<HandsModelConfig>(title, sampleSize, samplesPerSecond, labels, handsModelConfig).Validate();
+        }
+
+        private static SelectionPrompt<HandsModelConfigOption> CreateHandsModelConfigPrompt()
+        {
+            var prompt = new SelectionPrompt<HandsModelConfigOption>()
+            {
+                Title = "Hands model config:",
+                WrapAround = true,
+            };
+
+            prompt.AddEnumChoices();
+
+            return prompt;
         }
 
         private string AskForTitle()
         {
-            return this.Controller.View.TextPrompt<string>("Title:").Trim();
+            return this.Controller.View.TextPrompt<string>("Title:");
         }
 
         private int AskForSampleSize()
@@ -40,9 +66,11 @@ namespace ARJE.SignTrainer.App.MVC.Console.Controller
             return this.Controller.View.TextPrompt("Samples per second (video fps):", 20, input => input is >= 10 and <= 60);
         }
 
-        private int AskForHandCount()
+        private HandsModelConfig AskForHandsModelConfig()
         {
-            return this.Controller.View.TextPrompt("Hand count (1-2):", 2, input => input is 1 or 2);
+            HandsModelConfigOption modelConfigOption = this.Controller.View.Prompt(HandsModelConfigPrompt);
+            this.Controller.View.DisplayMsg($"{HandsModelConfigPrompt.Title} {modelConfigOption}");
+            return new HandsModelConfig(MaxNumHands: (int)modelConfigOption);
         }
 
         private List<string> AskForLabels()

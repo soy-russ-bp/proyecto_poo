@@ -18,7 +18,7 @@ namespace ARJE.Utils.Python.Proxy
             this.BufferCapacity = bufferCapacity;
         }
 
-        public string PipeName => this.Pipe.Identifier;
+        public string PipeIdentifier => this.Pipe.Identifier;
 
         private IPipeServer Pipe { get; }
 

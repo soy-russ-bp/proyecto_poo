@@ -1,5 +1,7 @@
 ﻿[*.cs]
 
+spelling_exclusion_path = exclusion.dic
+
 # SA1200: Using directives should be placed correctly
 dotnet_diagnostic.SA1200.severity = none
 csharp_indent_labels = one_less_than_current

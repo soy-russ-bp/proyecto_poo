@@ -16,12 +16,15 @@ namespace ARJE.Utils.AI.Solutions.Hands
     [SupportedOSPlatform("macos")]
     public sealed class HandsModel : IDetectionModel<HandDetectionCollection, HandDetection, Matrix>, IDisposable
     {
-        public HandsModel()
+        public HandsModel(HandsModelConfig modelConfig)
         {
+            this.ModelConfig = modelConfig;
             this.Proxy = new PythonProxy("SignTrainer", new CustomIdMapper());
         }
 
-        public string PipeName => this.Proxy.PipeName;
+        public HandsModelConfig ModelConfig { get; }
+
+        public string PipeIdentifier => this.Proxy.PipeIdentifier;
 
         private PythonProxy Proxy { get; }
 
@@ -51,7 +54,7 @@ namespace ARJE.Utils.AI.Solutions.Hands
             if (appInfo.HasValue)
             {
                 var launcher = new PythonLauncher<VenvInfo>(appInfo.Value);
-                launcher.Run("Python app", $"-pipe_identifier={this.Proxy.PipeName}");
+                launcher.Run("Python app", $"-pipe_identifier={this.Proxy.PipeIdentifier}");
             }
 
             return this.Proxy.StartAsync();
