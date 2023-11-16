@@ -1,0 +1,72 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="clr-namespace:ARJE.SignPractice.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ARJE.SignPractice.Views.HomeView">
+	<Grid RowDefinitions="Auto, *">
+
+		<!-- Title Bar -->
+		<Grid Grid.Row="0" Height="40" Background="#A691F2" ColumnDefinitions="*">
+			<Label Padding="0, 0, 0, 0" Foreground="White" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Bottom">ARJÉ</Label>
+		</Grid>
+		<!-- Main Area-->
+		<Panel Grid.Row="1" Background="#A691F2">
+			<Border BorderBrush="#A691F2" BorderThickness="10" CornerRadius="20" Background="#FFFF"/>
+				<Grid RowDefinitions="AUTO, *">
+					<Label Grid.Row="0" Foreground="#3D1FA6" FontWeight="Bold" FontSize="40"
+						   Padding="0, 20, 0, 0" HorizontalAlignment="Center">SIGN LANGUAGE TRAINER</Label>
+					<Grid Grid.Row="1" ColumnDefinitions="Auto, *, 2*">
+						<Panel Grid.Column="0" Width="30"></Panel>
+						<Panel Grid.Column="1" VerticalAlignment="Center">
+							<Grid  HorizontalAlignment="Left" VerticalAlignment="Center" RowDefinitions="*,*,*,*,*">
+								<Grid.Styles>
+									<Style Selector="Button">
+										<Setter Property="Height" Value="50"></Setter>
+										<Setter Property="Width" Value="230"></Setter>
+										<Setter Property="Background" Value="#4F22F2" />
+										<Setter Property="Foreground" Value="White" />
+										<Setter Property="FontWeight" Value="Bold" />
+										<Setter Property="HorizontalContentAlignment" Value="Center" />
+										<Setter Property="VerticalContentAlignment" Value="Center" />
+										<Setter Property="CornerRadius" Value="7"/>
+										<Setter Property="Margin" Value="4"/>
+									</Style>
+									<Style Selector="Button:pointerover/template/ContentPresenter">
+										<Setter Property="Background" Value="#643DF2" />
+										<Setter Property="Foreground" Value="White" />
+									</Style>
+									<Style Selector="Button:pointerover">
+										<Setter Property="Width" Value="240" />
+									</Style>
+								</Grid.Styles>
+								
+								<!--Button Declaration-->
+								<Button Grid.Row="0" 
+										Command="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).GoToPractice}">
+									PRACTICE</Button>
+								<Button Grid.Row="1"
+										Command="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).GoToSelect}"
+										>SELECT</Button>
+								<Button Grid.Row="2"
+										Command="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).GoToImport}"
+										>IMPORT</Button>
+								<Button Grid.Row="3"
+										Command="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).GoToCreate}"
+										>CREATE</Button>
+								<Button Grid.Row="4"
+										Command="{Binding $parent[Window].Close}"
+										>EXIT</Button>
+
+							</Grid>
+						</Panel>
+						<Panel  Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+							<Image  MaxWidth="400" Source="/Assets/avalonia-logo.ico" HorizontalAlignment="Center"  VerticalAlignment="Center"></Image>
+						</Panel>
+					</Grid>
+				</Grid>
+		</Panel>
+
+	</Grid>
+</UserControl>
