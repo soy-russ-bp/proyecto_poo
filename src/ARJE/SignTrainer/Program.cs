@@ -1,24 +1,33 @@
 ﻿using System;
-using Avalonia;
-using Avalonia.ReactiveUI;
+using System.Runtime.Versioning;
+using ARJE.SignTrainer.App;
+using Spectre.Console;
 
-namespace ARJE.SignPractice.SignPractice
+namespace ARJE.SignTrainer
 {
-    internal class Program
+    [SupportedOSPlatform("windows")]
+    [SupportedOSPlatform("macos")]
+    internal static class Program
     {
-        // Initialization code. Don't use any Avalonia, third-party APIs or any
-        // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
-        // yet and stuff might break.
-        [STAThread]
-        public static void Main(string[] args) => BuildAvaloniaApp()
-            .StartWithClassicDesktopLifetime(args);
+        private static void Main()
+        {
+            AnsiConsole.WriteLine("- START -");
 
-        // Avalonia configuration, don't remove; also used by visual designer.
-        public static AppBuilder BuildAvaloniaApp()
-            => AppBuilder.Configure<App>()
-                .UsePlatformDetect()
-                .WithInterFont()
-                .LogToTrace()
-                .UseReactiveUI();
+            try
+            {
+                TrainerApp.Run();
+            }
+            catch (Exception ex)
+            {
+                AnsiConsole.WriteLine();
+                AnsiConsole.WriteException(ex);
+#if !DEBUG
+                Console.ReadKey();
+#endif
+                throw;
+            }
+
+            AnsiConsole.WriteLine("- END -");
+        }
     }
 }
