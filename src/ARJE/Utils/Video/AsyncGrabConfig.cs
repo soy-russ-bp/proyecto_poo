@@ -3,7 +3,7 @@
 namespace ARJE.Utils.Video
 {
     public record AsyncGrabConfig(
-        int? MaxFps = null,
+        FpsCap FpsCap = default,
         SynchronizationContext? SynchronizationContext = null)
     {
         public static AsyncGrabConfig Default { get; } = new();

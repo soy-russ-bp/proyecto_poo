@@ -1,6 +1,4 @@
-﻿using System.Threading;
-
-namespace ARJE.Utils.Video
+﻿namespace ARJE.Utils.Video
 {
     public interface IAsyncVideoSource<TMatrix> : IBaseVideoSource<TMatrix>
     {
