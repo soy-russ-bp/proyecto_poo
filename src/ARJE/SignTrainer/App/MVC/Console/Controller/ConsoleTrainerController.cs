@@ -8,6 +8,7 @@ using ARJE.Utils.AI.Configuration;
 using ARJE.Utils.AI.Solutions.Hands;
 using ARJE.Utils.Spectre.Console;
 using ARJE.Utils.Threading;
+using ARJE.Utils.Video;
 using EnumsNET;
 using Spectre.Console;
 using Matrix = OpenCvSharp.Mat;
@@ -34,7 +35,7 @@ namespace ARJE.SignTrainer.App.MVC.Console.Controller
         public override void Run()
         {
             var syncCtx = new SingleThreadSynchronizationContext();
-            this.Model.VideoSource.StartGrab(syncCtx);
+            this.Model.VideoSource.StartGrab(new AsyncGrabConfig(SynchronizationContext: syncCtx));
             this.Model.VideoSource.OnFrameGrabbed += this.OnFrameGrabbed;
             Task.Run(this.RunUI);
             syncCtx.RunOnCurrentThread();

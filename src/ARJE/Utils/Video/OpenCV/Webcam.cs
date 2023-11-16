@@ -33,7 +33,7 @@ namespace ARJE.Utils.Video.OpenCv
             return this.FrameBuffer;
         }
 
-        public void StartGrab(SynchronizationContext? synchronizationContext)
+        public void StartGrab(AsyncGrabConfig grabConfig)
         {
             if (this.GrabState == GrabState.Paused)
             {
@@ -45,7 +45,7 @@ namespace ARJE.Utils.Video.OpenCv
             if (this.GrabState.IsStop())
             {
                 this.GrabState = GrabState.Running;
-                this.GrabTask = Task.Factory.StartNew(() => this.GrabFramesTask(synchronizationContext), CancellationToken.None, TaskCreationOptions.LongRunning, TaskScheduler.Default);
+                this.GrabTask = Task.Factory.StartNew(() => this.GrabFramesTask(grabConfig), CancellationToken.None, TaskCreationOptions.LongRunning, TaskScheduler.Default);
             }
         }
 
@@ -84,8 +84,9 @@ namespace ARJE.Utils.Video.OpenCv
             base.Dispose();
         }
 
-        private Task GrabFramesTask(SynchronizationContext? synchronizationContext)
+        private Task GrabFramesTask(AsyncGrabConfig grabConfig)
         {
+            var fpsSync = new FpsSync(grabConfig.MaxFps);
             while (this.GrabState is GrabState.Running or GrabState.Paused)
             {
                 if (this.GrabState == GrabState.Paused)
@@ -94,11 +95,17 @@ namespace ARJE.Utils.Video.OpenCv
                     continue;
                 }
 
+                if (!fpsSync.ShouldGrab())
+                {
+                    continue;
+                }
+
                 bool grabbed = !this.VideoCapturer.IsDisposed && this.VideoCapturer.Grab();
 
                 if (grabbed)
                 {
-                    this.NotifyFrameGrabbed(synchronizationContext);
+                    fpsSync.NotifyGrabbed();
+                    this.NotifyFrameGrabbed(grabConfig.SynchronizationContext);
                 }
                 else
                 {
