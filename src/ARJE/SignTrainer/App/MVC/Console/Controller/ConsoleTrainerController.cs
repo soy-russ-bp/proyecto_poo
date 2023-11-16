@@ -92,7 +92,13 @@ namespace ARJE.SignTrainer.App.MVC.Console.Controller
         {
             OnDiskModelTrainingConfigCollection configCollection = this.Model.ModelTrainingConfigCollection;
             configCollection.Update();
-            IEnumerable<IModelTrainingConfig<IModelConfig>> configs = configCollection.Configs;
+            IReadOnlyCollection<IModelTrainingConfig<IModelConfig>> configs = configCollection.Configs;
+            if (configs.Count == 0)
+            {
+                this.View.DisplayErrorMsg("No imported model.");
+                return;
+            }
+
             IModelTrainingConfig<IModelConfig> selectedModel = this.View.SelectionPrompt("Models:", configs, m => m.Title);
         }
 
