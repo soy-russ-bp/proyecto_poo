@@ -1,9 +1,9 @@
-using ARJE.SignPractice.ViewModels;
+using Arje.ViewModels;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using System;
 
-namespace ARJE.SignPractice
+namespace Arje
 {
     public class ViewLocator : IDataTemplate
     {

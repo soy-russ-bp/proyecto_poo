@@ -1,8 +1,7 @@
-﻿using ARJE.SignPractice.ViewModels;
-using ReactiveUI;
+﻿using ReactiveUI;
 using Bitmap = Avalonia.Media.Imaging.Bitmap;
 
-namespace ARJE.SignPractice.ViewModels
+namespace Arje.ViewModels
 {
     public class PracticeViewModel : ViewModelBase
     {

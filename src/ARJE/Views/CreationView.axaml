@@ -2,15 +2,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:vm="clr-namespace:ARJE.SignPractice.ViewModels"
+             xmlns:vm="clr-namespace:Arje.ViewModels"
 			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="ARJE.SignPractice.Views.ImportView">
+             x:Class="Arje.Views.CreationView">
 	<Grid RowDefinitions="Auto, *">
 
 		<!-- Title Bar -->
 		<Grid Grid.Row="0" Height="40" Background="#A691F2" ColumnDefinitions="*">
 			<Label Padding="0, 0, 0, 0" Foreground="White" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-				ARJÉ IMPORT
+				ARJÉ CREATE
 			</Label>
 		</Grid>
 		<StackPanel Grid.Row="0" Orientation="Horizontal">
@@ -20,8 +20,6 @@
 		<!-- Main Area-->
 		<Panel Grid.Row="1" Background="#A691F2">
 			<Border BorderBrush="#A691F2" BorderThickness="10" CornerRadius="20" Background="#FFFF"/>
-			<Border Margin="60" BorderBrush="#A691F2" BorderThickness="5"  CornerRadius="20" Background="#C7BBF2"/>
-
 		</Panel>
 
 	</Grid>

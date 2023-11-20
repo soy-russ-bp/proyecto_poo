@@ -1,7 +1,9 @@
-﻿using ReactiveUI;
+﻿using Arje.Views;
+using Avalonia.Controls.ApplicationLifetimes;
+using ReactiveUI;
 using Bitmap = Avalonia.Media.Imaging.Bitmap;
 
-namespace ARJE.SignPractice.ViewModels
+namespace Arje.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
@@ -45,5 +47,4 @@ namespace ARJE.SignPractice.ViewModels
         }
 
     }
-
 }
