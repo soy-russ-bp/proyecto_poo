@@ -1,24 +1,26 @@
 ﻿using System;
 using ARJE.Utils.Avalonia.OpenCvSharp.Extensions;
-using ARJE.Utils.Video.OpenCv;
+using ARJE.Utils.OpenCvSharp;
+using ARJE.Utils.Video;
 using OpenCvSharp;
 using OpenCvSharp.Internal.Vectors;
 using ReactiveUI;
 using Bitmap = Avalonia.Media.Imaging.Bitmap;
+using Matrix = OpenCvSharp.Mat;
 
 namespace ARJE.SignPractice.ViewModels
 {
-    public sealed class PracticeViewModel : ViewModelBase, IDisposable
+    internal sealed class PracticeViewModel : ViewModelBase, IDisposable
     {
         private readonly VectorOfByte frameEncodeBuffer = new();
-        private readonly Webcam webcam;
+        private readonly IAsyncVideoSource<Matrix> videoSource;
         private Bitmap? frame;
 
-        public PracticeViewModel(Webcam webcam)
+        public PracticeViewModel(IAsyncVideoSource<Matrix> videoSource)
         {
-            this.webcam = webcam;
-            webcam.StartGrab();
-            webcam.OnFrameGrabbed += this.OnFrameGrabbed;
+            this.videoSource = videoSource;
+            videoSource.StartGrab(AsyncGrabConfig.Default);
+            videoSource.OnFrameGrabbed += this.OnFrameGrabbed;
         }
 
         public Bitmap? Frame
@@ -31,15 +33,15 @@ namespace ARJE.SignPractice.ViewModels
             }
         }
 
+        public void Dispose()
+        {
+            this.videoSource.OnFrameGrabbed -= this.OnFrameGrabbed;
+            this.videoSource.StopGrab();
+        }
+
         private void OnFrameGrabbed(Mat frame)
         {
             this.Frame = frame.ToAvaloniaBitmap(buffer: this.frameEncodeBuffer);
-        }
-
-        public void Dispose()
-        {
-            this.webcam.OnFrameGrabbed -= this.OnFrameGrabbed;
-            this.webcam.StopGrab();
         }
     }
 }

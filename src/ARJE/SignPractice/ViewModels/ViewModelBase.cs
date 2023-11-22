@@ -2,7 +2,7 @@
 
 namespace ARJE.SignPractice.ViewModels
 {
-    public class ViewModelBase : ReactiveObject
+    internal class ViewModelBase : ReactiveObject
     {
     }
 }
