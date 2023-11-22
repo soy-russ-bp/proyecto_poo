@@ -1,7 +1,7 @@
 ﻿using System;
 using ARJE.Utils.Avalonia.OpenCvSharp.Extensions;
-using ARJE.Utils.OpenCvSharp;
 using ARJE.Utils.Video;
+using Avalonia.Threading;
 using OpenCvSharp;
 using OpenCvSharp.Internal.Vectors;
 using ReactiveUI;
@@ -12,14 +12,19 @@ namespace ARJE.SignPractice.ViewModels
 {
     internal sealed class PracticeViewModel : ViewModelBase, IDisposable
     {
-        private readonly VectorOfByte frameEncodeBuffer = new();
         private readonly IAsyncVideoSource<Matrix> videoSource;
+
+        private readonly AsyncGrabConfig grabConfig = new(
+            SynchronizationContext: new AvaloniaSynchronizationContext());
+
+        private readonly VectorOfByte frameEncodeBuffer = new();
+
         private Bitmap? frame;
 
         public PracticeViewModel(IAsyncVideoSource<Matrix> videoSource)
         {
             this.videoSource = videoSource;
-            videoSource.StartGrab(AsyncGrabConfig.Default);
+            videoSource.StartGrab(this.grabConfig);
             videoSource.OnFrameGrabbed += this.OnFrameGrabbed;
         }
 

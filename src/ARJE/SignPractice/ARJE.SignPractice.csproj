@@ -12,10 +12,6 @@
     <AvaloniaResource Include="Assets\**" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Remove="Assets\logo.png" />
-  </ItemGroup>
-
 
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="11.0.5" />
@@ -24,6 +20,7 @@
     <PackageReference Include="Avalonia.Fonts.Inter" Version="11.0.5" />
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.5" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.5" />
+    
     <PackageReference Include="OpenCvSharp4" Version="4.6.0.20220608" />
     <PackageReference Include="OpenCvSharp4.Windows" Version="4.6.0.20220608" Condition="$([MSBuild]::IsOsPlatform('Windows'))" />
     <PackageReference Include="OpenCvSharp4.runtime.osx.10.15-x64" Version="4.6.0.20220608" Condition="$([MSBuild]::IsOsPlatform('OSX'))" />

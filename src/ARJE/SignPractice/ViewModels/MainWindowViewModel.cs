@@ -6,10 +6,13 @@ using Matrix = OpenCvSharp.Mat;
 
 namespace ARJE.SignPractice.ViewModels
 {
-    internal class MainWindowViewModel : ViewModelBase
+    internal sealed class MainWindowViewModel : ViewModelBase
     {
-        private readonly IAsyncVideoSource<Matrix> videoSource = new Webcam(outputFlipType: FlipType.Horizontal);
+        private readonly IAsyncVideoSource<Matrix> videoSource =
+            new Webcam(outputFlipType: FlipType.Horizontal);
+
         private ViewModelBase content;
+
         private PracticeViewModel? practiceVM;
 
         public MainWindowViewModel()
