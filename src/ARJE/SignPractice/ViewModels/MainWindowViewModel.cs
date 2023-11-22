@@ -1,12 +1,11 @@
 ﻿using ReactiveUI;
-using Bitmap = Avalonia.Media.Imaging.Bitmap;
 
 namespace ARJE.SignPractice.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
         ViewModelBase content;
-        PracticeViewModel practiceVM;
+        PracticeViewModel? practiceVM;
 
         public MainWindowViewModel()
         {
@@ -18,10 +17,7 @@ namespace ARJE.SignPractice.ViewModels
             get => content;
             private set => this.RaiseAndSetIfChanged(ref content, value);
         }
-        public void SetFrame(Bitmap bm)
-        {
-            practiceVM.SetFrame(bm);
-        }
+
         public void GoToPractice()
         {
             practiceVM = new PracticeViewModel();
@@ -43,7 +39,5 @@ namespace ARJE.SignPractice.ViewModels
         {
             Content = new SelectionViewModel();
         }
-
     }
-
 }

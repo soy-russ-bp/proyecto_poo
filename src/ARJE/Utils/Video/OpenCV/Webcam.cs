@@ -33,7 +33,7 @@ namespace ARJE.Utils.Video.OpenCv
             return this.FrameBuffer;
         }
 
-        public void StartGrab(SynchronizationContext? synchronizationContext)
+        public void StartGrab(SynchronizationContext? synchronizationContext = null)
         {
             if (this.GrabState == GrabState.Paused)
             {
