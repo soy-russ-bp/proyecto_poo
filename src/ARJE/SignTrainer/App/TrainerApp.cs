@@ -6,8 +6,8 @@ using ARJE.SignTrainer.App.MVC.Base.Model;
 using ARJE.SignTrainer.App.MVC.Console.Controller;
 using ARJE.SignTrainer.App.MVC.Console.View;
 using ARJE.Utils.AI.Solutions.Hands;
+using ARJE.Utils.OpenCvSharp;
 using ARJE.Utils.Video;
-using ARJE.Utils.Video.OpenCv;
 using Spectre.Console;
 using Matrix = OpenCvSharp.Mat;
 

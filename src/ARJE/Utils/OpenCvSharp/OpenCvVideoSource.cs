@@ -1,13 +1,13 @@
 ﻿using System;
-using ARJE.Utils.Video.OpenCV;
+using ARJE.Utils.Video;
 using OpenCvSharp;
 using Matrix = OpenCvSharp.Mat;
 
-namespace ARJE.Utils.Video.OpenCv
+namespace ARJE.Utils.OpenCvSharp
 {
-    public abstract class OpenCvCamera : ISyncVideoSource<Matrix>, IAsyncVideoSource<Matrix>
+    public abstract class OpenCvVideoSource : ISyncVideoSource<Matrix>, IAsyncVideoSource<Matrix>
     {
-        public OpenCvCamera(VideoCapture videoCapturer, FlipType outputFlipType = FlipType.None)
+        public OpenCvVideoSource(VideoCapture videoCapturer, FlipType outputFlipType = FlipType.None)
         {
             this.VideoCapturer = videoCapturer;
             this.VideoCaptureGrabber = new VideoCaptureGrabber(videoCapturer, outputFlipType, this.FrameBuffer);

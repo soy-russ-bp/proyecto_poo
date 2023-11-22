@@ -1,6 +1,7 @@
-﻿using OpenCvSharp;
+﻿using ARJE.Utils.Video;
+using OpenCvSharp;
 
-namespace ARJE.Utils.Video.OpenCV
+namespace ARJE.Utils.OpenCvSharp
 {
     public static class FlipConverter
     {

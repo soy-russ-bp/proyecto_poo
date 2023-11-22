@@ -2,10 +2,11 @@
 using System.Threading;
 using System.Threading.Tasks;
 using ARJE.Utils.Threading;
+using ARJE.Utils.Video;
 using OpenCvSharp;
 using Matrix = OpenCvSharp.Mat;
 
-namespace ARJE.Utils.Video.OpenCV
+namespace ARJE.Utils.OpenCvSharp
 {
     public sealed class VideoCaptureGrabber : IAsyncVideoSource<Matrix>
     {
