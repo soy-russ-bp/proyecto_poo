@@ -1,43 +1,51 @@
-﻿using ReactiveUI;
+﻿using System;
+using ARJE.Utils.Video;
+using ARJE.Utils.Video.OpenCv;
+using ReactiveUI;
 
 namespace ARJE.SignPractice.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        ViewModelBase content;
-        PracticeViewModel? practiceVM;
+        private ViewModelBase content;
+        private PracticeViewModel? practiceVM;
+        private readonly Webcam webcam = new(outputFlipType: FlipType.Horizontal);
 
         public MainWindowViewModel()
         {
-            content = new HomeViewModel();
+            this.content = new HomeViewModel();
         }
 
         public ViewModelBase Content
         {
-            get => content;
-            private set => this.RaiseAndSetIfChanged(ref content, value);
+            get => this.content;
+            private set
+            {
+                (this.content as IDisposable)?.Dispose();
+                this.RaiseAndSetIfChanged(ref this.content, value);
+            }
         }
 
         public void GoToPractice()
         {
-            practiceVM = new PracticeViewModel();
-            Content = practiceVM;
+            this.practiceVM = new PracticeViewModel(webcam);
+            this.Content = this.practiceVM;
         }
         public void GoToCreate()
         {
-            Content = new CreationViewModel();
+            this.Content = new CreationViewModel();
         }
         public void GoToImport()
         {
-            Content = new ImportViewModel();
+            this.Content = new ImportViewModel();
         }
         public void GoToHome()
         {
-            Content = new HomeViewModel();
+            this.Content = new HomeViewModel();
         }
         public void GoToSelect()
         {
-            Content = new SelectionViewModel();
+            this.Content = new SelectionViewModel();
         }
     }
 }
