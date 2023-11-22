@@ -33,11 +33,6 @@ namespace ARJE.SignPractice.ViewModels
             this.Content = this.practiceVM;
         }
 
-        public void GoToCreate()
-        {
-            this.Content = new CreationViewModel();
-        }
-
         public void GoToImport()
         {
             this.Content = new ImportViewModel();
