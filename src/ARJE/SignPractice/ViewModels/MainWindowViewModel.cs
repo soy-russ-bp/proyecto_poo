@@ -1,10 +1,15 @@
-﻿using ReactiveUI;
+﻿using System;
+using ARJE.Utils.Video;
+using ARJE.Utils.Video.OpenCv;
+using ReactiveUI;
 
 namespace ARJE.SignPractice.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
         private ViewModelBase content;
+        private PracticeViewModel? practiceVM;
+        private readonly Webcam webcam = new(outputFlipType: FlipType.Horizontal);
 
         public MainWindowViewModel()
         {
@@ -14,16 +19,21 @@ namespace ARJE.SignPractice.ViewModels
         public ViewModelBase Content
         {
             get => this.content;
-            private set => this.RaiseAndSetIfChanged(ref this.content, value);
+            private set
+            {
+                (this.content as IDisposable)?.Dispose();
+                this.RaiseAndSetIfChanged(ref this.content, value);
+            }
         }
 
         public void GoToPractice()
         {
-            this.Content = new PracticeViewModel();
+            this.practiceVM = new PracticeViewModel(webcam);
+            this.Content = this.practiceVM;
         }
         public void GoToCreate()
         {
-            this.Content = new PracticeViewModel();
+            this.Content = new CreationViewModel();
         }
         public void GoToImport()
         {
@@ -37,10 +47,5 @@ namespace ARJE.SignPractice.ViewModels
         {
             this.Content = new SelectionViewModel();
         }
-        public void Exit()
-        {
-            //Close App
-        }
-
     }
 }
