@@ -8,6 +8,7 @@ using ARJE.Utils.AI.Configuration;
 using ARJE.Utils.AI.Solutions.Hands;
 using ARJE.Utils.Spectre.Console;
 using ARJE.Utils.Threading;
+using ARJE.Utils.Video;
 using EnumsNET;
 using Spectre.Console;
 using Matrix = OpenCvSharp.Mat;
@@ -34,7 +35,7 @@ namespace ARJE.SignTrainer.App.MVC.Console.Controller
         public override void Run()
         {
             var syncCtx = new SingleThreadSynchronizationContext();
-            this.Model.VideoSource.StartGrab(syncCtx);
+            this.Model.VideoSource.StartGrab(new AsyncGrabConfig(SynchronizationContext: syncCtx));
             this.Model.VideoSource.OnFrameGrabbed += this.OnFrameGrabbed;
             Task.Run(this.RunUI);
             syncCtx.RunOnCurrentThread();
@@ -91,7 +92,13 @@ namespace ARJE.SignTrainer.App.MVC.Console.Controller
         {
             OnDiskModelTrainingConfigCollection configCollection = this.Model.ModelTrainingConfigCollection;
             configCollection.Update();
-            IEnumerable<IModelTrainingConfig<IModelConfig>> configs = configCollection.Configs;
+            IReadOnlyCollection<IModelTrainingConfig<IModelConfig>> configs = configCollection.Configs;
+            if (configs.Count == 0)
+            {
+                this.View.DisplayErrorMsg("No imported model.");
+                return;
+            }
+
             IModelTrainingConfig<IModelConfig> selectedModel = this.View.SelectionPrompt("Models:", configs, m => m.Title);
         }
 

@@ -5,7 +5,7 @@ using System.Threading;
 using ARJE.SignTrainer.App.MVC.Base.View;
 using ARJE.Utils.AI;
 using ARJE.Utils.AI.Solutions.Hands;
-using ARJE.Utils.Console;
+using ARJE.Utils.System;
 using OpenCvSharp;
 using Spectre.Console;
 using Matrix = OpenCvSharp.Mat;

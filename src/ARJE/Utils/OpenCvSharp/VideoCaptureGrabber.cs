@@ -1,39 +1,44 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using ARJE.Utils.Threading;
+using ARJE.Utils.Video;
 using OpenCvSharp;
 using Matrix = OpenCvSharp.Mat;
 
-namespace ARJE.Utils.Video.OpenCv
+namespace ARJE.Utils.OpenCvSharp
 {
-    public sealed class Webcam : OpenCvCamera, ISyncVideoSource<Matrix>, IAsyncVideoSource<Matrix>
+    public sealed class VideoCaptureGrabber : IAsyncVideoSource<Matrix>
     {
-        public Webcam(int camIndex = 0, FlipType outputFlipType = FlipType.None)
+        public VideoCaptureGrabber(VideoCapture videoCapturer, FlipType outputFlipType = FlipType.None, Matrix? frameBuffer = null)
         {
-            this.VideoCapturer = new VideoCapture(camIndex);
+            ArgumentNullException.ThrowIfNull(videoCapturer);
+
+            this.VideoCapturer = videoCapturer;
             this.OutputFlipType = outputFlipType;
+            this.DisposeFrameBuffer = frameBuffer is null;
+            this.FrameBuffer = frameBuffer ?? new();
         }
 
         public event IAsyncVideoSource<Matrix>.FrameGrabbedHandler? OnFrameGrabbed;
 
+        public VideoCapture VideoCapturer { get; }
+
+        public bool IsOpen => this.VideoCapturer.IsOpened();
+
         public GrabState GrabState { get; private set; } = GrabState.Stopped;
 
-        protected override VideoCapture VideoCapturer { get; }
+        public FlipType OutputFlipType { get; set; }
 
-        private Matrix FrameBuffer { get; } = new();
+        private bool DisposeFrameBuffer { get; }
+
+        private Matrix FrameBuffer { get; }
 
         private AutoResetEvent PauseEvent { get; } = new(initialState: false);
 
         private Task? GrabTask { get; set; }
 
-        public Matrix Read()
-        {
-            this.VideoCapturer.Read(this.FrameBuffer);
-            this.FlipIfRequired(this.FrameBuffer);
-            return this.FrameBuffer;
-        }
-
-        public void StartGrab(SynchronizationContext? synchronizationContext)
+        public void StartGrab(AsyncGrabConfig grabConfig)
         {
             if (this.GrabState == GrabState.Paused)
             {
@@ -45,7 +50,7 @@ namespace ARJE.Utils.Video.OpenCv
             if (this.GrabState.IsStop())
             {
                 this.GrabState = GrabState.Running;
-                this.GrabTask = Task.Factory.StartNew(() => this.GrabFramesTask(synchronizationContext), CancellationToken.None, TaskCreationOptions.LongRunning, TaskScheduler.Default);
+                this.GrabTask = Task.Factory.StartNew(() => this.GrabFramesTask(grabConfig), CancellationToken.None, TaskCreationOptions.LongRunning, TaskScheduler.Default);
             }
         }
 
@@ -77,15 +82,18 @@ namespace ARJE.Utils.Video.OpenCv
             }
         }
 
-        public override void Dispose()
+        public void Dispose()
         {
             this.StopGrab();
-            this.FrameBuffer.Dispose();
-            base.Dispose();
+            if (this.DisposeFrameBuffer)
+            {
+                this.FrameBuffer.Dispose();
+            }
         }
 
-        private Task GrabFramesTask(SynchronizationContext? synchronizationContext)
+        private Task GrabFramesTask(AsyncGrabConfig grabConfig)
         {
+            var fpsSync = new FpsSync(grabConfig.FpsCap);
             while (this.GrabState is GrabState.Running or GrabState.Paused)
             {
                 if (this.GrabState == GrabState.Paused)
@@ -94,11 +102,17 @@ namespace ARJE.Utils.Video.OpenCv
                     continue;
                 }
 
+                if (!fpsSync.ShouldGrab())
+                {
+                    continue;
+                }
+
                 bool grabbed = !this.VideoCapturer.IsDisposed && this.VideoCapturer.Grab();
 
                 if (grabbed)
                 {
-                    this.NotifyFrameGrabbed(synchronizationContext);
+                    fpsSync.NotifyGrabbed();
+                    this.NotifyFrameGrabbed(grabConfig.SynchronizationContext);
                 }
                 else
                 {
@@ -116,6 +130,14 @@ namespace ARJE.Utils.Video.OpenCv
             this.VideoCapturer.Retrieve(this.FrameBuffer);
             this.FlipIfRequired(this.FrameBuffer);
             synchronizationContext.SendInCtxOrCurrent(this, webcam => webcam.OnFrameGrabbed?.Invoke(webcam.FrameBuffer));
+        }
+
+        private void FlipIfRequired(Matrix buffer)
+        {
+            if (FlipConverter.TryConvertToFlipMode(this.OutputFlipType, out FlipMode flipMode))
+            {
+                Cv2.Flip(buffer, buffer, flipMode);
+            }
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace ARJE.SignPractice.ViewModels
 {
-    internal class SelectionViewModel : ViewModelBase
+    internal sealed class SelectionViewModel : ViewModelBase
     {
     }
 }

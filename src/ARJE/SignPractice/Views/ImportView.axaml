@@ -20,6 +20,8 @@
 		<!-- Main Area-->
 		<Panel Grid.Row="1" Background="#A691F2">
 			<Border BorderBrush="#A691F2" BorderThickness="10" CornerRadius="20" Background="#FFFF"/>
+			<Border Margin="60" BorderBrush="#A691F2" BorderThickness="5"  CornerRadius="20" Background="#C7BBF2"/>
+
 		</Panel>
 
 	</Grid>
