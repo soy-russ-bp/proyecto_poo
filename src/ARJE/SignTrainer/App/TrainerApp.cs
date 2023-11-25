@@ -38,7 +38,7 @@ namespace ARJE.SignTrainer.App
             DirectoryInfo modelsDir = Directory.CreateDirectory("Models");
             var modelTrainingConfigCollection = new OnDiskModelTrainingConfigCollection(modelsDir);
             var model = new TrainerModel(videoSource, detectionModel, modelTrainingConfigCollection).Validate();
-            var view = new ConsoleTrainerView();
+            var view = new ConsoleTrainerView(model.SyncCtx);
             var controller = new ConsoleTrainerController(model, view);
             detectionModelTask.Wait();
 

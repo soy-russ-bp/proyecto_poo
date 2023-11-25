@@ -1,13 +1,15 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using ARJE.Utils.AI.Configuration;
-using ARJE.Utils.IO.Extensions;
 using ARJE.Utils.Json;
 
 namespace ARJE.SignTrainer.App.MVC.Base.Model
 {
     public class OnDiskModelTrainingConfigCollection : ModelTrainingConfigCollection
     {
+        private const string FileConfigSuffix = "-config.json";
+
         public OnDiskModelTrainingConfigCollection(DirectoryInfo saveDirectory)
         {
             ArgumentNullException.ThrowIfNull(saveDirectory);
@@ -20,35 +22,49 @@ namespace ARJE.SignTrainer.App.MVC.Base.Model
         public override void Add(IModelTrainingConfig<IModelConfig> config)
         {
             base.Add(config);
-            string configPath = this.GetConfigPath(config);
+            string configPath = this.CreateConfigPath(config);
             JsonWrite.ToFile(configPath, config, indented: true);
         }
 
         public override void Remove(string configTitle)
         {
             base.Remove(configTitle);
-            string configPath = this.GetConfigPath(configTitle);
-            File.Delete(configPath);
+            string configDirectoryPath = this.GetConfigDirectoryPath(configTitle);
+            Directory.Delete(configDirectoryPath, recursive: true);
         }
 
         public void Update()
         {
             this.Clear();
-            foreach (FileInfo file in this.SaveDirectory.EnumerateFilesWithExtension("json"))
+            foreach (DirectoryInfo directory in this.SaveDirectory.EnumerateDirectories())
             {
+                FileInfo file = directory.EnumerateFiles().Single(file => file.Name.EndsWith(FileConfigSuffix));
                 var config = JsonRead.FromFile<ModelTrainingConfig<IModelConfig>>(file.FullName);
                 this.Add(config);
             }
         }
 
-        private string GetConfigPath(IModelTrainingConfig<IModelConfig> config)
+        public string GetFullPathForFile(IModelTrainingConfig<IModelConfig> config, string fileName)
         {
-            return this.GetConfigPath(config.Title);
+            string configDirectoryPath = this.GetConfigDirectoryPath(config.Title);
+            return Path.Join(configDirectoryPath, fileName);
         }
 
-        private string GetConfigPath(string configTitle)
+        private string CreateConfigPath(IModelTrainingConfig<IModelConfig> config)
         {
-            return Path.Join(this.SaveDirectory.FullName, configTitle + ".json");
+            return this.CreateConfigPath(config.Title);
+        }
+
+        private string CreateConfigPath(string configTitle)
+        {
+            string configDirectoryPath = this.GetConfigDirectoryPath(configTitle);
+            Directory.CreateDirectory(configDirectoryPath);
+            return Path.Join(configDirectoryPath, configTitle + FileConfigSuffix);
+        }
+
+        private string GetConfigDirectoryPath(string configTitle)
+        {
+            return Path.Join(this.SaveDirectory.FullName, configTitle);
         }
     }
 }

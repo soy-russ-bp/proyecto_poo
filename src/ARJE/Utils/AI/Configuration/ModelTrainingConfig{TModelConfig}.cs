@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ARJE.Utils.Collections.Extensions;
 using ARJE.Utils.Json;
 using Newtonsoft.Json;
 
@@ -7,7 +8,7 @@ namespace ARJE.Utils.AI.Configuration
 {
     public sealed record ModelTrainingConfig<TModelConfig>(
         string Title,
-        int SampleSize,
+        int SampleCount,
         int SamplesPerSecond,
         IReadOnlyCollection<string> Labels,
         TModelConfig ModelConfig) : IModelTrainingConfig<TModelConfig>
@@ -38,6 +39,16 @@ namespace ARJE.Utils.AI.Configuration
             }
 
             return this with { Title = titleTrim, Validated = true };
+        }
+
+        public string InfoPrint()
+        {
+            return
+                "Title: " + this.Title + "\n" +
+                "Sample count: " + this.SampleCount + "\n" +
+                "Samples per second: " + this.SamplesPerSecond + "\n" +
+                "Labels: " + this.Labels.Dump() + "\n" +
+                "Model config: {\n" + this.ModelConfig.InfoPrint() + "\n}";
         }
     }
 }

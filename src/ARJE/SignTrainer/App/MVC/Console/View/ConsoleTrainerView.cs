@@ -6,6 +6,7 @@ using ARJE.SignTrainer.App.MVC.Base.View;
 using ARJE.Utils.AI;
 using ARJE.Utils.AI.Solutions.Hands;
 using ARJE.Utils.System;
+using ARJE.Utils.Threading;
 using OpenCvSharp;
 using Spectre.Console;
 using Matrix = OpenCvSharp.Mat;
@@ -15,6 +16,15 @@ namespace ARJE.SignTrainer.App.MVC.Console.View
 {
     public sealed class ConsoleTrainerView : BaseTrainerView
     {
+        private const string WinId = nameof(DisplayCollectionState);
+
+        public ConsoleTrainerView(SingleThreadSynchronizationContext syncCtx)
+        {
+            this.SyncCtx = syncCtx;
+        }
+
+        public SingleThreadSynchronizationContext SyncCtx { get; } = new();
+
         public void Clear()
         {
             AnsiConsole.Clear();
@@ -63,6 +73,11 @@ namespace ARJE.SignTrainer.App.MVC.Console.View
             return this.Prompt(textPrompt);
         }
 
+        public bool Confirm(string prompt, bool defaultValue = true)
+        {
+            return AnsiConsole.Confirm(prompt);
+        }
+
         public void DisplayMsg(string message)
         {
             AnsiConsole.WriteLine(message);
@@ -76,15 +91,21 @@ namespace ARJE.SignTrainer.App.MVC.Console.View
             ConsoleUtils.FlushInput();
         }
 
-        public override void DisplayDetections(HandDetectionCollection detections, Matrix frame)
+        public override void DisplayCollectionState(string title, HandDetectionCollection detections, Matrix frame)
         {
             foreach (HandDetection detection in detections)
             {
                 DetectionDrawer.Draw(frame, detection);
             }
 
-            Cv2.ImShow("Video test", frame);
+            Cv2.ImShow(WinId, frame);
+            Cv2.SetWindowTitle(WinId, title);
             Cv2.WaitKey(1);
+        }
+
+        public override void CollectionEnded()
+        {
+            this.SyncCtx.Post(_ => Cv2.DestroyAllWindows(), null);
         }
     }
 }
