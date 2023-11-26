@@ -114,14 +114,34 @@ namespace ARJE.SignTrainer.App.MVC.Console.Controller
             IModelTrainingConfig<IModelConfig> selectedModel = this.View.SelectionPrompt("Models:", configs, m => m.Title);
             this.View.DisplayMsg(selectedModel.InfoPrint());
 
-            var trainingState = new ModelTrainingState(this.Model.ModelTrainingConfigCollection, selectedModel);
+            var trainingState = new ModelTrainingState(configCollection, selectedModel);
             this.DisplaySamplesState(trainingState);
 
-            while (this.View.Confirm("Train"))
+            do
             {
+                if (trainingState.Completed)
+                {
+                    if (this.View.Confirm("Export"))
+                    {
+                        CustomModelCreator.Train(
+                            selectedModel,
+                            trainingState,
+                            configCollection.GetFullPathForFile(selectedModel, $"{selectedModel.Title}-model"));
+                    }
+
+                    this.View.WaitKey("Press any key...");
+                    break;
+                }
+
+                if (!this.View.Confirm("Train"))
+                {
+                    break;
+                }
+
                 this.TrainModel(selectedModel, trainingState);
                 this.DisplaySamplesState(trainingState);
             }
+            while (true);
         }
 
         private void OnCreate()
@@ -152,6 +172,7 @@ namespace ARJE.SignTrainer.App.MVC.Console.Controller
                 this.View.DisplayErrorMsg("Invalid samples, keep your hand in sight.");
             }
 
+            this.Model.VideoSource.OnFrameGrabbed -= this.OnFrameGrabbed;
             this.SelectedLabel = null;
             this.CurrentSamplesCollector = null;
             this.View.CollectionEnded();

@@ -15,6 +15,8 @@ namespace ARJE.Utils.AI.Configuration
 
         public TModelConfig ModelConfig { get; }
 
+        public int LandmarkCount { get; }
+
         public string InfoPrint();
     }
 }

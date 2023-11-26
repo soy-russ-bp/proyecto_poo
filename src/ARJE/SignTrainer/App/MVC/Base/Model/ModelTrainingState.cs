@@ -24,14 +24,21 @@ namespace ARJE.SignTrainer.App.MVC.Base.Model
 
         public IModelTrainingConfig<IModelConfig> TrainingConfig { get; }
 
+        public bool Completed => this.Samples.All(sample => sample.Value.Count == this.TrainingConfig.SampleCount);
+
         private string SamplesFilePath { get; }
 
         private Dictionary<string, List<List<ReadOnlyCollection<Vector3>>>> Samples { get; }
 
+        public List<List<ReadOnlyCollection<Vector3>>> GetSamples(string label)
+        {
+            return this.Samples[label];
+        }
+
         public bool AddSamples<TDetection>(string label, IEnumerable<IDetectionCollection<TDetection>> samples)
             where TDetection : IDetection
         {
-            List<List<ReadOnlyCollection<Vector3>>> labelSamples = this.Samples[label];
+            List<List<ReadOnlyCollection<Vector3>>> labelSamples = this.GetSamples(label);
             List<ReadOnlyCollection<Vector3>> packedSamples = new();
             foreach (IDetectionCollection<TDetection> sample in samples)
             {

@@ -78,6 +78,16 @@ namespace ARJE.SignTrainer.App.MVC.Console.View
             return AnsiConsole.Confirm(prompt);
         }
 
+        public void WaitKey(string? message = null)
+        {
+            if (message != null)
+            {
+                this.DisplayMsg(message);
+            }
+
+            SConsole.ReadKey(true);
+        }
+
         public void DisplayMsg(string message)
         {
             AnsiConsole.WriteLine(message);

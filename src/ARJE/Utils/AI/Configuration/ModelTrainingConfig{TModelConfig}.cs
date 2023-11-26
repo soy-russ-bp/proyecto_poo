@@ -20,6 +20,8 @@ namespace ARJE.Utils.AI.Configuration
         [JsonIgnore]
         public bool Validated { get; private set; }
 
+        public int LandmarkCount => 21;
+
         public ModelTrainingConfig<TModelConfig> Validate()
         {
             if (this.Validated)
