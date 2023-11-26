@@ -78,7 +78,7 @@ namespace ARJE.SignTrainer.App.MVC.Base.Model
             model.Add(new Dense(labels.shape[1], activation: "softmax"));
 
             model.Compile("Adam", "categorical_crossentropy", Metrics);
-            model.Fit(features, labels, epochs: 250);
+            model.Fit(features, labels, epochs: 200);
             model.Save(savePath);
         }
     }

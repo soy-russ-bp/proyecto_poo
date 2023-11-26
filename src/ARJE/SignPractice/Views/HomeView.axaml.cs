@@ -9,6 +9,7 @@ public partial class HomeView : UserControl
     {
         this.InitializeComponent();
     }
+
     private void InitializeComponent()
     {
         AvaloniaXamlLoader.Load(this);

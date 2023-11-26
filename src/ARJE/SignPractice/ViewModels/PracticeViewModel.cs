@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Runtime.Versioning;
+using System.Threading;
 using ARJE.Utils.Avalonia.OpenCvSharp.Extensions;
 using ARJE.Utils.Video;
 using Avalonia.Threading;
-using OpenCvSharp;
 using OpenCvSharp.Internal.Vectors;
 using ReactiveUI;
 using Bitmap = Avalonia.Media.Imaging.Bitmap;
@@ -10,6 +11,8 @@ using Matrix = OpenCvSharp.Mat;
 
 namespace ARJE.SignPractice.ViewModels
 {
+    [SupportedOSPlatform("windows")]
+    [SupportedOSPlatform("macos")]
     internal sealed class PracticeViewModel : ViewModelBase, IDisposable
     {
         private readonly IAsyncVideoSource<Matrix> videoSource;
@@ -19,13 +22,16 @@ namespace ARJE.SignPractice.ViewModels
 
         private readonly VectorOfByte frameEncodeBuffer = new();
 
+        private readonly CustomModel customModel;
+
         private Bitmap? frame;
 
-        public PracticeViewModel(IAsyncVideoSource<Matrix> videoSource)
+        public PracticeViewModel(IAsyncVideoSource<Matrix> videoSource, CustomModel customModel)
         {
             this.videoSource = videoSource;
             videoSource.StartGrab(this.grabConfig);
             videoSource.OnFrameGrabbed += this.OnFrameGrabbed;
+            this.customModel = customModel;
         }
 
         public Bitmap? Frame
@@ -42,11 +48,13 @@ namespace ARJE.SignPractice.ViewModels
         {
             this.videoSource.OnFrameGrabbed -= this.OnFrameGrabbed;
             this.videoSource.StopGrab();
+            this.customModel.Clear();
         }
 
-        private void OnFrameGrabbed(Mat frame)
+        private void OnFrameGrabbed(Matrix frame)
         {
             this.Frame = frame.ToAvaloniaBitmap(buffer: this.frameEncodeBuffer);
+            this.customModel.ProcessFrame(frame);
         }
     }
 }

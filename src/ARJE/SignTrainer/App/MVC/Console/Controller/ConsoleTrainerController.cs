@@ -126,7 +126,7 @@ namespace ARJE.SignTrainer.App.MVC.Console.Controller
                         CustomModelCreator.Train(
                             selectedModel,
                             trainingState,
-                            configCollection.GetFullPathForFile(selectedModel, $"{selectedModel.Title}-model"));
+                            configCollection.GetFullPathForFile(selectedModel, $"{selectedModel.Title}-model.h5"));
                     }
 
                     this.View.WaitKey("Press any key...");

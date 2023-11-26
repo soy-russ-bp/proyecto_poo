@@ -33,6 +33,11 @@ namespace ARJE.Utils.AI.Solutions.Hands
             return this.InternalStartAsync(appInfo);
         }
 
+        public void Start(PythonAppInfo<VenvInfo> appInfo)
+        {
+            this.InternalStart(appInfo);
+        }
+
         public Task StartNoLaunchAsync()
         {
             return this.InternalStartAsync(null);
@@ -51,13 +56,23 @@ namespace ARJE.Utils.AI.Solutions.Hands
 
         private Task InternalStartAsync(PythonAppInfo<VenvInfo>? appInfo)
         {
+            this.LaunchPython(appInfo);
+            return this.Proxy.StartAsync();
+        }
+
+        private void InternalStart(PythonAppInfo<VenvInfo>? appInfo)
+        {
+            this.LaunchPython(appInfo);
+            this.Proxy.Start();
+        }
+
+        private void LaunchPython(PythonAppInfo<VenvInfo>? appInfo)
+        {
             if (appInfo.HasValue)
             {
                 var launcher = new PythonLauncher<VenvInfo>(appInfo.Value);
                 launcher.Run("Python app", $"-pipe_identifier={this.Proxy.PipeIdentifier}");
             }
-
-            return this.Proxy.StartAsync();
         }
 
         private class CustomIdMapper : IIdMapper
