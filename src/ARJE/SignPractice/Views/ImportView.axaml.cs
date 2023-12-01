@@ -46,7 +46,18 @@ namespace ARJE.SignPractice.Views
         {
             var fileNameTextBox = this.FindControl<TextBox>("File_Name");
             if(fileNameTextBox != null){
-                var guardar = selectedFilePath;
+                if(File.Exists(selectedFilePath)){
+                    Directory.CreateDirectory("Models_json");
+                    // Obtener el nombre del archivo seleccionado
+                    string fileName = Path.GetFileName(selectedFilePath);
+
+                    // Combinar la ruta de la carpeta "Models" con el nombre del archivo
+                    string destinationPath = Path.Combine("Models_json", fileName);
+
+                    File.Copy(selectedFilePath, destinationPath);
+                    fileNameTextBox.Text = null;
+                }
+                
             }
         }
     }
