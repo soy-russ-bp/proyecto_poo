@@ -21,15 +21,19 @@
 
   <ItemGroup>
     <PackageReference Include="Enums.NET" Version="4.0.1" />
-    <PackageReference Include="Keras.NET" Version="3.8.5" />
-    <PackageReference Include="OpenCvSharp4" Version="4.6.0.20220608" />
-    <PackageReference Include="OpenCvSharp4.Windows" Version="4.6.0.20220608" Condition="$([MSBuild]::IsOsPlatform('Windows'))" />
-    <PackageReference Include="OpenCvSharp4.runtime.osx.10.15-x64" Version="4.6.0.20220608" Condition="$([MSBuild]::IsOsPlatform('OSX'))" />
-    <PackageReference Include="Spectre.Console" Version="0.47.0" />
-    <PackageReference Include="Spectre.Console.Analyzer" Version="0.47.0">
+    <PackageReference Include="Keras.NET" Version="3.8.5" Condition="$([MSBuild]::IsOsPlatform('Windows'))" />
+    <PackageReference Include="Keras.NET.OSX" Version="3.8.5" Condition="$([MSBuild]::IsOsPlatform('OSX'))" />
+    
+    <PackageReference Include="OpenCvSharp4" Version="[4.6.0.20220608]" />
+    <PackageReference Include="OpenCvSharp4.Windows" Version="[4.6.0.20220608]" Condition="$([MSBuild]::IsOsPlatform('Windows'))" />
+    <PackageReference Include="OpenCvSharp4.runtime.osx.10.15-x64" Version="[4.6.0.20220608]" Condition="$([MSBuild]::IsOsPlatform('OSX'))" />
+    
+    <PackageReference Include="Spectre.Console" Version="0.48.0" />
+    <PackageReference Include="Spectre.Console.Analyzer" Version="0.48.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    
     <PackageReference Include="StyleCop.Analyzers.Unstable" Version="1.2.0.507">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
