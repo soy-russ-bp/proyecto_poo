@@ -4,6 +4,8 @@ namespace ARJE.Utils.AI.Solutions.Hands
 {
     public sealed record HandsModelConfig(int MaxNumHands = 2) : IModelConfig
     {
+        public int LandmarkCount => 21;
+
         public string InfoPrint()
         {
             return "Max num hands: " + this.MaxNumHands;

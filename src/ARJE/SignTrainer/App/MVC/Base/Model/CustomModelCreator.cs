@@ -21,8 +21,8 @@ namespace ARJE.SignTrainer.App.MVC.Base.Model
             Preprocess(trainingConfig, trainingData, out float[] sequences, out int[] labels);
             var featuresShape = new Numpy.Models.Shape(
                 trainingConfig.Labels.Count * trainingConfig.SampleCount,
-                trainingConfig.SampleCount,
-                trainingConfig.LandmarkCount * 3);
+                trainingConfig.SampleLength,
+                trainingConfig.ModelConfig.LandmarkCount * 3);
             NDarray npFeatures = new NDarray<float>(sequences).reshape(featuresShape);
             NDarray npLabels = Util.ToCategorical(labels, dtype: "int32");
             Train(npFeatures, npLabels, savePath);

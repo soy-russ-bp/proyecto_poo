@@ -9,6 +9,7 @@ namespace ARJE.Utils.AI.Configuration
     public sealed record ModelTrainingConfig<TModelConfig>(
         string Title,
         int SampleCount,
+        int SampleLength,
         int SamplesPerSecond,
         IReadOnlyCollection<string> Labels,
         TModelConfig ModelConfig) : IModelTrainingConfig<TModelConfig>
@@ -19,8 +20,6 @@ namespace ARJE.Utils.AI.Configuration
 
         [JsonIgnore]
         public bool Validated { get; private set; }
-
-        public int LandmarkCount => 21;
 
         public ModelTrainingConfig<TModelConfig> Validate()
         {
@@ -48,6 +47,7 @@ namespace ARJE.Utils.AI.Configuration
             return
                 "Title: " + this.Title + "\n" +
                 "Sample count: " + this.SampleCount + "\n" +
+                "Sample length: " + this.SampleLength + "\n" +
                 "Samples per second: " + this.SamplesPerSecond + "\n" +
                 "Labels: " + this.Labels.Dump() + "\n" +
                 "Model config: {\n" + this.ModelConfig.InfoPrint() + "\n}";

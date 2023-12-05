@@ -31,11 +31,12 @@ namespace ARJE.SignTrainer.App.MVC.Console.Controller
         public ModelTrainingConfig<HandsModelConfig> AskForTrainingConfig()
         {
             string title = this.AskForTitle();
-            int sampleCount = this.AskForSampleSize();
+            int sampleCount = this.AskForSampleCount();
+            int sampleLength = this.AskForSampleLength();
             int samplesPerSecond = this.AskForSamplesPerSecond();
             HandsModelConfig handsModelConfig = this.AskForHandsModelConfig();
             List<string> labels = this.AskForLabels();
-            return new ModelTrainingConfig<HandsModelConfig>(title, sampleCount, samplesPerSecond, labels, handsModelConfig).Validate();
+            return new ModelTrainingConfig<HandsModelConfig>(title, sampleCount, sampleLength, samplesPerSecond, labels, handsModelConfig).Validate();
         }
 
         private static SelectionPrompt<HandsModelConfigOption> CreateHandsModelConfigPrompt()
@@ -56,9 +57,14 @@ namespace ARJE.SignTrainer.App.MVC.Console.Controller
             return this.Controller.View.TextPrompt<string>("Title:");
         }
 
-        private int AskForSampleSize()
+        private int AskForSampleCount()
         {
             return this.Controller.View.TextPrompt("Sample count:", 30, input => input is > 0);
+        }
+
+        private int AskForSampleLength()
+        {
+            return this.Controller.View.TextPrompt("Sample length:", 10, input => input is > 0);
         }
 
         private int AskForSamplesPerSecond()

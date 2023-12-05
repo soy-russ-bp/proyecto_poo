@@ -159,7 +159,7 @@ namespace ARJE.SignTrainer.App.MVC.Console.Controller
 
             this.Model.VideoSource.OnFrameGrabbed += this.OnFrameGrabbed;
             SamplesCollector<HandDetectionCollection, HandDetection, Matrix> samplesCollector
-                = new(this.Model.VideoSource, this.Model.Detector, this.Model.SyncCtx, modelConfig.SampleCount, modelConfig.SamplesPerSecond);
+                = new(this.Model.VideoSource, this.Model.Detector, this.Model.SyncCtx, modelConfig.SampleLength, modelConfig.SamplesPerSecond);
             this.CurrentSamplesCollector = samplesCollector;
 
             NotifyUserCollectorStart();
@@ -193,7 +193,7 @@ namespace ARJE.SignTrainer.App.MVC.Console.Controller
             HandDetectionCollection detections = this.Model.Detector.Process(frame);
             this.View.DisplayCollectionState(
                 $"Collecting samples: '{this.SelectedLabel}'" +
-                $"(${this.CurrentSamplesCollector!.CollectedSamplesCount + 1}/{this.CurrentSamplesCollector.SampleCount})",
+                $"(${this.CurrentSamplesCollector!.CollectedSamplesCount + 1}/{this.CurrentSamplesCollector.SampleLength})",
                 detections,
                 frame);
         }

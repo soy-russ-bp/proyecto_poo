@@ -10,13 +10,13 @@ namespace ARJE.Utils.AI
             IAsyncVideoSource<TMatrix> Camera,
             IDetectionModel<TDetectionCollection, TDetection, TMatrix> DetectionModel,
             SynchronizationContext SynchronizationContext,
-            int SampleCount,
+            int SampleLength,
             int SamplesPerSecond,
             int WarmUpFrames = 25)
         where TDetectionCollection : IDetectionCollection<TDetection>
         where TDetection : IDetection
     {
-        private readonly TDetectionCollection[] samples = new TDetectionCollection[SampleCount];
+        private readonly TDetectionCollection[] samples = new TDetectionCollection[SampleLength];
 
         private readonly ManualResetEventSlim samplesReadyEvent = new(initialState: false);
 
@@ -63,7 +63,7 @@ namespace ARJE.Utils.AI
             this.samples[this.CollectedSamplesCount] = detectionCollection;
             this.CollectedSamplesCount++;
 
-            if (this.CollectedSamplesCount == this.SampleCount)
+            if (this.CollectedSamplesCount == this.SampleLength)
             {
                 ReadOnlyCollection<TDetectionCollection> readonlySamples = this.samples.AsReadOnly();
                 this.SamplesResult = readonlySamples;

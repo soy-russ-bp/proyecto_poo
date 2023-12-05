@@ -9,13 +9,13 @@ namespace ARJE.Utils.AI.Configuration
 
         public int SampleCount { get; }
 
+        public int SampleLength { get; }
+
         public int SamplesPerSecond { get; }
 
         public IReadOnlyCollection<string> Labels { get; }
 
         public TModelConfig ModelConfig { get; }
-
-        public int LandmarkCount { get; }
 
         public string InfoPrint();
     }
