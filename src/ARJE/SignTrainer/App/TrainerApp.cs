@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.IO;
+﻿using System.IO;
 using System.Runtime.Versioning;
 using System.Threading.Tasks;
 using ARJE.SignTrainer.App.MVC.Base.Model;
@@ -32,18 +31,14 @@ namespace ARJE.SignTrainer.App
                 AnsiConsole.MarkupLine($"\"[{Color.Orange1}]{detectionModel.PipeIdentifier}[/]\".");
             }
 
-            var stopwatch = Stopwatch.StartNew();
-
             using IAsyncVideoSource<Matrix> videoSource = new Webcam(outputFlipType: FlipType.Horizontal);
             DirectoryInfo modelsDir = Directory.CreateDirectory("Models");
             var modelTrainingConfigCollection = new OnDiskModelTrainingConfigCollection(modelsDir);
+
             var model = new TrainerModel(videoSource, detectionModel, modelTrainingConfigCollection).Validate();
             var view = new ConsoleTrainerView(model.SyncCtx);
             var controller = new ConsoleTrainerController(model, view);
             detectionModelTask.Wait();
-
-            stopwatch.Stop();
-            AnsiConsole.WriteLine($"Init time: {stopwatch.Elapsed.TotalSeconds} sec");
 
             controller.Run();
         }
