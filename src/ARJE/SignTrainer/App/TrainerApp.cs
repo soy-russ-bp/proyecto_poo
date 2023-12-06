@@ -20,8 +20,7 @@ namespace ARJE.SignTrainer.App
         {
             bool launchProxy = AnsiConsole.Confirm("Launch proxy?");
 
-            using var detectionModel = new HandsModel();
-            detectionModel.ModelConfig.MaxNumHands = 1;
+            using var detectionModel = new HandsModel(new HandsModelConfig(MaxNumHands: 1));
 
             Task detectionModelTask = launchProxy
                 ? detectionModel.StartAsync(PythonProxyApp.AppInfo)
