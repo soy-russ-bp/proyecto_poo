@@ -14,7 +14,7 @@ namespace ARJE.SignPractice.ViewModels
         private readonly IAsyncVideoSource<Matrix> videoSource =
             new Webcam(outputFlipType: FlipType.Horizontal);
 
-        private readonly CustomModel customModel = new();
+        private readonly CustomModel customModel = null;
 
         private ViewModelBase content;
 

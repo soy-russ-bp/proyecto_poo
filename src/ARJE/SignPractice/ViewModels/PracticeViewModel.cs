@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.Versioning;
-using System.Threading;
 using ARJE.Utils.Avalonia.OpenCvSharp.Extensions;
 using ARJE.Utils.Video;
 using Avalonia.Threading;
@@ -22,7 +21,7 @@ namespace ARJE.SignPractice.ViewModels
 
         private readonly VectorOfByte frameEncodeBuffer = new();
 
-        private readonly CustomModel customModel;
+        // private readonly CustomModel customModel;
 
         private Bitmap? frame;
 
@@ -31,7 +30,7 @@ namespace ARJE.SignPractice.ViewModels
             this.videoSource = videoSource;
             videoSource.StartGrab(this.grabConfig);
             videoSource.OnFrameGrabbed += this.OnFrameGrabbed;
-            this.customModel = customModel;
+            //this.customModel = customModel;
         }
 
         public Bitmap? Frame
@@ -48,13 +47,13 @@ namespace ARJE.SignPractice.ViewModels
         {
             this.videoSource.OnFrameGrabbed -= this.OnFrameGrabbed;
             this.videoSource.StopGrab();
-            this.customModel.Clear();
+            //this.customModel.Clear();
         }
 
         private void OnFrameGrabbed(Matrix frame)
         {
             this.Frame = frame.ToAvaloniaBitmap(buffer: this.frameEncodeBuffer);
-            this.customModel.ProcessFrame(frame);
+            //this.customModel.ProcessFrame(frame);
         }
     }
 }
