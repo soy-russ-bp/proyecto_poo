@@ -9,7 +9,7 @@ namespace ARJE.SignTrainer.App.MVC.Base.Model
 {
     public sealed record TrainerModel(
             IAsyncVideoSource<Matrix> VideoSource,
-            IDetectionModel<HandDetectionCollection, HandDetection, Matrix> Detector,
+            HandsModel Detector,
             OnDiskModelTrainingConfigCollection ModelTrainingConfigCollection)
     {
         public SingleThreadSynchronizationContext SyncCtx { get; } = new();

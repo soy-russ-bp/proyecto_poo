@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Runtime.Versioning;
 using System.Threading;
 using System.Threading.Tasks;
 using ARJE.SignTrainer.App.MVC.Base.Controller;
@@ -16,6 +17,8 @@ using Matrix = OpenCvSharp.Mat;
 
 namespace ARJE.SignTrainer.App.MVC.Console.Controller
 {
+    [SupportedOSPlatform("windows")]
+    [SupportedOSPlatform("macos")]
     public class ConsoleTrainerController : BaseTrainerController<ConsoleTrainerView>
     {
         public ConsoleTrainerController(TrainerModel model, ConsoleTrainerView view)
@@ -72,6 +75,8 @@ namespace ARJE.SignTrainer.App.MVC.Console.Controller
                 this.View.Clear();
             }
             while (this.UILoop());
+
+            this.Model.SyncCtx.Complete();
         }
 
         private bool UILoop()
@@ -113,6 +118,8 @@ namespace ARJE.SignTrainer.App.MVC.Console.Controller
 
             IModelTrainingConfig<IModelConfig> selectedModel = this.View.SelectionPrompt("Models:", configs, m => m.Title);
             this.View.DisplayMsg(selectedModel.InfoPrint());
+
+            ((HandsModelConfig)selectedModel.ModelConfig).CopyTo(((HandsModel)this.Model.Detector).ModelConfig);
 
             var trainingState = new ModelTrainingState(configCollection, selectedModel);
             this.DisplaySamplesState(trainingState);

@@ -18,14 +18,6 @@ namespace ARJE.SignTrainer.App.MVC.Console.Controller
             this.Controller = controller;
         }
 
-        public enum HandsModelConfigOption
-        {
-            One = 1,
-            Both = 2,
-        }
-
-        public static SelectionPrompt<HandsModelConfigOption> HandsModelConfigPrompt { get; } = CreateHandsModelConfigPrompt();
-
         public ConsoleTrainerController Controller { get; }
 
         public ModelTrainingConfig<HandsModelConfig> AskForTrainingConfig()
@@ -37,19 +29,6 @@ namespace ARJE.SignTrainer.App.MVC.Console.Controller
             HandsModelConfig handsModelConfig = this.AskForHandsModelConfig();
             List<string> labels = this.AskForLabels();
             return new ModelTrainingConfig<HandsModelConfig>(title, sampleCount, sampleLength, samplesPerSecond, labels, handsModelConfig).Validate();
-        }
-
-        private static SelectionPrompt<HandsModelConfigOption> CreateHandsModelConfigPrompt()
-        {
-            var prompt = new SelectionPrompt<HandsModelConfigOption>()
-            {
-                Title = "Hands model config:",
-                WrapAround = true,
-            };
-
-            prompt.AddEnumChoices();
-
-            return prompt;
         }
 
         private string AskForTitle()
@@ -74,9 +53,7 @@ namespace ARJE.SignTrainer.App.MVC.Console.Controller
 
         private HandsModelConfig AskForHandsModelConfig()
         {
-            HandsModelConfigOption modelConfigOption = this.Controller.View.Prompt(HandsModelConfigPrompt);
-            this.Controller.View.DisplayMsg($"{HandsModelConfigPrompt.Title} {modelConfigOption}");
-            return new HandsModelConfig(MaxNumHands: (int)modelConfigOption);
+            return new HandsModelConfig(MaxNumHands: 1);
         }
 
         private List<string> AskForLabels()

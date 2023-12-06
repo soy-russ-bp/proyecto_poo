@@ -16,13 +16,12 @@ namespace ARJE.Utils.AI.Solutions.Hands
     [SupportedOSPlatform("macos")]
     public sealed class HandsModel : IDetectionModel<HandDetectionCollection, HandDetection, Matrix>, IDisposable
     {
-        public HandsModel(HandsModelConfig modelConfig)
+        public HandsModel()
         {
-            this.ModelConfig = modelConfig;
             this.Proxy = new PythonProxy("SignTrainer", new CustomIdMapper());
         }
 
-        public HandsModelConfig ModelConfig { get; }
+        public HandsModelConfig ModelConfig { get; } = new HandsModelConfig();
 
         public string PipeIdentifier => this.Proxy.PipeIdentifier;
 
