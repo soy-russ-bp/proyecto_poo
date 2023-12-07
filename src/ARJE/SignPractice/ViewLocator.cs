@@ -1,5 +1,5 @@
 using System;
-using ARJE.SignPractice.ViewModels;
+using ARJE.Utils.Avalonia.ReactiveUI.MVC.ViewModels;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 

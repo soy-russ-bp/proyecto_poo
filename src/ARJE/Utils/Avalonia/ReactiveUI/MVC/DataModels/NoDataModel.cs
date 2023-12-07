@@ -1,4 +1,4 @@
-﻿namespace ARJE.SignPractice.DataModels
+﻿namespace ARJE.Utils.Avalonia.ReactiveUI.MVC.DataModels
 {
     public sealed record NoDataModel : DataModelBase
     {

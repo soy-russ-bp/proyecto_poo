@@ -1,7 +1,8 @@
-﻿using ARJE.SignPractice.ViewModels;
+﻿using System;
+using ARJE.Utils.Avalonia.ReactiveUI.MVC.ViewModels;
 using Avalonia.Controls;
 
-namespace ARJE.SignPractice.Views
+namespace ARJE.Utils.Avalonia.ReactiveUI.MVC.Views
 {
     public abstract class ViewBase : UserControl
     {
@@ -13,7 +14,7 @@ namespace ARJE.SignPractice.Views
 
         protected abstract void OnInitializeComponent();
 
-        private void OnDataContextChanged(object? sender, System.EventArgs e)
+        private void OnDataContextChanged(object? sender, EventArgs e)
         {
             if (this.DataContext == null)
             {

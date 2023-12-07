@@ -1,7 +1,9 @@
-﻿using System.Runtime.Versioning;
+﻿using System;
+using System.Runtime.Versioning;
 using ARJE.SignPractice.Controllers;
 using ARJE.SignPractice.DataModels;
-using ARJE.SignPractice.Views;
+using ARJE.Utils.Avalonia.ReactiveUI.MVC.ViewModels;
+using ARJE.Utils.Avalonia.ReactiveUI.MVC.Views;
 using ARJE.Utils.OpenCvSharp;
 using ARJE.Utils.Video;
 using ReactiveUI;
@@ -18,6 +20,8 @@ namespace ARJE.SignPractice.ViewModels
 
         private readonly CustomModel customModel = null;
 
+        private IDisposable? controller;
+
         private IViewModel<ViewBase>? content;
 
         public MainWindowViewModel()
@@ -30,7 +34,7 @@ namespace ARJE.SignPractice.ViewModels
             get => this.content;
             private set
             {
-                this.content?.Dispose();
+                this.controller?.Dispose();
                 this.content = value;
                 this.RaisePropertyChanged();
             }
@@ -57,9 +61,10 @@ namespace ARJE.SignPractice.ViewModels
             new SelectViewController().Run(this);
         }
 
-        void IViewDisplay.SetContent(IViewModel<ViewBase> content)
+        void IViewDisplay.SetContent(IViewModel<ViewBase> content, IDisposable controller)
         {
             this.Content = content;
+            this.controller = controller;
         }
     }
 }

@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="11.0.5" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.5" />
 
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 

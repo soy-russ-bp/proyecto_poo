@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ARJE.SignPractice.DataModels
+namespace ARJE.Utils.Avalonia.ReactiveUI.MVC.DataModels
 {
     public abstract record DataModelBase : IDisposable
     {
