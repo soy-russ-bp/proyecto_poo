@@ -31,6 +31,7 @@ dotnet_diagnostic.SA1640.severity = silent
 dotnet_diagnostic.SA1641.severity = silent
 csharp_style_allow_embedded_statements_on_same_line_experimental = false:silent
 dotnet_diagnostic.SA1600.severity = silent
+dotnet_diagnostic.SA1601.severity = silent
 dotnet_diagnostic.SA1602.severity = silent
 dotnet_diagnostic.IDE0028.severity = silent
 dotnet_diagnostic.IDE0290.severity = silent
@@ -88,3 +89,7 @@ dotnet_naming_style.pascal_case.required_prefix =
 dotnet_naming_style.pascal_case.required_suffix = 
 dotnet_naming_style.pascal_case.word_separator = 
 dotnet_naming_style.pascal_case.capitalization = pascal_case
+
+# Code quality
+
+dotnet_code_quality.CA1826.exclude_ordefault_methods = true

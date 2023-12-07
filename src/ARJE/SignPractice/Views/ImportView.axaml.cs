@@ -1,64 +1,64 @@
-using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Avalonia.Controls;
-using Avalonia.Media;
+using Avalonia.Interactivity;
+using Avalonia.Platform.Storage;
 
 namespace ARJE.SignPractice.Views
 {
     public partial class ImportView : UserControl
     {
-        String selectedFilePath;
         public ImportView()
         {
             this.InitializeComponent();
         }
 
-        private async void MyButtonClick(object sender, Avalonia.Interactivity.RoutedEventArgs e)
+        private static FilePickerFileType ArjeModelsFilePicker { get; } = new("ARJE Models")
         {
-            var dlg = new OpenFileDialog();
-            dlg.Filters.Add(new FileDialogFilter() { Name = "JSON Files", Extensions = { "json" } });
-            dlg.Filters.Add(new FileDialogFilter() { Name = "All Files", Extensions = { "*" } });
-            dlg.AllowMultiple = false;
+            Patterns = new[] { "*.arje" },
+        };
 
-            // Obtén la ventana principal de tu aplicación (ajusta esto según la estructura de tu aplicación)
-            var mainWindow = (MainWindow)this.VisualRoot;
+        private static FilePickerOpenOptions FilePickerOptions { get; } = new()
+        {
+            Title = "Open Model File",
+            AllowMultiple = false,
+            FileTypeFilter = new[] { ArjeModelsFilePicker },
+        };
 
-            // Asegúrate de que mainWindow no sea nulo antes de pasarla a ShowAsync
-            if (mainWindow != null)
+        private async void OnSelectBtnClick(object sender, RoutedEventArgs e)
+        {
+            var topLevel = TopLevel.GetTopLevel(this)!;
+            IReadOnlyList<IStorageFile> selectedFiles = await topLevel.StorageProvider.OpenFilePickerAsync(FilePickerOptions);
+
+            string? pathToFile = selectedFiles.FirstOrDefault()?.Path.LocalPath;
+
+            if (pathToFile == null)
             {
-                var selectedFiles = await dlg.ShowAsync(mainWindow);
-
-                // Si el usuario seleccionó al menos un archivo
-                if (selectedFiles != null && selectedFiles.Length > 0)
-                {
-                    // Obtener la ruta del archivo seleccionado
-                    selectedFilePath = selectedFiles[0];
-
-                    // Hacer algo con la ruta del archivo, como guardarlo en la memoria de tu programa
-                    // Puedes asignar la ruta a tu TextBox o realizar otras operaciones según tus necesidades
-                    var fileNameTextBox = this.FindControl<TextBox>("File_Name");
-                    fileNameTextBox.Text = selectedFilePath;
-                 }
+                return;
             }
+
+            this.fileNameTextBox.Text = pathToFile;
         }
 
-        private async void SaveInMemoryApp(object sender, Avalonia.Interactivity.RoutedEventArgs e)
+        private void SaveInAppStorage(object sender, RoutedEventArgs e)
         {
-            var fileNameTextBox = this.FindControl<TextBox>("File_Name");
-            if(fileNameTextBox != null){
-                if(File.Exists(selectedFilePath)){
-                    Directory.CreateDirectory("Models_json");
-                    // Obtener el nombre del archivo seleccionado
-                    string fileName = Path.GetFileName(selectedFilePath);
-
-                    // Combinar la ruta de la carpeta "Models" con el nombre del archivo
-                    string destinationPath = Path.Combine("Models_json", fileName);
-
-                    File.Copy(selectedFilePath, destinationPath);
-                    fileNameTextBox.Text = null;
-                }
-                
+            string? pathToFile = this.fileNameTextBox.Text;
+            if (!File.Exists(pathToFile))
+            {
+                return;
             }
+
+            string modelsDir = Directory.CreateDirectory("Models").FullName;
+            string fileName = Path.GetFileName(pathToFile);
+            string destinationPath = Path.Combine(modelsDir, fileName);
+
+            if (!File.Exists(destinationPath))
+            {
+                File.Copy(pathToFile, destinationPath);
+            }
+
+            this.fileNameTextBox.Clear();
         }
     }
 }
