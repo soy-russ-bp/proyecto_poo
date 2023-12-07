@@ -16,9 +16,9 @@ namespace ARJE.Utils.AI.Solutions.Hands
     [SupportedOSPlatform("macos")]
     public sealed class HandsModel : IDetectionModel<HandDetectionCollection, HandDetection, Matrix>, IDisposable
     {
-        public HandsModel(HandsModelConfig modelConfig)
+        public HandsModel(HandsModelConfig? config = null)
         {
-            this.ModelConfig = modelConfig;
+            this.ModelConfig = config ?? new HandsModelConfig();
             this.Proxy = new PythonProxy("SignTrainer", new CustomIdMapper());
         }
 
@@ -31,6 +31,11 @@ namespace ARJE.Utils.AI.Solutions.Hands
         public Task StartAsync(PythonAppInfo<VenvInfo> appInfo)
         {
             return this.InternalStartAsync(appInfo);
+        }
+
+        public void Start(PythonAppInfo<VenvInfo> appInfo)
+        {
+            this.InternalStart(appInfo);
         }
 
         public Task StartNoLaunchAsync()
@@ -51,13 +56,23 @@ namespace ARJE.Utils.AI.Solutions.Hands
 
         private Task InternalStartAsync(PythonAppInfo<VenvInfo>? appInfo)
         {
+            this.LaunchPython(appInfo);
+            return this.Proxy.StartAsync();
+        }
+
+        private void InternalStart(PythonAppInfo<VenvInfo>? appInfo)
+        {
+            this.LaunchPython(appInfo);
+            this.Proxy.Start();
+        }
+
+        private void LaunchPython(PythonAppInfo<VenvInfo>? appInfo)
+        {
             if (appInfo.HasValue)
             {
                 var launcher = new PythonLauncher<VenvInfo>(appInfo.Value);
                 launcher.Run("Python app", $"-pipe_identifier={this.Proxy.PipeIdentifier}");
             }
-
-            return this.Proxy.StartAsync();
         }
 
         private class CustomIdMapper : IIdMapper

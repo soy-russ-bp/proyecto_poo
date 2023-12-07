@@ -9,6 +9,7 @@ namespace ARJE.SignPractice.Views
         {
             this.InitializeComponent();
         }
+
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);

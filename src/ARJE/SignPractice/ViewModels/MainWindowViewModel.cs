@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Versioning;
 using ARJE.Utils.OpenCvSharp;
 using ARJE.Utils.Video;
 using ReactiveUI;
@@ -6,10 +7,14 @@ using Matrix = OpenCvSharp.Mat;
 
 namespace ARJE.SignPractice.ViewModels
 {
+    [SupportedOSPlatform("windows")]
+    [SupportedOSPlatform("macos")]
     internal sealed class MainWindowViewModel : ViewModelBase
     {
         private readonly IAsyncVideoSource<Matrix> videoSource =
             new Webcam(outputFlipType: FlipType.Horizontal);
+
+        private readonly CustomModel customModel = null;
 
         private ViewModelBase content;
 
@@ -32,7 +37,7 @@ namespace ARJE.SignPractice.ViewModels
 
         public void GoToPractice()
         {
-            this.practiceVM = new PracticeViewModel(this.videoSource);
+            this.practiceVM = new PracticeViewModel(this.videoSource, this.customModel);
             this.Content = this.practiceVM;
         }
 

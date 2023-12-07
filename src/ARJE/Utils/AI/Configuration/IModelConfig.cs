@@ -2,5 +2,8 @@
 {
     public interface IModelConfig
     {
+        public int LandmarkCount { get; }
+
+        public string InfoPrint();
     }
 }

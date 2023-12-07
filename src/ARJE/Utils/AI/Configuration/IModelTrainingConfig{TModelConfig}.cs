@@ -7,12 +7,16 @@ namespace ARJE.Utils.AI.Configuration
     {
         public string Title { get; }
 
-        public int SampleSize { get; }
+        public int SampleCount { get; }
+
+        public int SampleLength { get; }
 
         public int SamplesPerSecond { get; }
 
         public IReadOnlyCollection<string> Labels { get; }
 
         public TModelConfig ModelConfig { get; }
+
+        public string InfoPrint();
     }
 }

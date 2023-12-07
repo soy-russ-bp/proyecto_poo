@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ARJE.Utils.Python.Proxy.Packets
 {
-    public sealed class PacketWriter : IDisposable
+    public sealed class PacketWriter
     {
         public PacketWriter(Stream pipeStream)
             : this(new BinaryWriter(pipeStream, Encoding.UTF8, leaveOpen: true))
@@ -19,11 +19,6 @@ namespace ARJE.Utils.Python.Proxy.Packets
         }
 
         private BinaryWriter PipeWriter { get; }
-
-        public void Dispose()
-        {
-            this.PipeWriter.Dispose();
-        }
 
         public void WriteObject<TPacket>(TPacket packet)
             where TPacket : IOutboundProxyPacket
