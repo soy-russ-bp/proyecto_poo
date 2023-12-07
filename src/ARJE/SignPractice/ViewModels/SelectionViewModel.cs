@@ -1,6 +1,13 @@
-﻿namespace ARJE.SignPractice.ViewModels
+﻿using ARJE.SignPractice.DataModels;
+using ARJE.SignPractice.Views;
+
+namespace ARJE.SignPractice.ViewModels
 {
-    internal sealed class SelectionViewModel : ViewModelBase
+    public sealed class SelectionViewModel : ViewModelBase<NoDataModel, SelectionView>
     {
+        public SelectionViewModel()
+            : base(NoDataModel.None)
+        {
+        }
     }
 }

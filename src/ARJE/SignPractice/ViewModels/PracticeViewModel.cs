@@ -1,5 +1,5 @@
-﻿using System;
-using System.Runtime.Versioning;
+﻿using ARJE.SignPractice.DataModels;
+using ARJE.SignPractice.Views;
 using ARJE.Utils.Avalonia.OpenCvSharp.Extensions;
 using ARJE.Utils.Video;
 using Avalonia.Threading;
@@ -10,12 +10,8 @@ using Matrix = OpenCvSharp.Mat;
 
 namespace ARJE.SignPractice.ViewModels
 {
-    [SupportedOSPlatform("windows")]
-    [SupportedOSPlatform("macos")]
-    internal sealed class PracticeViewModel : ViewModelBase, IDisposable
+    public sealed class PracticeViewModel : ViewModelBase<PracticeDataModel, PracticeView>
     {
-        private readonly IAsyncVideoSource<Matrix> videoSource;
-
         private readonly AsyncGrabConfig grabConfig = new(
             SynchronizationContext: new AvaloniaSynchronizationContext());
 
@@ -25,12 +21,11 @@ namespace ARJE.SignPractice.ViewModels
 
         private Bitmap? frame;
 
-        public PracticeViewModel(IAsyncVideoSource<Matrix> videoSource, CustomModel customModel)
+        public PracticeViewModel(PracticeDataModel dataModel)
+            : base(dataModel)
         {
-            this.videoSource = videoSource;
-            videoSource.StartGrab(this.grabConfig);
-            videoSource.OnFrameGrabbed += this.OnFrameGrabbed;
-            //this.customModel = customModel;
+            dataModel.VideoSource.StartGrab(this.grabConfig);
+            dataModel.VideoSource.OnFrameGrabbed += this.OnFrameGrabbed;
         }
 
         public Bitmap? Frame
@@ -43,11 +38,11 @@ namespace ARJE.SignPractice.ViewModels
             }
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
-            this.videoSource.OnFrameGrabbed -= this.OnFrameGrabbed;
-            this.videoSource.StopGrab();
-            //this.customModel.Clear();
+            this.DataModel.VideoSource.OnFrameGrabbed -= this.OnFrameGrabbed;
+            this.DataModel.VideoSource.StopGrab();
+            //this.DataModel.CustomModel.Clear();
         }
 
         private void OnFrameGrabbed(Matrix frame)

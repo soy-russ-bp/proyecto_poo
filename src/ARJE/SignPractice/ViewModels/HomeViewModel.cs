@@ -1,6 +1,13 @@
-﻿namespace ARJE.SignPractice.ViewModels
+﻿using ARJE.SignPractice.DataModels;
+using ARJE.SignPractice.Views;
+
+namespace ARJE.SignPractice.ViewModels
 {
-    internal class HomeViewModel : ViewModelBase
+    public class HomeViewModel : ViewModelBase<NoDataModel, HomeView>
     {
+        public HomeViewModel()
+            : base(NoDataModel.None)
+        {
+        }
     }
 }

@@ -7,12 +7,9 @@ using Avalonia.Platform.Storage;
 
 namespace ARJE.SignPractice.Views
 {
-    public partial class ImportView : UserControl
+    public sealed partial class ImportView : ViewBase
     {
-        public ImportView()
-        {
-            this.InitializeComponent();
-        }
+        protected override void OnInitializeComponent() => this.InitializeComponent();
 
         private static FilePickerFileType ArjeModelsFilePicker { get; } = new("ARJE Models")
         {

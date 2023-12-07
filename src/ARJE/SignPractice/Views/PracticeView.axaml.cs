@@ -1,17 +1,6 @@
-using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
-
 namespace ARJE.SignPractice.Views;
 
-public partial class PracticeView : UserControl
+public sealed partial class PracticeView : ViewBase
 {
-    public PracticeView()
-    {
-        this.InitializeComponent();
-    }
-
-    private void InitializeComponent()
-    {
-        AvaloniaXamlLoader.Load(this);
-    }
+    protected override void OnInitializeComponent() => this.InitializeComponent();
 }
