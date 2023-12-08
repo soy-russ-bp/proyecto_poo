@@ -17,6 +17,7 @@ namespace ARJE.Utils.Avalonia.ReactiveUI.MVC.Controllers
 
             this.DataModel = dataModel;
             this.ViewModel = viewModel;
+            this.ViewModel.OnViewInit += this.OnViewInit;
         }
 
         public TDataModel DataModel { get; }
@@ -32,6 +33,11 @@ namespace ARJE.Utils.Avalonia.ReactiveUI.MVC.Controllers
         {
             this.DataModel.Dispose();
             GC.SuppressFinalize(this);
+        }
+
+        protected virtual void OnViewInit()
+        {
+            this.ViewModel.OnViewInit -= this.OnViewInit;
         }
     }
 }

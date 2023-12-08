@@ -22,33 +22,48 @@
     
 		<!-- Main Area-->
 		<Panel Grid.Row="1" Background="#A691F2">
+      
 			<Border BorderBrush="#A691F2" BorderThickness="10" CornerRadius="20" Background="#FFFF"/>
 			<Border Margin="60" BorderBrush="#A691F2" BorderThickness="5"  CornerRadius="20" Background="#C7BBF2"/>
-			<TextBox Name="fileNameTextBox"
-               Width="450" Height="40"
-               HorizontalAlignment="Center"
-               Background="#00CCCC" Foreground="#FFFFFF"
-               Margin="0, -120, 0, 0" />
-			<Button Width="300" Height="60"
-              Click="OnSelectBtnClick"
-              Background="#C61496"
-              HorizontalAlignment="Center"
-              HorizontalContentAlignment="Center"
-              VerticalContentAlignment="Center"
-              Margin="0, 0, 0, 0"
-              FontSize="20" FontFamily="Arial Black">
-        Select
-      </Button>
-			<Button Width="300" Height="60"
-              Click="SaveInAppStorage"
-              Background="#C61496"
-              HorizontalAlignment="Center"
-              HorizontalContentAlignment="Center"
-              VerticalContentAlignment="Center" 
-              Margin="0, 150, 0, 0"
-              FontSize="20" FontFamily="Arial Black">
-        Save
-      </Button>
+      
+      <StackPanel VerticalAlignment="Center" Spacing="10">
+        
+        <TextBox x:Name="filePathTextBox"
+                 x:FieldModifier="private"
+                 Height="40"
+                 Margin="80 0 80 0"
+                 HorizontalAlignment="Stretch"
+                 Background="#00CCCC" Foreground="#FFFFFF"
+                 />
+        
+        <Button Width="300" Height="60"
+                Click="SelectBtnClickHandler"
+                Background="#C61496"
+                HorizontalAlignment="Center"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                FontSize="20" FontFamily="Arial Black">
+          Select
+        </Button>
+
+        <Button Width="300" Height="60"
+                Click="SaveBtnClickHandler"
+                Background="#C61496"
+                HorizontalAlignment="Center"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                FontSize="20" FontFamily="Arial Black">
+          Save
+        </Button>
+
+        <TextBlock x:Name="saveResultTextBlock"
+                   x:FieldModifier="private"
+                   Foreground="BlueViolet"
+                   HorizontalAlignment="Center"
+                   />
+
+      </StackPanel>
+      
 		</Panel>
 
 	</Grid>

@@ -1,6 +1,7 @@
+using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using ARJE.Utils.Avalonia.ReactiveUI.MVC.Views;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
@@ -10,53 +11,39 @@ namespace ARJE.SignPractice.Views
 {
     public sealed partial class ImportView : ViewBase
     {
-        protected override void OnInitializeComponent() => this.InitializeComponent();
+        public event Action? OnSelectBtnClick;
 
-        private static FilePickerFileType ArjeModelsFilePicker { get; } = new("ARJE Models")
+        public event Action? OnSaveBtnClick;
+
+        public string? FilePathText
         {
-            Patterns = new[] { "*.arje" },
-        };
-
-        private static FilePickerOpenOptions FilePickerOptions { get; } = new()
-        {
-            Title = "Open Model File",
-            AllowMultiple = false,
-            FileTypeFilter = new[] { ArjeModelsFilePicker },
-        };
-
-        private async void OnSelectBtnClick(object sender, RoutedEventArgs e)
-        {
-            var topLevel = TopLevel.GetTopLevel(this)!;
-            IReadOnlyList<IStorageFile> selectedFiles = await topLevel.StorageProvider.OpenFilePickerAsync(FilePickerOptions);
-
-            string? pathToFile = selectedFiles.FirstOrDefault()?.Path.LocalPath;
-
-            if (pathToFile == null)
-            {
-                return;
-            }
-
-            this.fileNameTextBox.Text = pathToFile;
+            get => this.filePathTextBox.Text;
+            set => this.filePathTextBox.Text = value;
         }
 
-        private void SaveInAppStorage(object sender, RoutedEventArgs e)
+        public string? SaveResultText
         {
-            string? pathToFile = this.fileNameTextBox.Text;
-            if (!File.Exists(pathToFile))
-            {
-                return;
-            }
+            get => this.saveResultTextBlock.Text;
+            set => this.saveResultTextBlock.Text = value;
+        }
 
-            string modelsDir = Directory.CreateDirectory("Models").FullName;
-            string fileName = Path.GetFileName(pathToFile);
-            string destinationPath = Path.Combine(modelsDir, fileName);
+        public async Task<string?> OpenFilePickerAsync(FilePickerOpenOptions filePickerOptions)
+        {
+            var topLevel = TopLevel.GetTopLevel(this)!;
+            IReadOnlyList<IStorageFile> selectedFiles = await topLevel.StorageProvider.OpenFilePickerAsync(filePickerOptions);
+            return selectedFiles.FirstOrDefault()?.Path.LocalPath;
+        }
 
-            if (!File.Exists(destinationPath))
-            {
-                File.Copy(pathToFile, destinationPath);
-            }
+        protected override void OnInitializeComponent() => this.InitializeComponent();
 
-            this.fileNameTextBox.Clear();
+        private void SelectBtnClickHandler(object sender, RoutedEventArgs e)
+        {
+            this.OnSelectBtnClick?.Invoke();
+        }
+
+        private void SaveBtnClickHandler(object sender, RoutedEventArgs e)
+        {
+            this.OnSaveBtnClick?.Invoke();
         }
     }
 }

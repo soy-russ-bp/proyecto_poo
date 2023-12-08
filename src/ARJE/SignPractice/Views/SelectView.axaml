@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:ARJE.SignPractice.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="ARJE.SignPractice.Views.SelectionView">
+             x:Class="ARJE.SignPractice.Views.SelectView">
 
 	<Grid RowDefinitions="Auto, *">
 
@@ -18,6 +18,7 @@
 			<Button Margin="15,0,0,0" Width="40" Height="40"
 					Command="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).GoToHome}"></Button>
 		</StackPanel>
+    
 		<!-- Main Area-->
 		<Panel Grid.Row="1" Background="#A691F2">
 			<Border BorderBrush="#A691F2" BorderThickness="10" CornerRadius="20" Background="#FFFF"/>

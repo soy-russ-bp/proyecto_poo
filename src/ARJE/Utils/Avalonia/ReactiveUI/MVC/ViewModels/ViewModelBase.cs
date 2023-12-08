@@ -1,4 +1,5 @@
-﻿using ARJE.Utils.Avalonia.ReactiveUI.MVC.DataModels;
+﻿using System;
+using ARJE.Utils.Avalonia.ReactiveUI.MVC.DataModels;
 using ARJE.Utils.Avalonia.ReactiveUI.MVC.Views;
 using ARJE.Utils.System;
 using ReactiveUI;
@@ -16,6 +17,8 @@ namespace ARJE.Utils.Avalonia.ReactiveUI.MVC.ViewModels
             this.DataModel = dataModel;
         }
 
+        public event Action? OnViewInit;
+
         public TDataModel DataModel { get; }
 
         public TView View => ThrowUtils.ReturnOnlyIfNotNull(this.view);
@@ -23,6 +26,7 @@ namespace ARJE.Utils.Avalonia.ReactiveUI.MVC.ViewModels
         void IViewModelInit.Init(ViewBase view)
         {
             this.view = (TView)view;
+            this.OnViewInit?.Invoke();
         }
     }
 }

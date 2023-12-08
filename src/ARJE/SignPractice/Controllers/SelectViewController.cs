@@ -5,10 +5,10 @@ using ARJE.Utils.Avalonia.ReactiveUI.MVC.DataModels;
 
 namespace ARJE.SignPractice.Controllers
 {
-    public sealed class SelectViewController : ViewControllerBase<SelectionView, NoDataModel, SelectionViewModel>
+    public sealed class SelectViewController : ViewControllerBase<SelectView, NoDataModel, SelectViewModel>
     {
         public SelectViewController()
-            : base(NoDataModel.None, new SelectionViewModel())
+            : base(NoDataModel.None, new SelectViewModel())
         {
         }
     }
