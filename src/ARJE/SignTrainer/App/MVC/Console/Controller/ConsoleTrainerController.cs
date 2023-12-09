@@ -119,7 +119,7 @@ namespace ARJE.SignTrainer.App.MVC.Console.Controller
             IModelTrainingConfig<IModelConfig> selectedModel = this.View.SelectionPrompt("Models:", configs, m => m.Title);
             this.View.DisplayMsg(selectedModel.InfoPrint());
 
-            ((HandsModelConfig)selectedModel.ModelConfig).CopyTo(((HandsModel)this.Model.Detector).ModelConfig);
+            ((HandsModelConfig)selectedModel.ModelConfig).CopyTo(this.Model.Detector.ModelConfig);
 
             var trainingState = new ModelTrainingState(configCollection, selectedModel);
             this.DisplaySamplesState(trainingState);

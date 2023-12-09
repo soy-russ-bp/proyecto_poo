@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ARJE.Utils.AI.Configuration;
 using ARJE.Utils.AI.Solutions.Hands;
-using ARJE.Utils.Spectre.Console.Extensions;
 using ARJE.Utils.Text;
-using Spectre.Console;
 
 namespace ARJE.SignTrainer.App.MVC.Console.Controller
 {

@@ -13,7 +13,7 @@ namespace ARJE.Utils.AI.Configuration
 
         public int SamplesPerSecond { get; }
 
-        public IReadOnlyCollection<string> Labels { get; }
+        public IReadOnlyList<string> Labels { get; }
 
         public TModelConfig ModelConfig { get; }
 

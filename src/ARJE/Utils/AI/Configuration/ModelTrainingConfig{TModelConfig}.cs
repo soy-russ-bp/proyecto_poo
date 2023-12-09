@@ -11,7 +11,7 @@ namespace ARJE.Utils.AI.Configuration
         int SampleCount,
         int SampleLength,
         int SamplesPerSecond,
-        IReadOnlyCollection<string> Labels,
+        IReadOnlyList<string> Labels,
         TModelConfig ModelConfig) : IModelTrainingConfig<TModelConfig>
         where TModelConfig : IModelConfig
     {
