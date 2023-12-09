@@ -41,7 +41,6 @@ namespace ARJE.Utils.AI
 
             this.Collecting = true;
             var grabConfig = new AsyncGrabConfig(new FpsCap(this.SamplesPerSecond), this.SynchronizationContext);
-            this.Camera.StartGrab(grabConfig);
             this.Camera.OnFrameGrabbed += this.OnFrameGrabbed;
         }
 
@@ -75,7 +74,6 @@ namespace ARJE.Utils.AI
 
         private void NotifySamplesReady(ReadOnlyCollection<TDetectionCollection> readonlySamples)
         {
-            this.Camera.StopGrab();
             this.Camera.OnFrameGrabbed -= this.OnFrameGrabbed;
             this.OnSamplesReady?.Invoke(readonlySamples);
         }

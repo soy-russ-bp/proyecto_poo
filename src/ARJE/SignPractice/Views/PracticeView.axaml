@@ -5,30 +5,49 @@
              xmlns:vm="clr-namespace:ARJE.SignPractice.ViewModels"
 			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="ARJE.SignPractice.Views.PracticeView"
-			 x:CompileBindings="False">
-	<Grid RowDefinitions="Auto, *">
+			 x:DataType="vm:PracticeViewModel">
 
-		<!-- Title Bar -->
-		<Grid Grid.Row="0" Height="40" Background="#A691F2" ColumnDefinitions="*">
-			<Label Padding="0, 0, 0, 0" Foreground="White" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-				ARJÉ PRACTICE
-			</Label>
+	<Border BorderBrush="#000" BorderThickness="1">
+		<Grid RowDefinitions="Auto, *">
+
+			<!-- Title Bar -->
+
+			<Grid  Grid.Row="0" Height="50" Background="#FF96BE" ColumnDefinitions="Auto, *">
+
+				<Label  Margin="0 0 65 0" BorderBrush="#000" BorderThickness="0 0 0 1" Grid.Column="1" Padding="0, 0, 0, 0" Foreground="White" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center">
+					ARJÉ PRACTICE
+				</Label>
+
+				<Button Background="#000" Margin="15 6" CornerRadius="50" Grid.Column="0" VerticalAlignment="Center" Width="40" Height="40"
+					Command="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).GoToHome}"
+					 >
+					<Image  Margin="0 0 0 0" Width="45" Height="45" Source="/Assets/F_Atras.png"></Image>
+				</Button>
+			</Grid>
+			<!-- Main Area-->
+
+			<Panel Grid.Row="1" Background="#FF96BE">
+
+				<Border BorderBrush="#FF96BE"  BorderThickness="5 10 5 10" CornerRadius="70" Background="#FFFF"/>
+				<Border BoxShadow="inset 0 0 200 #FFC6EE" Margin="5,10,5,10" BorderBrush="#FF96BE" BorderThickness="15"  CornerRadius="15" Background="Transparent">
+					<Border BorderBrush="#000" BorderThickness="1" CornerRadius="10">
+						<Image HorizontalAlignment="Center" VerticalAlignment="Center" Source="{Binding Frame}"></Image>
+					</Border>
+
+				</Border>
+				<Panel   Margin="0,0,0,20" HorizontalAlignment="Center" VerticalAlignment="Bottom"  Width="300" Height="110" Background="#F0afe0">
+					<Label FontSize="12" VerticalAlignment="Top" HorizontalAlignment="Center">Do the following Concept:</Label>
+					<TextBlock Text="{Binding Label}" FontSize="18" Margin="5 0 5 54" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+					<TextBlock Text="{Binding StateMsg}" FontSize="18" Margin="5 0 5 20" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+					<TextBlock Text="{Binding SampleCountState}" FontSize="12" Margin="5 6 5 -20" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+					<Border BoxShadow="0 20 20 -3 black" BorderBrush="black" BorderThickness="1"></Border>
+					<Button  Command="{Binding Onstart}" Width="75" FontSize="12" Margin="5 30 5 5" HorizontalContentAlignment="Center" VerticalAlignment="Bottom" HorizontalAlignment="Center">Start </Button>
+				</Panel>
+				<Border ></Border>
+			</Panel>
+
+
+
 		</Grid>
-		<StackPanel Grid.Row="0" Orientation="Horizontal">
-			<Button Margin="15,0,0,0" Width="40" Height="40"
-					Command="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).GoToHome}"></Button>
-		</StackPanel>
-		<!-- Main Area-->
-		<Panel Grid.Row="1" Background="#A691F2">
-
-			<Border BorderBrush="#A691F2" BorderThickness="10" CornerRadius="20" Background="#FFFF"/>
-			<Border Margin="60,10,60,10" BorderBrush="#C7BBF2" BorderThickness="5"  CornerRadius="20" Background="Transparent"/>
-			<Border Margin="0,0,0,20" HorizontalAlignment="Center" VerticalAlignment="Bottom" CornerRadius="10" Width="100" Height="100" Background="#643DF2"></Border>
-			<Image Width="400" Height="800" HorizontalAlignment="Center" VerticalAlignment="Center" Source="{Binding Frame}"></Image>
-
-		</Panel>
-
-
-
-	</Grid>
+	</Border>
 </UserControl>
