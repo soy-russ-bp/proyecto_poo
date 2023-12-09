@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    <Platforms>AnyCPU;x64</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Include="Assets\**" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="11.0.5" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.0.5" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.5" />
+    <PackageReference Include="Avalonia.Fonts.Inter" Version="11.0.5" />
+    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.5" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.5" />
+
+    <PackageReference Include="Enums.NET" Version="4.0.1" />
+    <PackageReference Include="Keras.NET" Version="3.8.5" Condition="$([MSBuild]::IsOsPlatform('Windows'))" />
+    <PackageReference Include="Keras.NET.OSX" Version="3.8.5" Condition="$([MSBuild]::IsOsPlatform('OSX'))" />
+    
+    <PackageReference Include="OpenCvSharp4" Version="[4.6.0.20220608]" />
+    <PackageReference Include="OpenCvSharp4.Windows" Version="[4.6.0.20220608]" Condition="$([MSBuild]::IsOsPlatform('Windows'))" />
+    <PackageReference Include="OpenCvSharp4.runtime.osx.10.15-x64" Version="[4.6.0.20220608]" Condition="$([MSBuild]::IsOsPlatform('OSX'))" />
+    
+    <PackageReference Include="StyleCop.Analyzers.Unstable" Version="1.2.0.507">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\SignTrainer\ARJE.SignTrainer.csproj" />
+    <ProjectReference Include="..\Utils\ARJE.Utils.csproj" />
+  </ItemGroup>
+</Project>

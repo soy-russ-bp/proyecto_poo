@@ -2,6 +2,7 @@
 using ARJE.Utils.Diagnostics.CommandLine;
 using ARJE.Utils.Python.Environment;
 using ARJE.Utils.Python.Launcher;
+using ARJE.Utils.Text;
 
 namespace ARJE.Utils.Python
 {
@@ -17,14 +18,17 @@ namespace ARJE.Utils.Python
 
         public PythonAppInfo<TEnv> AppInfo { get; }
 
-        public void Run(string? windowName = null)
+        public void Run(string? windowName = null, params string[] args)
         {
+            string argsJoin = ArgsUtils.Join(args);
+
             var commands = new string?[]
             {
                 windowName != null ? CLI.GetTitleCommand(windowName) : null,
                 this.AppInfo.EnvironmentInfo.ActivationPath,
-                this.AppInfo.EnvironmentInfo.ExecutablePath + " -m " + this.AppInfo.StartupScriptName,
+                $"{this.AppInfo.EnvironmentInfo.ExecutablePath} -m {this.AppInfo.StartupScriptName} {argsJoin}",
             };
+
             CLI.Execute(this.AppInfo.Directory, commands);
         }
     }

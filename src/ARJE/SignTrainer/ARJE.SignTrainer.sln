@@ -9,18 +9,18 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ARJE.Utils", "..\Utils\ARJE
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{803C4937-BCAD-4662-BD5E-0AE4DBA8A2E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{803C4937-BCAD-4662-BD5E-0AE4DBA8A2E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{803C4937-BCAD-4662-BD5E-0AE4DBA8A2E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{803C4937-BCAD-4662-BD5E-0AE4DBA8A2E4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{506ECF17-39B7-4833-AFD4-4CFE5B7DABD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{506ECF17-39B7-4833-AFD4-4CFE5B7DABD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{506ECF17-39B7-4833-AFD4-4CFE5B7DABD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{506ECF17-39B7-4833-AFD4-4CFE5B7DABD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{803C4937-BCAD-4662-BD5E-0AE4DBA8A2E4}.Debug|x64.ActiveCfg = Debug|x64
+		{803C4937-BCAD-4662-BD5E-0AE4DBA8A2E4}.Debug|x64.Build.0 = Debug|x64
+		{803C4937-BCAD-4662-BD5E-0AE4DBA8A2E4}.Release|x64.ActiveCfg = Release|x64
+		{803C4937-BCAD-4662-BD5E-0AE4DBA8A2E4}.Release|x64.Build.0 = Release|x64
+		{506ECF17-39B7-4833-AFD4-4CFE5B7DABD9}.Debug|x64.ActiveCfg = Debug|x64
+		{506ECF17-39B7-4833-AFD4-4CFE5B7DABD9}.Debug|x64.Build.0 = Debug|x64
+		{506ECF17-39B7-4833-AFD4-4CFE5B7DABD9}.Release|x64.ActiveCfg = Release|x64
+		{506ECF17-39B7-4833-AFD4-4CFE5B7DABD9}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

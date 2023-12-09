@@ -8,7 +8,7 @@
 
         public GrabState GrabState { get; }
 
-        public void StartGrab();
+        public void StartGrab(AsyncGrabConfig grabConfig);
 
         public void PauseGrab();
 
