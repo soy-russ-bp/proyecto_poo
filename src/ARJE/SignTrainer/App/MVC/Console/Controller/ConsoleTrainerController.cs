@@ -38,7 +38,7 @@ namespace ARJE.SignTrainer.App.MVC.Console.Controller
 
         private string? SelectedLabel { get; set; }
 
-        private SamplesCollector<HandDetectionCollection, HandDetection, Matrix>? CurrentSamplesCollector { get; set; }
+        private SampleCollector<HandDetectionCollection, HandDetection, Matrix>? CurrentSampleCollector { get; set; }
 
         public override void Run()
         {
@@ -165,14 +165,14 @@ namespace ARJE.SignTrainer.App.MVC.Console.Controller
             this.SelectedLabel = selectedLabel;
 
             this.Model.VideoSource.OnFrameGrabbed += this.OnFrameGrabbed;
-            SamplesCollector<HandDetectionCollection, HandDetection, Matrix> samplesCollector
+            SampleCollector<HandDetectionCollection, HandDetection, Matrix> sampleCollector
                 = new(this.Model.VideoSource, this.Model.Detector, this.Model.SyncCtx, modelConfig.SampleLength, modelConfig.SamplesPerSecond);
-            this.CurrentSamplesCollector = samplesCollector;
+            this.CurrentSampleCollector = sampleCollector;
 
             NotifyUserCollectorStart();
-            samplesCollector.Start();
+            sampleCollector.Start();
 
-            ReadOnlyCollection<HandDetectionCollection> newSamples = samplesCollector.Wait();
+            ReadOnlyCollection<HandDetectionCollection> newSamples = sampleCollector.Wait();
             bool validSamples = trainingState.AddSamples(selectedLabel, newSamples);
             if (!validSamples)
             {
@@ -181,7 +181,7 @@ namespace ARJE.SignTrainer.App.MVC.Console.Controller
 
             this.Model.VideoSource.OnFrameGrabbed -= this.OnFrameGrabbed;
             this.SelectedLabel = null;
-            this.CurrentSamplesCollector = null;
+            this.CurrentSampleCollector = null;
             this.View.CollectionEnded();
             trainingState.Save();
         }
@@ -200,7 +200,7 @@ namespace ARJE.SignTrainer.App.MVC.Console.Controller
             HandDetectionCollection detections = this.Model.Detector.Process(frame);
             this.View.DisplayCollectionState(
                 $"Collecting samples: '{this.SelectedLabel}'" +
-                $"(${this.CurrentSamplesCollector!.CollectedSamplesCount + 1}/{this.CurrentSamplesCollector.SampleLength})",
+                $"(${this.CurrentSampleCollector!.CollectedSamplesCount + 1}/{this.CurrentSampleCollector.SampleLength})",
                 detections,
                 frame);
         }

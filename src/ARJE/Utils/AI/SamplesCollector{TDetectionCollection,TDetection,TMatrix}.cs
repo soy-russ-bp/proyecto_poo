@@ -6,7 +6,7 @@ using ARJE.Utils.Video;
 
 namespace ARJE.Utils.AI
 {
-    public record SamplesCollector<TDetectionCollection, TDetection, TMatrix>(
+    public record SampleCollector<TDetectionCollection, TDetection, TMatrix>(
             IAsyncVideoSource<TMatrix> Camera,
             IDetectionModel<TDetectionCollection, TDetection, TMatrix> DetectionModel,
             SynchronizationContext SynchronizationContext,
@@ -28,7 +28,7 @@ namespace ARJE.Utils.AI
 
         public bool Collecting { get; private set; }
 
-        public int WarmUpFramesLeft { get; set; } = WarmUpFrames;
+        public int WarmUpFramesLeft { get; private set; } = WarmUpFrames;
 
         public ReadOnlyCollection<TDetectionCollection>? SamplesResult { get; private set; }
 

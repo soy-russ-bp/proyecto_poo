@@ -36,6 +36,7 @@ namespace ARJE.SignPractice.ViewModels
         public void OnFrameGrabbed(Matrix frame)
         {
             this.Frame = frame.ToAvaloniaBitmap(buffer: this.DataModel.FrameEncodeBuffer);
+            new CustomModel()
             //this.customModel.ProcessFrame(frame);
         }
     }
