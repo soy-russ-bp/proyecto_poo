@@ -1,15 +1,20 @@
-﻿using ARJE.SignPractice.ViewModels;
-using ARJE.SignPractice.Views;
-using ARJE.Utils.Avalonia.ReactiveUI.MVC.Controllers;
-using ARJE.Utils.Avalonia.ReactiveUI.MVC.DataModels;
+﻿using ARJE.SignPractice.Views;
+using ARJE.Utils.Avalonia.MVC.Controllers;
+using ARJE.Utils.Avalonia.MVC.Models;
 
 namespace ARJE.SignPractice.Controllers
 {
-    public sealed class SelectViewController : ViewControllerBase<SelectView, NoDataModel, SelectViewModel>
+    public sealed class SelectViewController : ViewControllerBase<SelectView, NoDataModel>
     {
         public SelectViewController()
-            : base(NoDataModel.None, new SelectViewModel())
+            : base(NoDataModel.None)
         {
+            this.View.OnBackBtnClick += this.OnBackBtnClick;
+        }
+
+        private void OnBackBtnClick()
+        {
+            HomeViewController.Instance.GoToHome();
         }
     }
 }

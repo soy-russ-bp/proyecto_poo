@@ -3,11 +3,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:ARJE.SignPractice.ViewModels"
-			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="ARJE.SignPractice.Views.PracticeView"
-             x:DataType="vm:PracticeViewModel">
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ARJE.SignPractice.Views.PracticeView">
 
-	<Border BorderBrush="#000" BorderThickness="1">
+	<Border BorderBrush="Black" BorderThickness="1">
     
 	<Grid RowDefinitions="Auto, *">
 
@@ -18,9 +17,7 @@
 				ARJÉ PRACTICE
 			</Label>
 			
-			<Button Background="#000" Margin="15 6" CornerRadius="50" Grid.Column="0" VerticalAlignment="Center" Width="40" Height="40"
-				Command="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).GoToHome}"
-					 >
+			<Button Click="BackBtnClickHandler" Background="#000" Margin="15 6" CornerRadius="50" Grid.Column="0" VerticalAlignment="Center" Width="40" Height="40">
 				<Image  Margin="0 0 0 0" Width="45" Height="45" Source="/Assets/BackArrow.png"></Image>
 			</Button>
       
@@ -33,7 +30,12 @@
 			
       <Border BoxShadow="inset 0 0 200 #FFC6EE" Margin="5,10,5,10" BorderBrush="#FF96BE" BorderThickness="15"  CornerRadius="15" Background="Transparent">
 				<Border BorderBrush="#000" BorderThickness="1" CornerRadius="10">
-					<Image HorizontalAlignment="Center" VerticalAlignment="Center" Source="{Binding Frame}"></Image>
+					<Image
+            x:Name="frameImg"
+            x:FieldModifier="private"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            />
 				</Border>
 			</Border>
       

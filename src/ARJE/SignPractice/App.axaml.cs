@@ -1,4 +1,3 @@
-using ARJE.SignPractice.ViewModels;
 using ARJE.SignPractice.Views;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
@@ -19,7 +18,7 @@ namespace ARJE.SignPractice
             {
                 desktop.MainWindow = new MainWindow
                 {
-                    DataContext = new MainWindowViewModel(),
+                    DataContext = new MainViewDisplay(),
                 };
             }
 

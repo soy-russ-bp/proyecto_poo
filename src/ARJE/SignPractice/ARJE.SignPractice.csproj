@@ -42,10 +42,4 @@
     <ProjectReference Include="..\Utils\ARJE.Utils.csproj" />
   </ItemGroup>
 
-
-  <ItemGroup>
-    <Compile Update="Views\SelectView.axaml.cs">
-      <DependentUpon>SelectView.axaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
 </Project>

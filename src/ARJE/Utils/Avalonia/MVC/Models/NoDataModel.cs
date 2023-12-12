@@ -1,4 +1,4 @@
-﻿namespace ARJE.Utils.Avalonia.ReactiveUI.MVC.DataModels
+﻿namespace ARJE.Utils.Avalonia.MVC.Models
 {
     public sealed record NoDataModel : DataModelBase
     {

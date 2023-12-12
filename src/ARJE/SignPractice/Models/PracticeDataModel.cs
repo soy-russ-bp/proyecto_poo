@@ -1,12 +1,12 @@
-﻿using ARJE.Utils.Avalonia.ReactiveUI.MVC.DataModels;
+﻿using ARJE.Utils.Avalonia.MVC.Models;
 using ARJE.Utils.Video;
 using Avalonia.Threading;
 using OpenCvSharp.Internal.Vectors;
 using Matrix = OpenCvSharp.Mat;
 
-namespace ARJE.SignPractice.DataModels
+namespace ARJE.SignPractice.Models
 {
-    public record PracticeDataModel(
+    public sealed record PracticeDataModel(
         IAsyncVideoSource<Matrix> VideoSource,
         CustomModel CustomModel)
         : DataModelBase
@@ -18,7 +18,6 @@ namespace ARJE.SignPractice.DataModels
         public override void Dispose()
         {
             this.FrameEncodeBuffer.Dispose();
-            base.Dispose();
         }
     }
 }

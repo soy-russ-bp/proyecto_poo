@@ -25,9 +25,9 @@
           <Panel Grid.Column="1" VerticalAlignment="Center">
             <Viewbox Stretch="Uniform">
 
-              <Grid MinWidth="300" HorizontalAlignment="Left" VerticalAlignment="Center" RowDefinitions="*,*,*,*,*">
+              <StackPanel MinWidth="300" HorizontalAlignment="Left" VerticalAlignment="Center">
 
-                <Grid.Styles>
+                <StackPanel.Styles>
                   <Style Selector="Button">
                     <Setter Property="MinHeight" Value="65"></Setter>
                     <Setter Property="MinWidth" Value="250" ></Setter>
@@ -43,26 +43,22 @@
                     <Setter Property="Background" Value="#F43DF2" />
                     <Setter Property="Foreground" Value="White" />
                   </Style>
-                  <Style Selector="Button:pointerover">
-                    <Setter Property="Width" Value="240" />
-                  </Style>
-                </Grid.Styles>
+                </StackPanel.Styles>
 
-                <!--Button Declaration-->
-                <Button Grid.Row="0"
-										Command="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).GoToPractice}">
+                <Button
+                  Click="PracticeBtnClickHandler">
                   PRACTICE
                 </Button>
-                <Button Grid.Row="1"
-										Command="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).GoToSelect}"
-										>SELECT</Button>
-                <Button Grid.Row="2"
-										Command="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).GoToImport}"
-										>IMPORT</Button>
-                <Button Grid.Row="4"
-										Command="{Binding $parent[Window].Close}"
-										>EXIT</Button>
-              </Grid>
+                <Button
+                  Click="SelectBtnClickHandler">
+                  SELECT
+                </Button>
+                <Button
+                  Click="ImportBtnClickHandler">
+                  IMPORT
+                </Button>
+                
+              </StackPanel>
             </Viewbox>
 
           </Panel>

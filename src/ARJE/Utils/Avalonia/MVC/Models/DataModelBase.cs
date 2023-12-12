@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace ARJE.Utils.Avalonia.ReactiveUI.MVC.DataModels
+namespace ARJE.Utils.Avalonia.MVC.Models
 {
-    public abstract record DataModelBase : IDisposable
+    public abstract record DataModelBase : IDataModel
     {
         public virtual void Dispose()
         {

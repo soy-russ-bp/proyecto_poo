@@ -1,4 +1,4 @@
-﻿using ARJE.Utils.Avalonia.ReactiveUI.MVC.DataModels;
+﻿using ARJE.Utils.Avalonia.MVC.Models;
 using Avalonia.Platform.Storage;
 
 namespace ARJE.SignPractice.DataModels

@@ -1,45 +1,40 @@
 ﻿using System;
 using System.IO;
 using ARJE.SignPractice.DataModels;
-using ARJE.SignPractice.ViewModels;
 using ARJE.SignPractice.Views;
-using ARJE.Utils.Avalonia.ReactiveUI.MVC.Controllers;
+using ARJE.Utils.Avalonia.MVC.Controllers;
 
 namespace ARJE.SignPractice.Controllers
 {
-    public sealed class ImportViewController : ViewControllerBase<ImportView, ImportDataModel, ImportViewModel>
+    public sealed class ImportViewController : ViewControllerBase<ImportView, ImportDataModel>
     {
         public ImportViewController()
-            : this(new ImportDataModel())
+            : base(new ImportDataModel())
         {
+            this.View.OnBackBtnClick += this.OnBackBtnClick;
+            this.View.OnSelectBtnClick += this.PickFile;
+            this.View.OnSaveBtnClick += this.SaveModelInAppStorage;
         }
 
-        private ImportViewController(ImportDataModel dataModel)
-            : base(dataModel, new ImportViewModel(dataModel))
+        private void OnBackBtnClick()
         {
-        }
-
-        protected override void OnViewInit()
-        {
-            base.OnViewInit();
-            this.ViewModel.View.OnSelectBtnClick += this.PickFile;
-            this.ViewModel.View.OnSaveBtnClick += this.SaveModelInAppStorage;
+            HomeViewController.Instance.GoToHome();
         }
 
         private async void PickFile()
         {
-            string? selectedFile = await this.ViewModel.View.OpenFilePickerAsync(this.DataModel.FilePickerOptions);
+            string? selectedFile = await this.View.OpenFilePickerAsync(this.Model.FilePickerOptions);
             if (selectedFile == null)
             {
                 return;
             }
 
-            this.ViewModel.View.FilePathText = selectedFile;
+            this.View.FilePathText = selectedFile;
         }
 
         private void SaveModelInAppStorage()
         {
-            string? pathToFile = this.ViewModel.View.FilePathText;
+            string? pathToFile = this.View.FilePathText;
             if (string.IsNullOrEmpty(pathToFile))
             {
                 return;
@@ -55,11 +50,11 @@ namespace ARJE.SignPractice.Controllers
             }
             catch (Exception e)
             {
-                this.ViewModel.View.SaveResultText = e.Message;
+                this.View.SaveResultText = e.Message;
                 return;
             }
 
-            this.ViewModel.View.SaveResultText = $"Saved {fileName}.";
+            this.View.SaveResultText = $"Saved {fileName}.";
         }
     }
 }

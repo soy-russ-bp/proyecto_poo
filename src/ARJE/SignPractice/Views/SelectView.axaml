@@ -15,8 +15,7 @@
 			</Label>
 		</Grid>
 		<StackPanel Grid.Row="0" Orientation="Horizontal">
-			<Button Margin="15,0,0,0" Width="40" Height="40"
-					Command="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).GoToHome}"></Button>
+			<Button Click="BackBtnClickHandler" Margin="15,0,0,0" Width="40" Height="40"></Button>
 		</StackPanel>
     
 		<!-- Main Area-->

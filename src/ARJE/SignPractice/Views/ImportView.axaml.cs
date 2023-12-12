@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ARJE.Utils.Avalonia.ReactiveUI.MVC.Views;
+using ARJE.Utils.Avalonia.MVC.Views;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
@@ -11,6 +11,8 @@ namespace ARJE.SignPractice.Views
 {
     public sealed partial class ImportView : ViewBase
     {
+        public event Action? OnBackBtnClick;
+
         public event Action? OnSelectBtnClick;
 
         public event Action? OnSaveBtnClick;
@@ -35,6 +37,11 @@ namespace ARJE.SignPractice.Views
         }
 
         protected override void OnInitializeComponent() => this.InitializeComponent();
+
+        private void BackBtnClickHandler(object sender, RoutedEventArgs e)
+        {
+            this.OnBackBtnClick?.Invoke();
+        }
 
         private void SelectBtnClickHandler(object sender, RoutedEventArgs e)
         {
