@@ -1,0 +1,19 @@
+{
+  "Title": "prueba",
+  "SampleCount": 30,
+  "SampleLength": 10,
+  "SamplesPerSecond": 20,
+  "Labels": [
+    "a",
+    "b",
+    "c",
+    "d",
+    "e"
+  ],
+  "ModelConfig": {
+    "Type": "ARJE.Utils.AI.Solutions.Hands.HandsModelConfig, ARJE.Utils, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+    "Object": {
+      "MaxNumHands": 1
+    }
+  }
+}

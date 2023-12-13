@@ -1,10 +1,54 @@
-# A R J É - First review
+# A R J É - Final Review
 
-<img style="width:100vw; height:270px" src="Assets/logo.png"/>
+![Free Universe Stars Video Gif Animated Zoom Virtual Background (1)](https://github.com/soy-russ-bp/proyecto_poo/assets/112036753/b4dbbe01-27f9-4ea0-b8c5-4878526d554e)
+
 
 
 The Arjé project is an initiative aimed at improving opportunities for individuals with hearing and speech disabilities. This project serves as a fundamental step toward developing technologies that transcend barriers, fostering a more connected, inclusive, and fair world.
 
+---
+
+
+## Evolution
+
+Product evolution:
+
+
+
+
+
+Requeriments evolution
+
+
+
+
+Artifacts evolution:
+
+
+---
+
+Diagrama de clases
+
+---
+
+Verificación de los requerimientos funcionales y no funcionales
+
+---
+
+Código en MVC: [Aquí]()
+
+---
+
+## Proceso
+Descripción del proceso:
+
+Gestión del proceso:
+
+Métricas de contribución
+
+Bitácora
+
+---
 ### Evolution:
 
 The Arjé project has evolved over time. Initially, we had a functional prototype in Python with minimal functionality. This was primarily to understand how Python libraries worked. However, the code wasn't in the object-oriented programming paradigm, lacked scalability, and lacked modularity. As a result, what was initially programmed in Python had to be re-implemented in C# using the object-oriented paradigm and the MVC (Model-View-Controller) design pattern. 
@@ -37,6 +81,14 @@ Regarding contribution metrics and meeting binnacle, you can find the informatio
 
 ### Video second-review:
 
-[![](https://img.youtube.com/vi/7KNYJq8uZnc/maxresdefault.jpg)](https://www.youtube.com/watch?v=M1LEDCXn_4M)
+[![](https://img.youtube.com/vi/7KNYJq8uZnc/maxresdefault.jpg)](poner link)
+
+
+---
+
+Competencias: [Aquí]()
+
+Areas de mejora: [Aquí]()
+
 
 
