@@ -23,9 +23,11 @@ namespace ARJE.Shared.Models
             this.Remove(configTitle);
         }
 
+        public virtual bool IsValidTitle(string title) => true;
+
         public bool TitleAvailable(string title)
         {
-            return this.ConfigsDict.ContainsKey(title);
+            return this.IsValidTitle(title) && this.ConfigsDict.ContainsKey(title);
         }
 
         protected void Clear()

@@ -34,6 +34,11 @@ namespace ARJE.Shared.Models
             Directory.Delete(configDirectoryPath, recursive: true);
         }
 
+        public override bool IsValidTitle(string title)
+        {
+            return title.All(char.IsAsciiLetter);
+        }
+
         public void Update()
         {
             this.Clear();

@@ -31,7 +31,9 @@ namespace ARJE.SignTrainer.App.MVC.Console
 
         private string AskForTitle()
         {
-            return this.Controller.View.TextPrompt<string>("Title:");
+            return this.Controller.View.TextPrompt<string>(
+                "Title:",
+                this.Controller.Model.ModelTrainingConfigCollection.TitleAvailable);
         }
 
         private int AskForSampleCount()
