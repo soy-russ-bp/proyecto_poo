@@ -1,5 +1,4 @@
-﻿using System.Runtime.Versioning;
-using ARJE.Shared.Models;
+﻿using ARJE.Shared.Models;
 using ARJE.Utils.Avalonia.MVC.Models;
 using ARJE.Utils.Video;
 using Avalonia.Threading;
@@ -8,8 +7,6 @@ using Matrix = OpenCvSharp.Mat;
 
 namespace ARJE.SignPractice.Models
 {
-    [SupportedOSPlatform("windows")]
-    [SupportedOSPlatform("macos")]
     public sealed record PracticeDataModel(
         IAsyncVideoSource<Matrix> VideoSource,
         CustomModel DetectionModel)

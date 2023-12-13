@@ -1,7 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Globalization;
 using System.Numerics;
-using System.Runtime.Versioning;
 using ARJE.Shared.Proxy;
 using ARJE.Utils.AI;
 using ARJE.Utils.AI.Configuration;
@@ -14,8 +13,6 @@ using Matrix = OpenCvSharp.Mat;
 
 namespace ARJE.Shared.Models
 {
-    [SupportedOSPlatform("windows")]
-    [SupportedOSPlatform("macos")]
     public sealed class CustomModel
     {
         static CustomModel()

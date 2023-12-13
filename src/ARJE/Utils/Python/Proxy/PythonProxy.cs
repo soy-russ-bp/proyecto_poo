@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Runtime.Versioning;
 using System.Threading.Tasks;
 using ARJE.Utils.IO.Pipes;
 using ARJE.Utils.Python.Proxy.Packets;
 
 namespace ARJE.Utils.Python.Proxy
 {
-    [SupportedOSPlatform("windows")]
-    [SupportedOSPlatform("macos")]
     public sealed class PythonProxy : IDisposable
     {
         public PythonProxy(string pipeName, IIdMapper idMapper, int bufferCapacity = 0)

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.Versioning;
 using System.Threading.Tasks;
 using ARJE.Utils.Python;
 using ARJE.Utils.Python.Environment;
@@ -12,8 +11,6 @@ using Matrix = OpenCvSharp.Mat;
 
 namespace ARJE.Utils.AI.Solutions.Hands
 {
-    [SupportedOSPlatform("windows")]
-    [SupportedOSPlatform("macos")]
     public sealed class HandsModel : IDetectionModel<HandDetectionCollection, HandDetection, Matrix>, IDisposable
     {
         public HandsModel(HandsModelConfig? config = null)

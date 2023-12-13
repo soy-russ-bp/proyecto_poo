@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Runtime.Versioning;
 using ARJE.SignPractice.Controllers;
 using ARJE.Utils.Avalonia.MVC.Views;
 using ReactiveUI;
 
 namespace ARJE.SignPractice
 {
-    [SupportedOSPlatform("windows")]
-    [SupportedOSPlatform("macos")]
     internal sealed class MainViewDisplay : ReactiveObject, IViewDisplay
     {
         private IDisposable? controller;

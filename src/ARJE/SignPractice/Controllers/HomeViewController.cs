@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using System.Linq;
-using System.Runtime.Versioning;
 using ARJE.Shared.Models;
 using ARJE.SignPractice.Models;
 using ARJE.SignPractice.Views;
@@ -14,8 +13,6 @@ using Matrix = OpenCvSharp.Mat;
 
 namespace ARJE.SignPractice.Controllers
 {
-    [SupportedOSPlatform("windows")]
-    [SupportedOSPlatform("macos")]
     public sealed class HomeViewController : ViewControllerBase<HomeView, NoDataModel>
     {
         private readonly IViewDisplay viewDisplay;

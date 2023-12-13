@@ -1,5 +1,4 @@
-﻿using System.Runtime.Versioning;
-using ARJE.SignPractice.Models;
+﻿using ARJE.SignPractice.Models;
 using ARJE.SignPractice.Views;
 using ARJE.Utils.AI;
 using ARJE.Utils.Avalonia.MVC.Controllers;
@@ -9,8 +8,6 @@ using Matrix = OpenCvSharp.Mat;
 
 namespace ARJE.SignPractice.Controllers
 {
-    [SupportedOSPlatform("windows")]
-    [SupportedOSPlatform("macos")]
     public sealed class PracticeViewController : ViewControllerBase<PracticeView, PracticeDataModel>
     {
         public PracticeViewController(PracticeDataModel model)

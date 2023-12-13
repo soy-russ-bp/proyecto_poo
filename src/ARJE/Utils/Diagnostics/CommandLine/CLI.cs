@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.Runtime.Versioning;
 using ARJE.Utils.Collections;
 
 namespace ARJE.Utils.Diagnostics.CommandLine
 {
-    [SupportedOSPlatform("windows")]
-    [SupportedOSPlatform("macos")]
     public static class CLI
     {
         public static string PlatformExecutablePath
