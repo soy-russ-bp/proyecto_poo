@@ -1,14 +1,18 @@
 ﻿using System;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using ARJE.Utils.AI.Configuration;
+using ARJE.Utils.IO;
 using ARJE.Utils.Json;
 
 namespace ARJE.SignTrainer.App.MVC.Base.Model
 {
     public class OnDiskModelTrainingConfigCollection : ModelTrainingConfigCollection
     {
-        private const string FileConfigSuffix = "-config.json";
+        public const string FileConfigSuffix = "-config.json";
+
+        public const string ModelExportSuffix = ".arje";
 
         public OnDiskModelTrainingConfigCollection(DirectoryInfo saveDirectory)
         {
@@ -42,6 +46,25 @@ namespace ARJE.SignTrainer.App.MVC.Base.Model
                 var config = JsonRead.FromFile<ModelTrainingConfig<IModelConfig>>(file.FullName);
                 this.Add(config);
             }
+        }
+
+        public void Export(string configTitle, out string exportPath, string? destinationPath = null)
+        {
+            string configDir = this.GetConfigDirectoryPath(configTitle);
+            string fileName = $"{configTitle}{ModelExportSuffix}";
+            string tempPath = PathUtils.TempPathJoin(fileName);
+            exportPath = destinationPath ?? Path.Join(configDir, fileName);
+
+            File.Delete(tempPath);
+            File.Delete(exportPath);
+
+            ZipFile.CreateFromDirectory(
+                configDir,
+                tempPath,
+                CompressionLevel.SmallestSize,
+                includeBaseDirectory: false);
+
+            File.Move(tempPath, exportPath, overwrite: true);
         }
 
         public string GetFullPathForFile(IModelTrainingConfig<IModelConfig> config, string fileName)

@@ -134,6 +134,9 @@ namespace ARJE.SignTrainer.App.MVC.Console.Controller
                             selectedModel,
                             trainingState,
                             configCollection.GetFullPathForFile(selectedModel, $"{selectedModel.Title}-model.h5"));
+
+                        configCollection.Export(selectedModel.Title, out string exportPath);
+                        this.View.DisplayMsg($"Saved model to: '{exportPath}'");
                     }
 
                     this.View.WaitKey("Press any key...");
