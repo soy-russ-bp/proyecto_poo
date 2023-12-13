@@ -63,6 +63,7 @@ namespace ARJE.SignTrainer.App.MVC.Console
 
         public T TextPrompt<T>(string prompt, T defaultValue, Func<T, bool>? validator = null)
         {
+            prompt = Markup.Escape(prompt);
             var textPrompt = new TextPrompt<T>(prompt);
             textPrompt.DefaultValue(defaultValue);
             if (validator != null)

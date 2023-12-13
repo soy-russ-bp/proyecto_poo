@@ -13,9 +13,9 @@ namespace ARJE.Shared.Models
             IModelTrainingConfig<IModelConfig> trainingConfig)
         {
             this.TrainingConfig = trainingConfig;
-            this.SamplesFilePath = configCollection.GetFullPathForFile(
+            this.SamplesFilePath = configCollection.GetFullPathForConfig(
                 this.TrainingConfig,
-                $"{this.TrainingConfig.Title}-samples.json");
+                OnDiskModelTrainingConfigCollection.SamplesFileSuffix);
             this.Samples = this.LoadSamples();
         }
 

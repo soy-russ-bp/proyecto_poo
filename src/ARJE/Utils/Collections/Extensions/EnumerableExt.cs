@@ -13,6 +13,17 @@ namespace ARJE.Utils.Collections.Extensions
             return enumerable.Select((item, index) => (item, index + startIndex));
         }
 
+        public static void ForEach<T>(this IEnumerable<T> enumerable, Action<T> action)
+        {
+            ArgumentNullException.ThrowIfNull(enumerable);
+            ArgumentNullException.ThrowIfNull(action);
+
+            foreach (T item in enumerable)
+            {
+                action(item);
+            }
+        }
+
         public static string Dump<T>(this IEnumerable<T> enumerable)
         {
             ArgumentNullException.ThrowIfNull(enumerable);

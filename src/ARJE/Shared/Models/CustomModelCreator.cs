@@ -7,6 +7,7 @@ using Keras.Layers;
 using Keras.Models;
 using Keras.Utils;
 using Numpy;
+using NumpyShape = Numpy.Models.Shape;
 
 namespace ARJE.Shared.Models
 {
@@ -14,43 +15,34 @@ namespace ARJE.Shared.Models
     {
         private static readonly string[] Metrics = new[] { "categorical_accuracy" };
 
-        public static void Train(IModelTrainingConfig<IModelConfig> trainingConfig, ModelTrainingState trainingData, string savePath)
+        public static void Train(IModelTrainingConfig<IModelConfig> trainingConfig, ModelTrainingState trainingData, int epochs, string savePath)
         {
-            Preprocess(trainingConfig, trainingData, out float[] sequences, out int[] labels);
-            var featuresShape = new Numpy.Models.Shape(
+            NumpyShape featuresShape = new(
                 trainingConfig.Labels.Count * trainingConfig.SampleCount,
                 trainingConfig.SampleLength,
                 trainingConfig.ModelConfig.LandmarkCount * 3);
+            Preprocess(trainingConfig, trainingData, featuresShape, out float[] sequences, out int[] labels);
             NDarray npFeatures = new NDarray<float>(sequences).reshape(featuresShape);
             NDarray npLabels = Util.ToCategorical(labels, dtype: "int32");
-            Train(npFeatures, npLabels, savePath);
+            Train(npFeatures, npLabels, epochs, savePath);
         }
 
         private static void Preprocess(
             IModelTrainingConfig<IModelConfig> trainingConfig,
             ModelTrainingState trainingData,
+            NumpyShape featuresShape,
             out float[] sequences,
             out int[] labels)
         {
             ReadOnlyDictionary<string, int> labelMap = CreateLabelMap(trainingConfig.Labels).AsReadOnly();
-            var sequencesList = new List<float>();
-            var labelsList = new List<int>();
+            int sequenceLength = featuresShape[0] * featuresShape[1] * featuresShape[2];
+            List<float> sequencesList = new(sequenceLength);
+            List<int> labelsList = new(featuresShape[0]);
             foreach (string action in trainingConfig.Labels)
             {
-                foreach (var sequence in trainingData.GetSamples(action))
+                foreach (List<ReadOnlyCollection<Vector3>> sequence in trainingData.GetSamples(action))
                 {
-                    List<float> window = new();
-                    foreach (ReadOnlyCollection<Vector3> frame in sequence)
-                    {
-                        foreach (var pos in frame)
-                        {
-                            window.Add(pos.X);
-                            window.Add(pos.Y);
-                            window.Add(pos.Z);
-                        }
-                    }
-
-                    sequencesList.AddRange(window);
+                    sequence.ForEach(frame => frame.ForEach(sequencesList.AddXYZ));
                     labelsList.Add(labelMap[action]);
                 }
             }
@@ -64,7 +56,7 @@ namespace ARJE.Shared.Models
             return labels.Enumerated().ToDictionary(l => l.Item, l => l.Index);
         }
 
-        private static void Train(NDarray features, NDarray labels, string savePath)
+        private static void Train(NDarray features, NDarray labels, int epochs, string savePath)
         {
             var inputShape = new Shape(features.shape[1], features.shape[2]);
             var model = new Sequential();
@@ -76,7 +68,7 @@ namespace ARJE.Shared.Models
             model.Add(new Dense(labels.shape[1], activation: "softmax"));
 
             model.Compile("Adam", "categorical_crossentropy", Metrics);
-            model.Fit(features, labels, epochs: 200);
+            model.Fit(features, labels, epochs: epochs);
             model.Save(savePath);
         }
     }

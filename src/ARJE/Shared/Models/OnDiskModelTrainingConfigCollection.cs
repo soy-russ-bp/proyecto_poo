@@ -7,9 +7,11 @@ namespace ARJE.Shared.Models
 {
     public class OnDiskModelTrainingConfigCollection : ModelTrainingConfigCollection
     {
-        public const string FileConfigSuffix = "-config.json";
+        public const string ConfigFileSuffix = "-config.json";
 
-        public const string ModelExportSuffix = ".arje";
+        public const string SamplesFileSuffix = "-samples.json";
+
+        public const string ModelExportExtension = ".arje";
 
         public OnDiskModelTrainingConfigCollection(DirectoryInfo saveDirectory)
         {
@@ -44,20 +46,27 @@ namespace ARJE.Shared.Models
             this.Clear();
             foreach (DirectoryInfo directory in this.SaveDirectory.EnumerateDirectories())
             {
-                FileInfo file = directory.EnumerateFiles().Single(file => file.Name.EndsWith(FileConfigSuffix));
+                FileInfo file = directory.EnumerateFiles().Single(file => file.Name.EndsWith(ConfigFileSuffix));
                 var config = JsonRead.FromFile<ModelTrainingConfig<IModelConfig>>(file.FullName);
                 this.Add(config);
             }
         }
 
-        public void Train(string title)
+        public void Train(IModelTrainingConfig<IModelConfig> trainingConfig, ModelTrainingState trainingState, int epochs)
         {
+            string savePath = this.GetFullPathForConfig(trainingConfig, "-model.h5");
+            CustomModelCreator.Train(
+                trainingConfig,
+                trainingState,
+                epochs,
+                savePath);
         }
 
-        public void Export(string configTitle, out string exportPath, string? destinationPath = null)
+        public void Export(IModelTrainingConfig<IModelConfig> trainingConfig, out string exportPath, string? destinationPath = null)
         {
+            string configTitle = trainingConfig.Title;
             string configDir = this.GetConfigDirectoryPath(configTitle);
-            string fileName = $"{configTitle}{ModelExportSuffix}";
+            string fileName = $"{configTitle}{ModelExportExtension}";
             string tempPath = PathUtils.TempPathJoin(fileName);
             exportPath = destinationPath ?? Path.Join(configDir, fileName);
 
@@ -73,7 +82,12 @@ namespace ARJE.Shared.Models
             File.Move(tempPath, exportPath, overwrite: true);
         }
 
-        public string GetFullPathForFile(IModelTrainingConfig<IModelConfig> config, string fileName)
+        public string GetFullPathForConfig(IModelTrainingConfig<IModelConfig> config, string fileSuffix)
+        {
+            return this.GetFullPathForFile(config, $"{config.Title}{fileSuffix}");
+        }
+
+        private string GetFullPathForFile(IModelTrainingConfig<IModelConfig> config, string fileName)
         {
             string configDirectoryPath = this.GetConfigDirectoryPath(config.Title);
             return Path.Join(configDirectoryPath, fileName);
@@ -88,7 +102,7 @@ namespace ARJE.Shared.Models
         {
             string configDirectoryPath = this.GetConfigDirectoryPath(configTitle);
             Directory.CreateDirectory(configDirectoryPath);
-            return Path.Join(configDirectoryPath, configTitle + FileConfigSuffix);
+            return Path.Join(configDirectoryPath, configTitle + ConfigFileSuffix);
         }
 
         private string GetConfigDirectoryPath(string configTitle)

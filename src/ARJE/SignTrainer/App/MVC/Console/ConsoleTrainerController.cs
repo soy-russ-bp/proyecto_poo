@@ -10,6 +10,7 @@ using ARJE.Utils.AI;
 using ARJE.Utils.AI.Configuration;
 using ARJE.Utils.AI.Solutions.Hands;
 using ARJE.Utils.Spectre.Console;
+using ARJE.Utils.System.Extensions;
 using EnumsNET;
 using Spectre.Console;
 using Matrix = OpenCvSharp.Mat;
@@ -129,13 +130,10 @@ namespace ARJE.SignTrainer.App.MVC.Console
                 {
                     if (this.View.Confirm("Export"))
                     {
-                        CustomModelCreator.Train(
-                            selectedModel,
-                            trainingState,
-                            configCollection.GetFullPathForFile(selectedModel, $"{selectedModel.Title}-model.h5"));
-
-                        configCollection.Train(selectedModel.Title);
-                        configCollection.Export(selectedModel.Title, out string exportPath);
+                        const int MinEpochs = 50, MaxEpochs = 500;
+                        int epochs = this.View.TextPrompt($"Epochs [{MinEpochs}, {MaxEpochs}]", 200, input => input.InRange(MinEpochs, MaxEpochs));
+                        configCollection.Train(selectedModel, trainingState, epochs);
+                        configCollection.Export(selectedModel, out string exportPath);
                         this.View.DisplayMsg($"Saved model to: '{exportPath}'");
                     }
 
