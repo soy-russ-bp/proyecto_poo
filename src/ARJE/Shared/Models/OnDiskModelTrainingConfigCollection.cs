@@ -1,12 +1,9 @@
-﻿using System;
-using System.IO;
-using System.IO.Compression;
-using System.Linq;
+﻿using System.IO.Compression;
 using ARJE.Utils.AI.Configuration;
 using ARJE.Utils.IO;
 using ARJE.Utils.Json;
 
-namespace ARJE.SignTrainer.App.MVC.Base.Model
+namespace ARJE.Shared.Models
 {
     public class OnDiskModelTrainingConfigCollection : ModelTrainingConfigCollection
     {
@@ -46,6 +43,10 @@ namespace ARJE.SignTrainer.App.MVC.Base.Model
                 var config = JsonRead.FromFile<ModelTrainingConfig<IModelConfig>>(file.FullName);
                 this.Add(config);
             }
+        }
+
+        public void Train(string title)
+        {
         }
 
         public void Export(string configTitle, out string exportPath, string? destinationPath = null)

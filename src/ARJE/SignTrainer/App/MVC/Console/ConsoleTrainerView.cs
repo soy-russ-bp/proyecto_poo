@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using ARJE.SignTrainer.App.MVC.Base.View;
+using ARJE.SignTrainer.App.MVC.Base;
 using ARJE.Utils.AI;
 using ARJE.Utils.AI.Solutions.Hands;
 using ARJE.Utils.System;
@@ -12,7 +12,7 @@ using Spectre.Console;
 using Matrix = OpenCvSharp.Mat;
 using SConsole = System.Console;
 
-namespace ARJE.SignTrainer.App.MVC.Console.View
+namespace ARJE.SignTrainer.App.MVC.Console
 {
     public sealed class ConsoleTrainerView : BaseTrainerView
     {

@@ -7,26 +7,40 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ARJE.SignPractice", "ARJE.S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ARJE.Utils", "..\Utils\ARJE.Utils.csproj", "{ED1300BF-8024-4B5A-98A2-3B574A783C3A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ARJE.SignTrainer", "..\SignTrainer\ARJE.SignTrainer.csproj", "{54D6C773-131C-4D28-B8B3-76982CA5E5A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ARJE.Shared", "..\Shared\ARJE.Shared.csproj", "{9802E6DE-A6D0-4EED-A35B-0D7A9FEE1CB4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
 		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{756FCA63-BA27-4AC7-9140-E29E2526B912}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{756FCA63-BA27-4AC7-9140-E29E2526B912}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{756FCA63-BA27-4AC7-9140-E29E2526B912}.Debug|x64.ActiveCfg = Debug|x64
 		{756FCA63-BA27-4AC7-9140-E29E2526B912}.Debug|x64.Build.0 = Debug|x64
+		{756FCA63-BA27-4AC7-9140-E29E2526B912}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{756FCA63-BA27-4AC7-9140-E29E2526B912}.Release|Any CPU.Build.0 = Release|Any CPU
 		{756FCA63-BA27-4AC7-9140-E29E2526B912}.Release|x64.ActiveCfg = Release|x64
 		{756FCA63-BA27-4AC7-9140-E29E2526B912}.Release|x64.Build.0 = Release|x64
+		{ED1300BF-8024-4B5A-98A2-3B574A783C3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED1300BF-8024-4B5A-98A2-3B574A783C3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED1300BF-8024-4B5A-98A2-3B574A783C3A}.Debug|x64.ActiveCfg = Debug|x64
 		{ED1300BF-8024-4B5A-98A2-3B574A783C3A}.Debug|x64.Build.0 = Debug|x64
+		{ED1300BF-8024-4B5A-98A2-3B574A783C3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED1300BF-8024-4B5A-98A2-3B574A783C3A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{ED1300BF-8024-4B5A-98A2-3B574A783C3A}.Release|x64.ActiveCfg = Release|x64
 		{ED1300BF-8024-4B5A-98A2-3B574A783C3A}.Release|x64.Build.0 = Release|x64
-		{54D6C773-131C-4D28-B8B3-76982CA5E5A5}.Debug|x64.ActiveCfg = Debug|x64
-		{54D6C773-131C-4D28-B8B3-76982CA5E5A5}.Debug|x64.Build.0 = Debug|x64
-		{54D6C773-131C-4D28-B8B3-76982CA5E5A5}.Release|x64.ActiveCfg = Release|x64
-		{54D6C773-131C-4D28-B8B3-76982CA5E5A5}.Release|x64.Build.0 = Release|x64
+		{9802E6DE-A6D0-4EED-A35B-0D7A9FEE1CB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9802E6DE-A6D0-4EED-A35B-0D7A9FEE1CB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9802E6DE-A6D0-4EED-A35B-0D7A9FEE1CB4}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9802E6DE-A6D0-4EED-A35B-0D7A9FEE1CB4}.Debug|x64.Build.0 = Debug|Any CPU
+		{9802E6DE-A6D0-4EED-A35B-0D7A9FEE1CB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9802E6DE-A6D0-4EED-A35B-0D7A9FEE1CB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9802E6DE-A6D0-4EED-A35B-0D7A9FEE1CB4}.Release|x64.ActiveCfg = Release|Any CPU
+		{9802E6DE-A6D0-4EED-A35B-0D7A9FEE1CB4}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

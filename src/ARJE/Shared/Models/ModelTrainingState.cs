@@ -1,13 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
+﻿using System.Collections.ObjectModel;
 using System.Numerics;
 using ARJE.Utils.AI;
 using ARJE.Utils.AI.Configuration;
 using ARJE.Utils.Json;
 
-namespace ARJE.SignTrainer.App.MVC.Base.Model
+namespace ARJE.Shared.Models
 {
     public sealed class ModelTrainingState
     {

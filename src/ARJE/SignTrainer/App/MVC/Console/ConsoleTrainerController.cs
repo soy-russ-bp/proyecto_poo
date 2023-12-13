@@ -4,9 +4,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Versioning;
 using System.Threading;
 using System.Threading.Tasks;
-using ARJE.SignTrainer.App.MVC.Base.Controller;
-using ARJE.SignTrainer.App.MVC.Base.Model;
-using ARJE.SignTrainer.App.MVC.Console.View;
+using ARJE.Shared.Models;
+using ARJE.SignTrainer.App.MVC.Base;
 using ARJE.Utils.AI;
 using ARJE.Utils.AI.Configuration;
 using ARJE.Utils.AI.Solutions.Hands;
@@ -15,7 +14,7 @@ using EnumsNET;
 using Spectre.Console;
 using Matrix = OpenCvSharp.Mat;
 
-namespace ARJE.SignTrainer.App.MVC.Console.Controller
+namespace ARJE.SignTrainer.App.MVC.Console
 {
     [SupportedOSPlatform("windows")]
     [SupportedOSPlatform("macos")]
@@ -135,6 +134,7 @@ namespace ARJE.SignTrainer.App.MVC.Console.Controller
                             trainingState,
                             configCollection.GetFullPathForFile(selectedModel, $"{selectedModel.Title}-model.h5"));
 
+                        configCollection.Train(selectedModel.Title);
                         configCollection.Export(selectedModel.Title, out string exportPath);
                         this.View.DisplayMsg($"Saved model to: '{exportPath}'");
                     }

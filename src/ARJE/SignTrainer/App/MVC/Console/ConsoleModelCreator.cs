@@ -5,7 +5,7 @@ using ARJE.Utils.AI.Configuration;
 using ARJE.Utils.AI.Solutions.Hands;
 using ARJE.Utils.Text;
 
-namespace ARJE.SignTrainer.App.MVC.Console.Controller
+namespace ARJE.SignTrainer.App.MVC.Console
 {
     public class ConsoleModelCreator
     {

@@ -1,10 +1,11 @@
 ﻿using System;
+using ARJE.Shared.Models;
 using ARJE.Utils.AI.Solutions.Hands;
 using ARJE.Utils.Threading;
 using ARJE.Utils.Video;
 using Matrix = OpenCvSharp.Mat;
 
-namespace ARJE.SignTrainer.App.MVC.Base.Model
+namespace ARJE.SignTrainer.App.MVC.Base
 {
     public sealed record TrainerModel(
             IAsyncVideoSource<Matrix> VideoSource,

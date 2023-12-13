@@ -1,9 +1,10 @@
 ﻿using System.IO;
 using System.Runtime.Versioning;
 using System.Threading.Tasks;
-using ARJE.SignTrainer.App.MVC.Base.Model;
-using ARJE.SignTrainer.App.MVC.Console.Controller;
-using ARJE.SignTrainer.App.MVC.Console.View;
+using ARJE.Shared.Models;
+using ARJE.Shared.Proxy;
+using ARJE.SignTrainer.App.MVC.Base;
+using ARJE.SignTrainer.App.MVC.Console;
 using ARJE.Utils.AI.Solutions.Hands;
 using ARJE.Utils.OpenCvSharp;
 using ARJE.Utils.Video;

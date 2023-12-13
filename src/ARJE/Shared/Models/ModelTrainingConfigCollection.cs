@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using ARJE.Utils.AI.Configuration;
+﻿using ARJE.Utils.AI.Configuration;
 
-namespace ARJE.SignTrainer.App.MVC.Base.Model
+namespace ARJE.Shared.Models
 {
     public class ModelTrainingConfigCollection
     {

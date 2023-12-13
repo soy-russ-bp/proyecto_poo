@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System.Collections.ObjectModel;
 using System.Numerics;
 using ARJE.Utils.AI.Configuration;
 using ARJE.Utils.Collections.Extensions;
@@ -10,11 +8,11 @@ using Keras.Models;
 using Keras.Utils;
 using Numpy;
 
-namespace ARJE.SignTrainer.App.MVC.Base.Model
+namespace ARJE.Shared.Models
 {
     public static class CustomModelCreator
     {
-        private static readonly string[] Metrics = new string[] { "categorical_accuracy" };
+        private static readonly string[] Metrics = new[] { "categorical_accuracy" };
 
         public static void Train(IModelTrainingConfig<IModelConfig> trainingConfig, ModelTrainingState trainingData, string savePath)
         {

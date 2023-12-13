@@ -1,10 +1,8 @@
-﻿using System;
-using System.IO;
-using ARJE.Utils.IO;
+﻿using ARJE.Utils.IO;
 using ARJE.Utils.Python.Environment;
 using ARJE.Utils.Python.Launcher;
 
-namespace ARJE.SignTrainer.App
+namespace ARJE.Shared.Proxy
 {
     public static class PythonProxyApp
     {

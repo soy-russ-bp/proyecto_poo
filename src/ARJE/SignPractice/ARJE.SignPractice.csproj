@@ -38,7 +38,7 @@
 
 
   <ItemGroup>
-    <ProjectReference Include="..\SignTrainer\ARJE.SignTrainer.csproj" />
+    <ProjectReference Include="..\Shared\ARJE.Shared.csproj" />
     <ProjectReference Include="..\Utils\ARJE.Utils.csproj" />
   </ItemGroup>
 

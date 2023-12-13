@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Numerics;
 using System.Runtime.Versioning;
-using ARJE.SignTrainer.App;
+using ARJE.Shared.Proxy;
 using ARJE.Utils.AI.Solutions.Hands;
 using Keras.Models;
 using Numpy;
