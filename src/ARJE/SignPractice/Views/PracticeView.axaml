@@ -39,9 +39,11 @@
 				</Border>
 			</Border>
       
-			<Panel Margin="0,0,0,20" HorizontalAlignment="Center" VerticalAlignment="Bottom"  Width="100" Height="100" Background="#F0afe0">
-				<Border BoxShadow="0 20 20 -3 black" BorderBrush="black" BorderThickness="1"></Border>
+			<Panel Margin="0,0,0,30" HorizontalAlignment="Center" VerticalAlignment="Bottom"  Width="100" Height="100" Background="#F0afe0">
+				<Border BoxShadow="0 10 20 -3 black" BorderBrush="black" BorderThickness="1"></Border>
         <TextBlock
+          x:Name="signTextBox"
+          x:FieldModifier="private"
           HorizontalAlignment="Center"
           VerticalAlignment="Center"
           FontSize="50"

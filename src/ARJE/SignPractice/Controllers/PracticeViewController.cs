@@ -1,20 +1,24 @@
-﻿using System;
+﻿using System.Runtime.Versioning;
 using ARJE.SignPractice.Models;
 using ARJE.SignPractice.Views;
+using ARJE.Utils.AI;
 using ARJE.Utils.Avalonia.MVC.Controllers;
 using ARJE.Utils.Avalonia.OpenCvSharp.Extensions;
+using Avalonia.Media.Imaging;
 using Matrix = OpenCvSharp.Mat;
 
 namespace ARJE.SignPractice.Controllers
 {
+    [SupportedOSPlatform("windows")]
+    [SupportedOSPlatform("macos")]
     public sealed class PracticeViewController : ViewControllerBase<PracticeView, PracticeDataModel>
     {
-        public PracticeViewController(PracticeDataModel dataModel)
-            : base(dataModel)
+        public PracticeViewController(PracticeDataModel model)
+            : base(model)
         {
             this.View.OnBackBtnClick += this.OnBackBtnClick;
-            dataModel.VideoSource.OnFrameGrabbed += this.OnFrameGrabbed;
-            dataModel.VideoSource.StartGrab(dataModel.GrabConfig);
+            model.VideoSource.OnFrameGrabbed += this.OnFrameGrabbed;
+            model.VideoSource.StartGrab(model.GrabConfig);
         }
 
         public override void Dispose()
@@ -22,7 +26,6 @@ namespace ARJE.SignPractice.Controllers
             this.Model.VideoSource.StopGrab();
             this.Model.VideoSource.OnFrameGrabbed -= this.OnFrameGrabbed;
             base.Dispose();
-            // this.DataModel.CustomModel.Clear();
         }
 
         private void OnBackBtnClick()
@@ -32,8 +35,15 @@ namespace ARJE.SignPractice.Controllers
 
         private void OnFrameGrabbed(Matrix frame)
         {
-            (this.View.FrameSource as IDisposable)?.Dispose();
-            this.View.FrameSource = frame.ToAvaloniaBitmap(buffer: this.Model.FrameEncodeBuffer);
+            string? detectedSign = this.Model.DetectionModel.ProcessFrame(frame, out IDetection? detection);
+            if (detectedSign != null)
+            {
+                this.View.SignText = detectedSign;
+                DetectionDrawer.Draw(frame, detection!);
+            }
+
+            Bitmap uiFrame = frame.ToAvaloniaBitmap(buffer: this.Model.FrameEncodeBuffer);
+            this.View.SetFrameAndDisposeLast(uiFrame);
         }
     }
 }

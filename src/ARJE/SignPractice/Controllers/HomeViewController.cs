@@ -1,5 +1,10 @@
-﻿using ARJE.SignPractice.Models;
+﻿using System.IO;
+using System.Linq;
+using System.Runtime.Versioning;
+using ARJE.Shared.Models;
+using ARJE.SignPractice.Models;
 using ARJE.SignPractice.Views;
+using ARJE.Utils.AI.Configuration;
 using ARJE.Utils.Avalonia.MVC.Controllers;
 using ARJE.Utils.Avalonia.MVC.Models;
 using ARJE.Utils.Avalonia.MVC.Views;
@@ -9,6 +14,8 @@ using Matrix = OpenCvSharp.Mat;
 
 namespace ARJE.SignPractice.Controllers
 {
+    [SupportedOSPlatform("windows")]
+    [SupportedOSPlatform("macos")]
     public sealed class HomeViewController : ViewControllerBase<HomeView, NoDataModel>
     {
         private readonly IViewDisplay viewDisplay;
@@ -16,12 +23,20 @@ namespace ARJE.SignPractice.Controllers
         private readonly IAsyncVideoSource<Matrix> videoSource =
             new Webcam(outputFlipType: FlipType.Horizontal);
 
-        private readonly CustomModel customModel = null;
+        private readonly DirectoryInfo ModelsDir = Directory.CreateDirectory("Models");
+
+        private readonly OnDiskModelTrainingConfigCollection configCollection;
+
+        private readonly CustomModel customModel;
 
         public HomeViewController(IViewDisplay viewDisplay)
             : base(NoDataModel.None)
         {
             Instance = this;
+            this.configCollection = new(this.ModelsDir);
+            this.configCollection.Update();
+            IModelTrainingConfig<IModelConfig> trainingConfig = this.configCollection.Configs.First();
+            this.customModel = new(this.configCollection, trainingConfig);
             this.viewDisplay = viewDisplay;
             this.View.OnPracticeBtnClick += this.GoToPractice;
             this.View.OnSelectBtnClick += this.GoToSelect;

@@ -11,6 +11,8 @@ namespace ARJE.Shared.Models
 
         public const string SamplesFileSuffix = "-samples.json";
 
+        public const string ModelFileSuffix = "-model.h5";
+
         public const string ModelExportExtension = ".arje";
 
         public OnDiskModelTrainingConfigCollection(DirectoryInfo saveDirectory)
@@ -54,7 +56,7 @@ namespace ARJE.Shared.Models
 
         public void Train(IModelTrainingConfig<IModelConfig> trainingConfig, ModelTrainingState trainingState, int epochs)
         {
-            string savePath = this.GetFullPathForConfig(trainingConfig, "-model.h5");
+            string savePath = this.GetFullPathForConfig(trainingConfig, ModelFileSuffix);
             CustomModelCreator.Train(
                 trainingConfig,
                 trainingState,

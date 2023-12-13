@@ -1,4 +1,6 @@
-﻿using ARJE.Utils.Avalonia.MVC.Models;
+﻿using System.Runtime.Versioning;
+using ARJE.Shared.Models;
+using ARJE.Utils.Avalonia.MVC.Models;
 using ARJE.Utils.Video;
 using Avalonia.Threading;
 using OpenCvSharp.Internal.Vectors;
@@ -6,9 +8,11 @@ using Matrix = OpenCvSharp.Mat;
 
 namespace ARJE.SignPractice.Models
 {
+    [SupportedOSPlatform("windows")]
+    [SupportedOSPlatform("macos")]
     public sealed record PracticeDataModel(
         IAsyncVideoSource<Matrix> VideoSource,
-        CustomModel CustomModel)
+        CustomModel DetectionModel)
         : DataModelBase
     {
         public AsyncGrabConfig GrabConfig { get; } = new(SynchronizationContext: new AvaloniaSynchronizationContext());
@@ -18,6 +22,7 @@ namespace ARJE.SignPractice.Models
         public override void Dispose()
         {
             this.FrameEncodeBuffer.Dispose();
+            this.DetectionModel.Clear();
         }
     }
 }
