@@ -7,13 +7,24 @@ using Keras.Layers;
 using Keras.Models;
 using Keras.Utils;
 using Numpy;
+using Python.Runtime;
 using NumpyShape = Numpy.Models.Shape;
 
 namespace ARJE.Shared.Models
 {
     public static class CustomModelCreator
     {
-        private static readonly string[] Metrics = new[] { "categorical_accuracy" };
+        static CustomModelCreator()
+        {
+            using (Py.GIL())
+            {
+                PythonEngine.Exec(
+                    "import os; os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2';" +
+                    "import warnings; warnings.filterwarnings('ignore', category=UserWarning, module='keras');");
+            }
+        }
+
+        private static string[] Metrics { get; } = { "categorical_accuracy" };
 
         public static void Train(IModelTrainingConfig<IModelConfig> trainingConfig, ModelTrainingState trainingData, int epochs, string savePath)
         {
@@ -58,18 +69,21 @@ namespace ARJE.Shared.Models
 
         private static void Train(NDarray features, NDarray labels, int epochs, string savePath)
         {
-            var inputShape = new Shape(features.shape[1], features.shape[2]);
-            var model = new Sequential();
-            model.Add(new LSTM(64, return_sequences: true, activation: "relu", input_shape: inputShape));
-            model.Add(new LSTM(128, return_sequences: true, activation: "relu"));
-            model.Add(new LSTM(64, activation: "relu"));
-            model.Add(new Dense(64, activation: "relu"));
-            model.Add(new Dense(32, activation: "relu"));
-            model.Add(new Dense(labels.shape[1], activation: "softmax"));
+            using (Py.GIL())
+            {
+                var inputShape = new Shape(features.shape[1], features.shape[2]);
+                var model = new Sequential();
+                model.Add(new LSTM(64, return_sequences: true, activation: "relu", input_shape: inputShape));
+                model.Add(new LSTM(128, return_sequences: true, activation: "relu"));
+                model.Add(new LSTM(64, activation: "relu"));
+                model.Add(new Dense(64, activation: "relu"));
+                model.Add(new Dense(32, activation: "relu"));
+                model.Add(new Dense(labels.shape[1], activation: "softmax"));
 
-            model.Compile("Adam", "categorical_crossentropy", Metrics);
-            model.Fit(features, labels, epochs: epochs);
-            model.Save(savePath);
+                model.Compile("Adam", "categorical_crossentropy", Metrics);
+                model.Fit(features, labels, epochs: epochs);
+                model.Save(savePath);
+            }
         }
     }
 }

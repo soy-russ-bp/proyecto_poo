@@ -132,6 +132,7 @@ namespace ARJE.SignTrainer.App.MVC.Console
                     {
                         const int MinEpochs = 50, MaxEpochs = 500;
                         int epochs = this.View.TextPrompt($"Epochs [{MinEpochs}, {MaxEpochs}]", 200, input => input.InRange(MinEpochs, MaxEpochs));
+                        this.View.DisplayMsg("Training...");
                         configCollection.Train(selectedModel, trainingState, epochs);
                         configCollection.Export(selectedModel, out string exportPath);
                         this.View.DisplayMsg($"Saved model to: '{exportPath}'");
