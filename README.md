@@ -105,5 +105,3 @@ Competencias: [Aquí]() (José Luis)
 
 Areas de mejora: [Aquí]() (José Luis)
 
-
-
