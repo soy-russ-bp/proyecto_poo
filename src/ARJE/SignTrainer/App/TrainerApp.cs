@@ -1,12 +1,13 @@
-﻿using System.Diagnostics;
+﻿using System.IO;
 using System.Runtime.Versioning;
 using System.Threading.Tasks;
-using ARJE.SignTrainer.App.Controller;
-using ARJE.SignTrainer.App.Model;
-using ARJE.SignTrainer.App.View;
+using ARJE.Shared.Models;
+using ARJE.Shared.Proxy;
+using ARJE.SignTrainer.App.MVC.Base;
+using ARJE.SignTrainer.App.MVC.Console;
 using ARJE.Utils.AI.Solutions.Hands;
+using ARJE.Utils.OpenCvSharp;
 using ARJE.Utils.Video;
-using ARJE.Utils.Video.OpenCV;
 using Spectre.Console;
 using Matrix = OpenCvSharp.Mat;
 
@@ -20,9 +21,8 @@ namespace ARJE.SignTrainer.App
         {
             bool launchProxy = AnsiConsole.Confirm("Launch proxy?");
 
-            var stopwatch = Stopwatch.StartNew();
+            using var detectionModel = new HandsModel(new HandsModelConfig(MaxNumHands: 1));
 
-            using var detectionModel = new HandsModel();
             Task detectionModelTask = launchProxy
                 ? detectionModel.StartAsync(PythonProxyApp.AppInfo)
                 : detectionModel.StartNoLaunchAsync();
@@ -30,17 +30,17 @@ namespace ARJE.SignTrainer.App
             if (!launchProxy)
             {
                 AnsiConsole.Write("Waiting for proxy in pipe: ");
-                AnsiConsole.MarkupLine($"\"[{Color.Orange1}]{detectionModel.PipeName}[/]\".");
+                AnsiConsole.MarkupLine($"\"[{Color.Orange1}]{detectionModel.PipeIdentifier}[/]\".");
             }
 
             using IAsyncVideoSource<Matrix> videoSource = new Webcam(outputFlipType: FlipType.Horizontal);
-            var model = new TrainerModel(videoSource, detectionModel);
-            var view = new ConsoleTrainerView();
+            DirectoryInfo modelsDir = Directory.CreateDirectory("Models");
+            var modelTrainingConfigCollection = new OnDiskModelTrainingConfigCollection(modelsDir);
+
+            var model = new TrainerModel(videoSource, detectionModel, modelTrainingConfigCollection).Validate();
+            var view = new ConsoleTrainerView(model.SyncCtx);
             var controller = new ConsoleTrainerController(model, view);
             detectionModelTask.Wait();
-
-            stopwatch.Stop();
-            AnsiConsole.WriteLine($"Init time: {stopwatch.Elapsed.TotalSeconds} sec");
 
             controller.Run();
         }

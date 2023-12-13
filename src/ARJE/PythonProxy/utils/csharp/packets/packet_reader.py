@@ -1,6 +1,7 @@
 import typing
 from utils.csharp.packets.inbound_proxy_packet import InboundProxyPacket
 from utils.io.binary_reader import BinaryReader
+from utils.io.buffer_binary_reader import BufferBinaryReader
 
 
 ObjectT = typing.TypeVar("ObjectT")
@@ -26,6 +27,6 @@ class PacketReader:
 
     def read_object(self, packet: InboundProxyPacket[ObjectT]) -> ObjectT:
         packet_bytes: bytes = self._read_raw_packet()
-        with BinaryReader.from_buffer(packet_bytes, self._pipe_reader.byte_order) as packet_reader:
+        with BufferBinaryReader(packet_bytes, self._pipe_reader.byte_order) as packet_reader:
             inbound_object: ObjectT = packet.read_object(packet_reader)
             return inbound_object

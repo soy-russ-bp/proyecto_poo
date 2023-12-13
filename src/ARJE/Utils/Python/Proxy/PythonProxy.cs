@@ -15,13 +15,12 @@ namespace ARJE.Utils.Python.Proxy
         public PythonProxy(string pipeName, IIdMapper idMapper, int bufferCapacity = 0)
         {
             this.Pipe = new HybridPipeServer(pipeName);
-            this.PipeName = this.Pipe.Identifier;
             this.BufferCapacity = bufferCapacity;
         }
 
-        public string PipeName { get; }
+        public string PipeIdentifier => this.Pipe.Identifier;
 
-        private IPipeServer Pipe { get; }
+        private HybridPipeServer Pipe { get; }
 
         private int BufferCapacity { get; }
 
@@ -45,7 +44,6 @@ namespace ARJE.Utils.Python.Proxy
         {
             this.Pipe.Dispose();
             this.Reader?.Dispose();
-            this.Writer?.Dispose();
         }
 
         public TObject Receive<TObject, TPacket>()

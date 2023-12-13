@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Enums.NET" Version="4.0.1" />
+    
+    <PackageReference Include="Keras.NET" Version="3.8.5" Condition="$([MSBuild]::IsOsPlatform('Windows'))" />
+    <PackageReference Include="Keras.NET.OSX" Version="3.8.5" Condition="$([MSBuild]::IsOsPlatform('OSX'))" />
+
+    <PackageReference Include="StyleCop.Analyzers.Unstable" Version="1.2.0.507">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\Utils\ARJE.Utils.csproj" />
+  </ItemGroup>
+
+</Project>

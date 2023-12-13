@@ -1,0 +1,78 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+           xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+     xmlns:vm="clr-namespace:ARJE.SignPractice.ViewModels"
+           mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+           x:Class="ARJE.SignPractice.Views.HomeView">
+
+
+  <Grid RowDefinitions="Auto, *">
+
+    <!-- Title Bar -->
+    <Grid  Grid.Row="0" Height="40" Background="#F3068E" ColumnDefinitions="*">
+      <Label Padding="0, 0, 0, 0" Foreground="White" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Bottom">ARJÉ</Label>
+    </Grid>
+
+    <!-- Main Area-->
+    <Panel  MinWidth="700" Grid.Row="1" Background="#F0068E">
+      <Border BoxShadow="inset 1 1 90 #F3068E " BorderBrush="#F0068E" BorderThickness="10" CornerRadius="10" Background="#FFCFEF"/>
+      <Grid  RowDefinitions="AUTO, *">
+        <Label  Grid.Row="0"  Foreground="#F3968E" FontWeight="Bold" FontSize="44"
+					   Padding="0, 20, 0, 0" HorizontalAlignment="Center">SIGN LANGUAGE TRAINER</Label>
+        <Grid  MinWidth="300" Grid.Row="1" ColumnDefinitions="Auto, *, 2*">
+          <Panel Grid.Column="0" Width="20"></Panel>
+          <Panel Grid.Column="1" VerticalAlignment="Center">
+            <Viewbox Stretch="Uniform">
+
+              <StackPanel MinWidth="300" HorizontalAlignment="Left" VerticalAlignment="Center">
+
+                <StackPanel.Styles>
+                  <Style Selector="Button">
+                    <Setter Property="MinHeight" Value="65"></Setter>
+                    <Setter Property="MinWidth" Value="250" ></Setter>
+                    <Setter Property="Background" Value="#AA0072" />
+                    <Setter Property="Foreground" Value="White" />
+                    <Setter Property="FontWeight" Value="Bold" />
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                    <Setter Property="VerticalContentAlignment" Value="Center" />
+                    <Setter Property="CornerRadius" Value="7"/>
+                    <Setter Property="Margin" Value="10"/>
+                  </Style>
+                  <Style Selector="Button:pointerover/template/ContentPresenter">
+                    <Setter Property="Background" Value="#F43DF2" />
+                    <Setter Property="Foreground" Value="White" />
+                  </Style>
+                </StackPanel.Styles>
+
+                <Button
+                  Click="PracticeBtnClickHandler">
+                  PRACTICE
+                </Button>
+                <Button
+                  Click="SelectBtnClickHandler">
+                  SELECT
+                </Button>
+                <Button
+                  Click="ImportBtnClickHandler">
+                  IMPORT
+                </Button>
+                
+              </StackPanel>
+            </Viewbox>
+
+          </Panel>
+
+          <Panel  Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Viewbox  MinWidth="200" Stretch="Uniform">
+              <Image Margin="70" Source="/Assets/logo.png"></Image>
+            </Viewbox>
+          </Panel>
+
+        </Grid>
+      </Grid>
+    </Panel>
+
+  </Grid>
+
+</UserControl>
