@@ -82,7 +82,7 @@ Training the model, preparing the video and a video to "promote the project", an
 
 ## Verificación de los requerimientos funcionales y no funcionales
 
-Here you can see the correspondence between our Functional Requirements and the final product: [:diamons:Requeriments Cheking(https://github.com/soy-russ-bp/proyecto_poo/blob/Third-Review/docs/Requirements/Requirements%20Checking.pdf)]
+Here you can see the correspondence between our Functional Requirements and the final product: [:diamonds: Requeriments Cheking](https://github.com/soy-russ-bp/proyecto_poo/blob/Third-Review/docs/Requirements/Requirements%20Checking.pdf)
 
 ---
 
