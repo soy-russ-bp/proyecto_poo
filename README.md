@@ -80,9 +80,9 @@ Training the model, preparing the video and a video to "promote the project", an
 
 ---
 
-## Verificación de los requerimientos funcionales y no funcionales (Juan)
+## Verificación de los requerimientos funcionales y no funcionales
 
-Aquí puede notar la correspondencia entre nuestros Requerimientos funcionales y el producto final: (Pasar al inglés, y pegar la parte de Juan, ya sea un link a otro readme, un video, o como haya hecho esa verificación)
+Here you can see the correspondence between our Functional Requirements and the final product: [:diamons:Requeriments Cheking(https://github.com/soy-russ-bp/proyecto_poo/blob/Third-Review/docs/Requirements/Requirements%20Checking.pdf)]
 
 ---
 
