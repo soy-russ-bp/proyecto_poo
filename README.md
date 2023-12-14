@@ -4,11 +4,7 @@
 
 :point_up: [Sign Practice Files](https://github.com/soy-russ-bp/proyecto_poo/tree/Andry/src/ARJE/SignPractice)
 
-:v: [Second review](https://github.com/soy-russ-bp/proyecto_poo/tree/Second-Review)
-
-:ok_hand: [Final review](https://github.com/soy-russ-bp/proyecto_poo/tree/Third-Review)
-
-20231213_191023.mp4
+:v: [TRAINER UI RESULTS](https://github.com/soy-russ-bp/proyecto_poo/blob/Andry/Screenshot%202023-12-13%20221712.png)
 
 With this implementation, we have significantly enhanced the user experience by simplifying the import and display of files post-training in our application. The Avalonia UI provides a robust platform for these functions, offering both functionality and aesthetics.
 
