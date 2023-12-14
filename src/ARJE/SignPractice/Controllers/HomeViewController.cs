@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using ARJE.Shared.Models;
 using ARJE.Shared.Proxy;
+using ARJE.SignPractice.DataModels;
 using ARJE.SignPractice.Models;
 using ARJE.SignPractice.Views;
 using ARJE.Utils.AI.Configuration;
@@ -70,7 +71,8 @@ namespace ARJE.SignPractice.Controllers
 
         public void GoToImport()
         {
-            new ImportViewController().Run(this.viewDisplay);
+            var dataModel = new ImportDataModel(this.Model.ConfigCollection.SaveDirectory);
+            new ImportViewController(dataModel).Run(this.viewDisplay);
         }
 
         private void OnConfigSelected(IModelTrainingConfig<IModelConfig> config)

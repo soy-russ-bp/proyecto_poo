@@ -22,7 +22,7 @@ namespace ARJE.Shared.Models
             this.SaveDirectory = saveDirectory;
         }
 
-        private DirectoryInfo SaveDirectory { get; }
+        public DirectoryInfo SaveDirectory { get; }
 
         public override void Add(IModelTrainingConfig<IModelConfig> config)
         {
@@ -48,7 +48,12 @@ namespace ARJE.Shared.Models
             this.Clear();
             foreach (DirectoryInfo directory in this.SaveDirectory.EnumerateDirectories())
             {
-                FileInfo file = directory.EnumerateFiles().Single(file => file.Name.EndsWith(ConfigFileSuffix));
+                FileInfo? file = directory.EnumerateFiles().FirstOrDefault(file => file.Name.EndsWith(ConfigFileSuffix));
+                if (file == null)
+                {
+                    continue;
+                }
+
                 var config = JsonRead.FromFile<ModelTrainingConfig<IModelConfig>>(file.FullName);
                 this.Add(config);
             }
