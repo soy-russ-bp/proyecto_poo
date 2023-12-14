@@ -1,0 +1,21 @@
+{
+  "Title": "SemanaLSM",
+  "SampleCount": 30,
+  "SampleLength": 10,
+  "SamplesPerSecond": 20,
+  "Labels": [
+    "Lunes",
+    "Martes",
+    "Miércoles",
+    "Jueves",
+    "Viernes",
+    "Sábado",
+    "Domingo"
+  ],
+  "ModelConfig": {
+    "Type": "ARJE.Utils.AI.Solutions.Hands.HandsModelConfig, ARJE.Utils, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+    "Object": {
+      "MaxNumHands": 1
+    }
+  }
+}
