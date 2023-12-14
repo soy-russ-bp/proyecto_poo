@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using ARJE.SignPractice.Controllers;
 using ARJE.Utils.Avalonia.MVC.Views;
 using ReactiveUI;
@@ -13,7 +14,7 @@ namespace ARJE.SignPractice
 
         public MainViewDisplay()
         {
-            new HomeViewController(this).Run();
+            Task.Run(new HomeViewController(this).RunAsync);
         }
 
         public ViewBase? Content

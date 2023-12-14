@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Runtime.Versioning;
 using System.Threading.Tasks;
 using ARJE.Shared.Models;
 using ARJE.Shared.Proxy;
@@ -13,8 +12,6 @@ using Matrix = OpenCvSharp.Mat;
 
 namespace ARJE.SignTrainer.App
 {
-    [SupportedOSPlatform("windows")]
-    [SupportedOSPlatform("macos")]
     public sealed class TrainerApp
     {
         public static void Run()

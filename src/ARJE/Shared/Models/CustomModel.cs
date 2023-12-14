@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Numerics;
-using ARJE.Shared.Proxy;
 using ARJE.Utils.AI;
 using ARJE.Utils.AI.Configuration;
 using ARJE.Utils.AI.Solutions.Hands;
@@ -15,52 +15,88 @@ namespace ARJE.Shared.Models
 {
     public sealed class CustomModel
     {
-        static CustomModel()
-        {
-            np.arange(1);
-            PythonEngine.BeginAllowThreads();
-            Keras.Keras.DisablePySysConsoleLog = true;
-        }
-
         public CustomModel(
+            HandsModel handsModel,
             OnDiskModelTrainingConfigCollection configCollection,
             IModelTrainingConfig<IModelConfig> trainingConfig)
         {
-            this.TrainingConfig = trainingConfig;
-            this.HandsModel.Start(PythonProxyApp.AppInfo);
+            InitializePythonEngine();
 
-            string modelPath = configCollection.GetFullPathForConfig(
-                trainingConfig,
+            this.HandsModel = handsModel;
+            this.ConfigCollection = configCollection;
+            this.TrainingConfig = trainingConfig;
+            this.Sequence = new Queue<float[]>(trainingConfig.SampleLength);
+        }
+
+        public static bool PythonEngineInitialized { get; private set; }
+
+        public OnDiskModelTrainingConfigCollection ConfigCollection { get; }
+
+        public IModelTrainingConfig<IModelConfig> TrainingConfig { get; }
+
+        [MemberNotNullWhen(true, nameof(ActionsModel))]
+        public bool ModelLoaded => this.ActionsModel != null;
+
+        public bool IsProxyConnected => this.HandsModel.IsProxyConnected;
+
+        public bool Ready => this.IsProxyConnected && this.ModelLoaded;
+
+        private HandsModel HandsModel { get; }
+
+        private BaseModel? ActionsModel { get; set; }
+
+        private Queue<float[]> Sequence { get; }
+
+        public static void InitializePythonEngine()
+        {
+            if (PythonEngineInitialized)
+            {
+                return;
+            }
+
+            PythonEngineInitialized = true;
+
+            Keras.Keras.DisablePySysConsoleLog = true;
+            np.arange(1);
+            PythonEngine.BeginAllowThreads();
+
+            using (Py.GIL())
+            {
+                _ = Keras.Keras.Instance;
+            }
+        }
+
+        [MemberNotNull(nameof(ActionsModel))]
+        public void LoadModel()
+        {
+            if (this.ModelLoaded)
+            {
+                return;
+            }
+
+            string modelPath = this.ConfigCollection.GetFullPathForConfig(
+                this.TrainingConfig,
                 OnDiskModelTrainingConfigCollection.ModelFileSuffix);
 
             using (Py.GIL())
             {
                 this.ActionsModel = BaseModel.LoadModel(modelPath);
             }
-
-            this.Sequence = new Queue<float[]>(trainingConfig.SampleLength);
         }
-
-        public IModelTrainingConfig<IModelConfig> TrainingConfig { get; }
-
-        private HandsModel HandsModel { get; } = new HandsModel(new HandsModelConfig(1));
-
-        private BaseModel ActionsModel { get; }
-
-        private Queue<float[]> Sequence { get; }
 
         public string? ProcessFrame(Matrix frame, out IDetection? detection)
         {
-            HandDetectionCollection hands = this.HandsModel.Process(frame);
-            if (hands.Count == 0)
+            this.LoadModel();
+
+            HandDetection? hand = this.HandsModel.Process(frame).FirstOrDefault();
+            detection = hand;
+
+            if (hand == null)
             {
                 this.Clear();
-                detection = null;
                 return null;
             }
 
-            HandDetection hand = hands.First();
-            detection = hand;
             float[] rawDetection = ToFlatArray(hand.Landmarks.Positions);
             this.Sequence.Enqueue(rawDetection);
             if (this.Sequence.Count < this.TrainingConfig.SampleLength)

@@ -46,7 +46,9 @@
                 </StackPanel.Styles>
 
                 <Button
-                  Click="PracticeBtnClickHandler">
+                  Click="PracticeBtnClickHandler"
+                  x:Name="practiceBtn"
+                  x:FieldModifier="private">
                   PRACTICE
                 </Button>
                 <Button

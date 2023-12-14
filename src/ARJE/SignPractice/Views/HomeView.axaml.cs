@@ -12,6 +12,12 @@ public sealed partial class HomeView : ViewBase
 
     public event Action? OnImportBtnClick;
 
+    public bool PracticeBtnEnabled
+    {
+        get => this.practiceBtn.IsEnabled;
+        set => this.practiceBtn.IsEnabled = value;
+    }
+
     protected override void OnInitializeComponent() => this.InitializeComponent();
 
     private void PracticeBtnClickHandler(object sender, RoutedEventArgs e)

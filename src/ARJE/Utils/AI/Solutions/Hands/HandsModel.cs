@@ -23,6 +23,8 @@ namespace ARJE.Utils.AI.Solutions.Hands
 
         public string PipeIdentifier => this.Proxy.PipeIdentifier;
 
+        public bool IsProxyConnected => this.Proxy.IsConnected;
+
         private PythonProxy Proxy { get; }
 
         public Task StartAsync(PythonAppInfo<VenvInfo> appInfo)

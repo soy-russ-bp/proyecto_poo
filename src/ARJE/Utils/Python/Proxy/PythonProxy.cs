@@ -17,6 +17,8 @@ namespace ARJE.Utils.Python.Proxy
 
         public string PipeIdentifier => this.Pipe.Identifier;
 
+        public bool IsConnected => this.Pipe.IsConnected;
+
         private HybridPipeServer Pipe { get; }
 
         private int BufferCapacity { get; }

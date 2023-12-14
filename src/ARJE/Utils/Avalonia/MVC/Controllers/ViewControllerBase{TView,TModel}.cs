@@ -20,7 +20,7 @@ namespace ARJE.Utils.Avalonia.MVC.Controllers
 
         public TView View { get; }
 
-        public void Run(IViewDisplay viewDisplay)
+        public virtual void Run(IViewDisplay viewDisplay)
         {
             viewDisplay.SetContent(this.View, this);
         }

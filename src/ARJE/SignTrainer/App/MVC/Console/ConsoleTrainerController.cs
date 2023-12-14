@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Runtime.Versioning;
 using System.Threading;
 using System.Threading.Tasks;
 using ARJE.Shared.Models;
@@ -17,8 +16,6 @@ using Matrix = OpenCvSharp.Mat;
 
 namespace ARJE.SignTrainer.App.MVC.Console
 {
-    [SupportedOSPlatform("windows")]
-    [SupportedOSPlatform("macos")]
     public class ConsoleTrainerController : BaseTrainerController<ConsoleTrainerView>
     {
         public ConsoleTrainerController(TrainerModel model, ConsoleTrainerView view)

@@ -1,15 +1,28 @@
-﻿using ARJE.SignPractice.Views;
+﻿using System;
+using ARJE.SignPractice.Models;
+using ARJE.SignPractice.Views;
+using ARJE.Utils.AI.Configuration;
 using ARJE.Utils.Avalonia.MVC.Controllers;
-using ARJE.Utils.Avalonia.MVC.Models;
 
 namespace ARJE.SignPractice.Controllers
 {
-    public sealed class SelectViewController : ViewControllerBase<SelectView, NoDataModel>
+    public sealed class SelectViewController : ViewControllerBase<SelectView, SelectDataModel>
     {
-        public SelectViewController()
-            : base(NoDataModel.None)
+        public SelectViewController(SelectDataModel model)
+            : base(model)
         {
             this.View.OnBackBtnClick += this.OnBackBtnClick;
+            this.View.OnConfigBtnClick += this.OnConfigBtnClick;
+
+            model.ConfigCollection.Update();
+            this.View.SetBtnsDisplay(model.ConfigCollection.Configs);
+        }
+
+        public event Action<IModelTrainingConfig<IModelConfig>>? OnConfigSelected;
+
+        private void OnConfigBtnClick(IModelTrainingConfig<IModelConfig> config)
+        {
+            this.OnConfigSelected?.Invoke(config);
         }
 
         private void OnBackBtnClick()

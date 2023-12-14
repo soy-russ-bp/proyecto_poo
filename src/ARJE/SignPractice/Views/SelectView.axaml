@@ -25,7 +25,8 @@
 				<Border Grid.Column="1" BorderBrush="#C7BBF2" Margin="20" BorderThickness="10" CornerRadius="20" Background="#C7BBF2"/>
 				<Panel Grid.Column="1">
 					<ScrollViewer Margin="0,30,0,30" AllowAutoHide="False">
-						<StackPanel>
+						<StackPanel x:Name="btnsPanel"
+                        x:FieldModifier="private">
 							<StackPanel.Styles>
 								<Style Selector="Button">
 									<Setter Property="Height" Value="50"></Setter>
@@ -40,17 +41,6 @@
 									<Setter Property="HorizontalAlignment" Value="Center"/>
 								</Style>
 							</StackPanel.Styles>
-							<Button></Button>
-							<Button></Button>
-							<Button></Button>
-							<Button></Button>
-							<Button></Button>
-							<Button></Button>
-							<Button></Button>
-							<Button></Button>
-							<Button></Button>
-							<Button></Button>
-							<Button></Button>
 						</StackPanel>
 					</ScrollViewer>
 				</Panel>
