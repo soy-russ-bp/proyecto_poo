@@ -27,7 +27,7 @@ namespace ARJE.Shared.Models
 
         public bool TitleAvailable(string title)
         {
-            return this.IsValidTitle(title) && this.ConfigsDict.ContainsKey(title);
+            return this.IsValidTitle(title) && !this.ConfigsDict.ContainsKey(title);
         }
 
         protected void Clear()
