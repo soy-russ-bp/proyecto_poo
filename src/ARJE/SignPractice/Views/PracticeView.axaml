@@ -12,14 +12,14 @@
 
 		<!-- Title Bar -->
 		<Grid  Grid.Row="0" Height="50" Background="#FF96BE" ColumnDefinitions="Auto, *">
-			
-			<Label  Margin="0 0 65 0" BorderBrush="#000" BorderThickness="0 0 0 1" Grid.Column="1" Padding="0, 0, 0, 0" Foreground="White" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+      <Button Click="BackBtnClickHandler" Background="#000" Margin="15 6" CornerRadius="50" Grid.Column="0" VerticalAlignment="Center" Width="40" Height="40">
+        <Image  Margin="0 0 0 0" Width="45" Height="45" Source="/Assets/BackArrow.png"></Image>
+      </Button>
+      
+			<Label ClipToBounds="False" Margin="0 20 65 0" BorderBrush="#000" BorderThickness="0 0 0 1" Grid.Column="1" Padding="0, 0, 0, 0" Foreground="White" FontSize="30" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center">
 				ARJÉ PRACTICE
 			</Label>
-			
-			<Button Click="BackBtnClickHandler" Background="#000" Margin="15 6" CornerRadius="50" Grid.Column="0" VerticalAlignment="Center" Width="40" Height="40">
-				<Image  Margin="0 0 0 0" Width="45" Height="45" Source="/Assets/BackArrow.png"></Image>
-			</Button>
       
 		</Grid>
     
@@ -39,14 +39,23 @@
 				</Border>
 			</Border>
       
-			<Panel Margin="0,0,0,30" HorizontalAlignment="Center" VerticalAlignment="Bottom"  Width="100" Height="100" Background="#F0afe0">
+			<Panel Margin="0,0,0,30" HorizontalAlignment="Center" VerticalAlignment="Bottom"  Width="400" Height="50" Background="#F0afe0">
 				<Border BoxShadow="0 10 20 -3 black" BorderBrush="black" BorderThickness="1"></Border>
         <TextBlock
           x:Name="signTextBox"
           x:FieldModifier="private"
+          Margin="0 0 0 5"
           HorizontalAlignment="Center"
           VerticalAlignment="Center"
           FontSize="50"
+          />
+        <ProgressBar
+          x:Name="signProgressBar"
+          x:FieldModifier="private"
+          Margin="0 42 0 0"
+          Minimum="0"
+          Maximum="10"
+          Height="5"
           />
 			</Panel>
       

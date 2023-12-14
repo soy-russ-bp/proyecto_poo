@@ -18,8 +18,11 @@ namespace ARJE.SignPractice.Controllers
         {
             this.View.OnBackBtnClick += this.OnBackBtnClick;
             model.VideoSource.OnFrameGrabbed += this.OnFrameGrabbed;
+            this.PracticeController = new PracticeController(this);
             Task.Run(this.LoadModel);
         }
+
+        public PracticeController PracticeController { get; }
 
         public override void Run(IViewDisplay viewDisplay)
         {
@@ -59,11 +62,12 @@ namespace ARJE.SignPractice.Controllers
             if (this.Model.DetectionModel.Ready)
             {
                 string? detectedSign = this.Model.DetectionModel.ProcessFrame(frame, out IDetection? detection);
-                if (detectedSign != null)
+                if (detection != null)
                 {
-                    this.View.SignText = detectedSign;
-                    DetectionDrawer.Draw(frame, detection!);
+                    DetectionDrawer.Draw(frame, detection);
                 }
+
+                this.PracticeController.Update(detectedSign);
             }
 
             Bitmap uiFrame = frame.ToAvaloniaBitmap(buffer: this.Model.FrameEncodeBuffer);

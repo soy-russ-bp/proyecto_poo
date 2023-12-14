@@ -15,6 +15,12 @@ public sealed partial class PracticeView : ViewBase
         set => this.signTextBox.Text = value;
     }
 
+    public int SignProgress
+    {
+        get => (int)this.signProgressBar.Value;
+        set => this.signProgressBar.Value = value;
+    }
+
     private IImage? FrameSource
     {
         get => this.frameImg.Source;
