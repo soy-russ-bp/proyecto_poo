@@ -29,7 +29,7 @@ Furthermore, after careful evaluation, we decided to adjust the direction of our
 ---
 **Requeriments evolution:**
 
-Between the first and second deliveries, the requirements evolved. We had gained a better understanding of the product and how we would address the problems that arose. That's why, in the [functional requirements](https://github.com/soy-russ-bp/proyecto_poo/blob/Second-Review/docs/Requirements/Functional%20Requirements), we added the system's capability to train and recognize models previously trained within the same system, an aspect that we didn't consider in the [initial functional requirements](https://github.com/soy-russ-bp/proyecto_poo/blob/First-Review/docs/Requirements/FunctionalRequirements.pdf).
+Between the first and second deliveries, the requirements evolved. We had gained a better understanding of the product and how we would address the problems that arose. That's why, in the [functional requirements](https://github.com/soy-russ-bp/proyecto_poo/blob/Second-Review/docs/FunctionalRequirements2/Functional%20Requirements), we added the system's capability to train and recognize models previously trained within the same system, an aspect that we didn't consider in the [initial functional requirements](https://github.com/soy-russ-bp/proyecto_poo/blob/First-Review/docs/Requirements/FunctionalRequirements.pdf).
 
 **Artifacts evolution:**
 
@@ -84,6 +84,7 @@ Training the model, preparing the video and a video to "promote the project", an
 
 Here you can see the correspondence between our Functional Requirements and the final product: [:diamonds: Requeriments Cheking](https://github.com/soy-russ-bp/proyecto_poo/blob/Third-Review/docs/Requirements/Requirements%20Checking.pdf)
 
+MVC code [Here](https://github.com/soy-russ-bp/proyecto_poo/tree/Third-Review/src/ARJE/SignPractice)
 ---
 
 
