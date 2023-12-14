@@ -43,7 +43,7 @@ The requirements evolved, and as a consequence, the artifacts associated with th
 
 And Finally this is the class Diagram of our Third Review:
 
-[:diamonds: class diagram Third Review](https://github.com/soy-russ-bp/proyecto_poo/blob/Third-Review/docs/UML/ClassDiagram/Class%20Diagram.pdf)
+[:diamonds: class diagram Third Review](https://github.com/soy-russ-bp/proyecto_poo/blob/Third-Review/docs/UML/ClassDiagram/Final%20Class%20Diagram.pdf)
 
 ---
 ## Process management
