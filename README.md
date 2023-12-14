@@ -95,13 +95,12 @@ Aquí puede notar la correspondencia entre nuestros Requerimientos funcionales y
 
 ---
 
-### Video second-review:
+## Reflections: [HERE](https://github.com/soy-russ-bp/proyecto_poo/blob/Third-Review/docs/Reflections/Reflections.md) 
+
+---
+
+## Video second-review:
 
 (Andry)
 
 ---
-
-Competencias: [Aquí]() (José Luis)
-
-Areas de mejora: [Aquí]() (José Luis)
-
