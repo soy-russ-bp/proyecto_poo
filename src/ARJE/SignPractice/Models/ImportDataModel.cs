@@ -1,9 +1,11 @@
-﻿using ARJE.Utils.Avalonia.MVC.Models;
+﻿using System.IO;
+using ARJE.Utils.Avalonia.MVC.Models;
 using Avalonia.Platform.Storage;
 
 namespace ARJE.SignPractice.DataModels
 {
-    public record ImportDataModel : DataModelBase
+    public record ImportDataModel(DirectoryInfo ModelsDirectory)
+        : DataModelBase
     {
         public FilePickerOpenOptions FilePickerOptions { get; } = new()
         {

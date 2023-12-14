@@ -21,7 +21,7 @@
 		<!-- Main Area-->
 		<Panel Grid.Row="1" Background="#A691F2">
 			<Border BorderBrush="#A691F2" BorderThickness="10" CornerRadius="20" Background="#FFFF"/>
-			<Grid ColumnDefinitions="*,*,*">
+			<Grid ColumnDefinitions="*,*,*" Margin="20">
 				<Border Grid.Column="1" BorderBrush="#C7BBF2" Margin="20" BorderThickness="10" CornerRadius="20" Background="#C7BBF2"/>
 				<Panel Grid.Column="1">
 					<ScrollViewer Margin="0,30,0,30" AllowAutoHide="False">
@@ -41,12 +41,19 @@
 									<Setter Property="HorizontalAlignment" Value="Center"/>
 								</Style>
 							</StackPanel.Styles>
-						</StackPanel>
+            </StackPanel>
 					</ScrollViewer>
-				</Panel>
-			</Grid>
 
-		</Panel>
+          <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Selected: "/>
+            <TextBlock x:Name="selectedConfigTextBlock" x:FieldModifier="private"/>
+          </StackPanel>
+        
+        </Panel>
+      </Grid>
+
+
+    </Panel>
 
 	</Grid>
 

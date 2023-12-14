@@ -59,11 +59,6 @@ namespace ARJE.Shared.Models
             Keras.Keras.DisablePySysConsoleLog = true;
             np.arange(1);
             PythonEngine.BeginAllowThreads();
-
-            using (Py.GIL())
-            {
-                _ = Keras.Keras.Instance;
-            }
         }
 
         [MemberNotNull(nameof(ActionsModel))]
