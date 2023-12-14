@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.Versioning;
 using System.Threading.Tasks;
 using ARJE.Utils.Python;
 using ARJE.Utils.Python.Environment;
@@ -12,22 +11,30 @@ using Matrix = OpenCvSharp.Mat;
 
 namespace ARJE.Utils.AI.Solutions.Hands
 {
-    [SupportedOSPlatform("windows")]
-    [SupportedOSPlatform("macos")]
     public sealed class HandsModel : IDetectionModel<HandDetectionCollection, HandDetection, Matrix>, IDisposable
     {
-        public HandsModel()
+        public HandsModel(HandsModelConfig? config = null)
         {
+            this.ModelConfig = config ?? new HandsModelConfig();
             this.Proxy = new PythonProxy("SignTrainer", new CustomIdMapper());
         }
 
-        public string PipeName => this.Proxy.PipeName;
+        public HandsModelConfig ModelConfig { get; }
+
+        public string PipeIdentifier => this.Proxy.PipeIdentifier;
+
+        public bool IsProxyConnected => this.Proxy.IsConnected;
 
         private PythonProxy Proxy { get; }
 
         public Task StartAsync(PythonAppInfo<VenvInfo> appInfo)
         {
             return this.InternalStartAsync(appInfo);
+        }
+
+        public void Start(PythonAppInfo<VenvInfo> appInfo)
+        {
+            this.InternalStart(appInfo);
         }
 
         public Task StartNoLaunchAsync()
@@ -48,13 +55,23 @@ namespace ARJE.Utils.AI.Solutions.Hands
 
         private Task InternalStartAsync(PythonAppInfo<VenvInfo>? appInfo)
         {
+            this.LaunchPython(appInfo);
+            return this.Proxy.StartAsync();
+        }
+
+        private void InternalStart(PythonAppInfo<VenvInfo>? appInfo)
+        {
+            this.LaunchPython(appInfo);
+            this.Proxy.Start();
+        }
+
+        private void LaunchPython(PythonAppInfo<VenvInfo>? appInfo)
+        {
             if (appInfo.HasValue)
             {
                 var launcher = new PythonLauncher<VenvInfo>(appInfo.Value);
-                launcher.Run("Python app", this.Proxy.PipeName);
+                launcher.Run("Python app", $"-pipe_identifier={this.Proxy.PipeIdentifier}");
             }
-
-            return this.Proxy.StartAsync();
         }
 
         private class CustomIdMapper : IIdMapper

@@ -1,12 +1,10 @@
-﻿using System.Runtime.Versioning;
-using ARJE.Utils.Diagnostics.CommandLine;
+﻿using ARJE.Utils.Diagnostics.CommandLine;
 using ARJE.Utils.Python.Environment;
 using ARJE.Utils.Python.Launcher;
+using ARJE.Utils.Text;
 
 namespace ARJE.Utils.Python
 {
-    [SupportedOSPlatform("windows")]
-    [SupportedOSPlatform("macos")]
     public class PythonLauncher<TEnv>
         where TEnv : IPythonEnvironmentInfo
     {
@@ -19,7 +17,7 @@ namespace ARJE.Utils.Python
 
         public void Run(string? windowName = null, params string[] args)
         {
-            string argsJoin = CLI.JoinArgs(args);
+            string argsJoin = ArgsUtils.Join(args);
 
             var commands = new string?[]
             {

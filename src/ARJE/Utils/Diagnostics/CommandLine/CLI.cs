@@ -1,14 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Runtime.Versioning;
 using ARJE.Utils.Collections;
 
 namespace ARJE.Utils.Diagnostics.CommandLine
 {
-    [SupportedOSPlatform("windows")]
-    [SupportedOSPlatform("macos")]
     public static class CLI
     {
         public static string PlatformExecutablePath
@@ -38,25 +34,15 @@ namespace ARJE.Utils.Diagnostics.CommandLine
 #endif
         }
 
-        public static string JoinArgs(params string?[]? args)
-        {
-            args = ArrayUtils.FilterNull(args);
-            if (args.Length == 0)
-            {
-                return string.Empty;
-            }
-
-            IEnumerable<string> wrappedArgs = args.Select(arg => $"\"{arg}\"");
-            return string.Join(" ", wrappedArgs);
-        }
-
-        public static void Execute(DirectoryInfo workingDirectory, params string?[]? commands)
+        public static void Execute(DirectoryInfo workingDirectory, params string?[] commands)
         {
             Execute(workingDirectory.FullName, commands);
         }
 
-        public static void Execute(string? workingDirectory, params string?[]? commands)
+        public static void Execute(string? workingDirectory, params string?[] commands)
         {
+            ArgumentNullException.ThrowIfNull(commands);
+
             commands = ArrayUtils.FilterNull(commands);
             if (commands.Length == 0)
             {

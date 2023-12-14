@@ -25,5 +25,14 @@ namespace ARJE.Utils.IO
             string newPath = string.Join(Path.DirectorySeparatorChar, pathParts, 0, matchI + 1);
             return newPath;
         }
+
+        public static string TempPathJoin(string path)
+        {
+            path = path.Trim();
+            ArgumentException.ThrowIfNullOrEmpty(path);
+
+            string tempPath = Path.GetTempPath();
+            return Path.Join(tempPath, path);
+        }
     }
 }
