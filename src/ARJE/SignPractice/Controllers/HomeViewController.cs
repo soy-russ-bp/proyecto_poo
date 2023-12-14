@@ -63,7 +63,7 @@ namespace ARJE.SignPractice.Controllers
 
         public void GoToSelect()
         {
-            var dataModel = new SelectDataModel(this.Model.ConfigCollection);
+            var dataModel = new SelectDataModel(this.Model.ConfigCollection, this.CustomModel?.TrainingConfig);
             var controller = new SelectViewController(dataModel);
             controller.Run(this.viewDisplay);
             controller.OnConfigSelected += this.OnConfigSelected;

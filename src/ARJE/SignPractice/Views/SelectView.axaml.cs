@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using ARJE.Utils.AI.Configuration;
 using ARJE.Utils.Avalonia.MVC.Views;
 using Avalonia.Controls;
@@ -12,6 +13,12 @@ public sealed partial class SelectView : ViewBase
     public event Action? OnBackBtnClick;
 
     public event Action<IModelTrainingConfig<IModelConfig>>? OnConfigBtnClick;
+
+    public string? SelectedConfigText
+    {
+        get => this.selectedConfigTextBlock.Text;
+        set => this.selectedConfigTextBlock.Text = value ?? "None";
+    }
 
     public void SetBtnsDisplay(IReadOnlyCollection<IModelTrainingConfig<IModelConfig>> configs)
     {
