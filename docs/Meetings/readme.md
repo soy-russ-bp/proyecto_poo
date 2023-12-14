@@ -5,11 +5,19 @@
   <td><strong>Meeting</strong></td>
   <td><strong>Overview</strong></td>
 </tr>
+
 <!-- Este es un comentario oculto en Markdown -->
 <tr>
-  <td>18 sep-28 sep </td>
-  <td>We discussed the options and projects we wanted to work on, in order to decide which one to choose, we discussed the level of complexity and the methodologies we would use, then we created the first main section and discussed the requirements and what we wanted to do.</td>
-  <td>First we divided the work with its respective difficulty, we agreed that as we would work on the parts as a team and individually, first we worked on the part in teams, such as the requirements and the UML, to finally do our individual part to keep an order of our project.</td>
+  <td>14 sep-12 sep </td>
+  <td>We discussed how the contributions would be divided</td>
+  <td>Then, all the team had an agreements about the contributions of each person</td>
+</tr>
+
+<!-- Este es un comentario oculto en Markdown -->
+<tr>
+  <td>11-14 December </td>
+  <td>We discussed about how the team would train the signs.</td>
+  <td>First we asked who could be able to do that,so each person decides what would train for.</td>
 </tr>
 
 </table>
