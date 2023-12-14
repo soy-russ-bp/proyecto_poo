@@ -27,7 +27,7 @@ Furthermore, after careful evaluation, we decided to adjust the direction of our
 "Finally, for this third delivery, we carried out the training of the models. Additionally, we added the view part to the project, transitioning from a console view to a non-functional prototype, and from the non-functional prototype to a UI that is part of the MVC, programmed in the [Avalonia Framework](https://avaloniaui.net/)
 
 ---
-**Requeriments evolution:**
+**Requirements evolution:**
 
 Between the first and second deliveries, the requirements evolved. We had gained a better understanding of the product and how we would address the problems that arose. That's why, in the [functional requirements](https://github.com/soy-russ-bp/proyecto_poo/blob/Third-Review/docs/Requirements/Functional%20Requirements2.pdf), we added the system's capability to train and recognize models previously trained within the same system, an aspect that we didn't consider in the [initial functional requirements](https://github.com/soy-russ-bp/proyecto_poo/blob/First-Review/docs/Requirements/FunctionalRequirements.pdf).
 
@@ -36,14 +36,14 @@ Between the first and second deliveries, the requirements evolved. We had gained
 The requirements evolved, and as a consequence, the artifacts associated with them did too.
 
 
-[:diamonds: user stories & acceptance criteria](https://github.com/soy-russ-bp/proyecto_poo/blob/Second-Review/docs/Requirements/User%20stories.pdf).
+[:diamonds: User stories & acceptance criteria](docs/Requirements/User%20stories.pdf).
 
 
-[:diamonds: class diagram second Review](https://github.com/soy-russ-bp/proyecto_poo/blob/Second-Review/docs/UML/ClassDiagram/Class%20Diagram.pdf) (We only draw a representation of the class diagram of the MVC pattern used in our project, the classes of the connection between C# and Python were not drawn, the ones used so that the [MediaPipe Hands](https://mediapipe.readthedocs.io/en/latest/solutions/hands.html) model could be used in C#. The project supports Windows and MacOS.)
+[:diamonds: Class diagram second Review](https://github.com/soy-russ-bp/proyecto_poo/blob/Second-Review/docs/UML/ClassDiagram/Class%20Diagram.pdf) (We only draw a representation of the class diagram of the MVC pattern used in our project, the classes of the connection between C# and Python were not drawn, the ones used so that the [MediaPipe Hands](https://mediapipe.readthedocs.io/en/latest/solutions/hands.html) model could be used in C#. The project supports Windows and MacOS.)
 
 And Finally this is the class Diagram of our Third Review:
 
-[:diamonds: class diagram Third Review](https://github.com/soy-russ-bp/proyecto_poo/blob/Third-Review/docs/UML/ClassDiagram/Final%20Class%20Diagram.pdf)
+[:diamonds: Class diagram Third Review](docs/UML/ClassDiagram/Final%20Class%20Diagram.pdf)
 
 ---
 ## Process management
@@ -71,12 +71,12 @@ Several necessary utilities were programmed for the project's operation, such as
 
 * Sprint 4 (Dec 9th - Dec 13th):
 
-Training the model, preparing the video and a video to "promote the project", and finishing final programming and documentation details.
+Training the models, preparing the video and a video to "promote the project", and finishing final programming and documentation details.
 
 
-[:diamonds: Contributions All-reviews](https://github.com/soy-russ-bp/proyecto_poo/blob/Third-Review/docs/Contributions/contribution.md)
+[:diamonds: Contributions All-reviews](docs/Contributions/contribution.md)
 
-[:diamonds: Binnacle Third-review](https://github.com/soy-russ-bp/proyecto_poo/blob/Third-Review/docs/Meetings/readme.md)
+[:diamonds: Binnacle Third-review](docs/Meetings/readme.md)
 
 ---
 
@@ -84,21 +84,21 @@ Training the model, preparing the video and a video to "promote the project", an
 
 Here you can see the correspondence between our Functional Requirements and the final product: [:diamonds: Requeriments Cheking](https://github.com/soy-russ-bp/proyecto_poo/blob/Third-Review/docs/Requirements/Requirements%20Checking.pdf)
 
-MVC code [Here](https://github.com/soy-russ-bp/proyecto_poo/tree/Third-Review/src/ARJE/SignPractice)
+MVC code [here](src/ARJE/SignPractice).
 
 ---
 
 
-## Reflections: [HERE](https://github.com/soy-russ-bp/proyecto_poo/blob/Third-Review/docs/Reflections/Reflections.md) 
+## Reflections: [here](docs/Reflections/Reflections.md) 
 
 
 ---
 
-## Video second-review:
+## Video third-review:
 
 _Arjé, the start of a new Journey..._
 
-[![](https://s1.eestatic.com/2018/09/13/elandroidelibre/el_androide_libre_337730763_179714641_1706x960.jpg)](https://youtu.be/MRGGo0NMGfY)
+[![](Assets/Video3.png)](https://youtu.be/MRGGo0NMGfY)
 
 
 ---
