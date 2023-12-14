@@ -1,6 +1,6 @@
 # A R J É - Final Review
 
-![Free Universe Stars Video Gif Animated Zoom Virtual Background (1)](https://github.com/soy-russ-bp/proyecto_poo/assets/112036753/b4dbbe01-27f9-4ea0-b8c5-4878526d554e)
+![](https://github.com/soy-russ-bp/proyecto_poo/assets/112036753/b4dbbe01-27f9-4ea0-b8c5-4878526d554e)
 
 
 
@@ -80,7 +80,7 @@ Training the models, preparing the video and a video to "promote the project", a
 
 ---
 
-## Verificación de los requerimientos funcionales y no funcionales
+## Verification of functional and non-functional requirements:
 
 Here you can see the correspondence between our Functional Requirements and the final product: [:diamonds: Requeriments Cheking](https://github.com/soy-russ-bp/proyecto_poo/blob/Third-Review/docs/Requirements/Requirements%20Checking.pdf)
 
