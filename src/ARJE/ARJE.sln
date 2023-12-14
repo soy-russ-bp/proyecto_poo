@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ARJE.SignTrainer", "SignTra
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ARJE.Utils", "Utils\ARJE.Utils.csproj", "{EAD565D0-7D79-4C41-8A56-22D5D85376EF}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ARJE.SignPractice", "SignPractice\ARJE.SignPractice.csproj", "{0D21E8F9-B2C0-4FBB-90BF-15A43D5F7064}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{EAD565D0-7D79-4C41-8A56-22D5D85376EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EAD565D0-7D79-4C41-8A56-22D5D85376EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EAD565D0-7D79-4C41-8A56-22D5D85376EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D21E8F9-B2C0-4FBB-90BF-15A43D5F7064}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D21E8F9-B2C0-4FBB-90BF-15A43D5F7064}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D21E8F9-B2C0-4FBB-90BF-15A43D5F7064}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D21E8F9-B2C0-4FBB-90BF-15A43D5F7064}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,27 +1,25 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Runtime.Versioning;
 using System.Threading.Tasks;
 using ARJE.Utils.IO.Pipes;
 using ARJE.Utils.Python.Proxy.Packets;
 
 namespace ARJE.Utils.Python.Proxy
 {
-    [SupportedOSPlatform("windows")]
-    [SupportedOSPlatform("macos")]
     public sealed class PythonProxy : IDisposable
     {
         public PythonProxy(string pipeName, IIdMapper idMapper, int bufferCapacity = 0)
         {
             this.Pipe = new HybridPipeServer(pipeName);
-            this.PipeName = this.Pipe.Identifier;
             this.BufferCapacity = bufferCapacity;
         }
 
-        public string PipeName { get; }
+        public string PipeIdentifier => this.Pipe.Identifier;
 
-        private IPipeServer Pipe { get; }
+        public bool IsConnected => this.Pipe.IsConnected;
+
+        private HybridPipeServer Pipe { get; }
 
         private int BufferCapacity { get; }
 
@@ -45,7 +43,6 @@ namespace ARJE.Utils.Python.Proxy
         {
             this.Pipe.Dispose();
             this.Reader?.Dispose();
-            this.Writer?.Dispose();
         }
 
         public TObject Receive<TObject, TPacket>()

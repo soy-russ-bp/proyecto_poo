@@ -18,7 +18,7 @@ class _HandsResultsContainer(typing.NamedTuple):
 class HandsModel(DetectionModel):
 
     def __init__(self):
-        self._solution: typing.Final = HandsSolution()
+        self._solution: typing.Final = HandsSolution(max_num_hands=1)
 
     def process(self, image: Matrix) -> list[Detection]:
         image = opencv.cvtColor(image, opencv.COLOR_BGR2RGB)  # type: ignore

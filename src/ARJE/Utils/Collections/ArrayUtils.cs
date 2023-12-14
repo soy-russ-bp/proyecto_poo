@@ -1,17 +1,18 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ARJE.Utils.Collections
 {
     public static class ArrayUtils
     {
-        public static T[] FilterNull<T>(T?[]? array)
+        public static T[] FilterNull<T>(T?[] array)
         {
-            if (array == null)
-            {
-                return Array.Empty<T>();
-            }
-
             return Array.FindAll(array, e => e != null) as T[];
+        }
+
+        public static void EmptyIfNull<T>([NotNull] ref T[]? array)
+        {
+            array ??= Array.Empty<T>();
         }
     }
 }

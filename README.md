@@ -29,8 +29,7 @@ Furthermore, after careful evaluation, we decided to adjust the direction of our
 ---
 **Requeriments evolution:**
 
-Between the first and second deliveries, the requirements evolved. We had gained a better understanding of the product and how we would address the problems that arose. That's why, in the [functional requirements](https://github.com/soy-russ-bp/proyecto_poo/blob/Second-Review/docs/Requirements/Functional%20Requirements), we added the system's capability to train and recognize models previously trained within the same system, an aspect that we didn't consider in the [initial functional requirements](). **(Agregar links)**
-
+Between the first and second deliveries, the requirements evolved. We had gained a better understanding of the product and how we would address the problems that arose. That's why, in the [functional requirements](https://github.com/soy-russ-bp/proyecto_poo/blob/Third-Review/docs/Requirements/Functional%20Requirements2.pdf), we added the system's capability to train and recognize models previously trained within the same system, an aspect that we didn't consider in the [initial functional requirements](https://github.com/soy-russ-bp/proyecto_poo/blob/First-Review/docs/Requirements/FunctionalRequirements.pdf).
 
 **Artifacts evolution:**
 
@@ -44,7 +43,7 @@ The requirements evolved, and as a consequence, the artifacts associated with th
 
 And Finally this is the class Diagram of our Third Review:
 
-[:diamonds: class diagram Third Review]() (Juan)
+[:diamonds: class diagram Third Review](https://github.com/soy-russ-bp/proyecto_poo/blob/Third-Review/docs/UML/ClassDiagram/Final%20Class%20Diagram.pdf)
 
 ---
 ## Process management
@@ -75,32 +74,32 @@ Several necessary utilities were programmed for the project's operation, such as
 Training the model, preparing the video and a video to "promote the project", and finishing final programming and documentation details.
 
 
+[:diamonds: Contributions All-reviews](https://github.com/soy-russ-bp/proyecto_poo/tree/Third-Review/docs/Contributions)
 
-**Resultado:**
-
-_Arjé, the start of a new Journey..._
-
-[![](https://s1.eestatic.com/2018/09/13/elandroidelibre/el_androide_libre_337730763_179714641_1706x960.jpg)](https://www.youtube.com/watch?v=HpGk3YqiXy0)
-
-
-[:diamonds: Contributions All-reviews]() (Andry)
-
-[:diamonds: Binnacle Third-review]() (Andry)
+[:diamonds: Binnacle Third-review](https://github.com/soy-russ-bp/proyecto_poo/blob/Third-Review/docs/Meetings/readme.md)
 
 ---
 
-## Verificación de los requerimientos funcionales y no funcionales (Juan)
+## Verificación de los requerimientos funcionales y no funcionales
 
-Aquí puede notar la correspondencia entre nuestros Requerimientos funcionales y el producto final: (Pasar al inglés, y pegar la parte de Juan, ya sea un link a otro readme, un video, o como haya hecho esa verificación)
+Here you can see the correspondence between our Functional Requirements and the final product: [:diamonds: Requeriments Cheking](https://github.com/soy-russ-bp/proyecto_poo/blob/Third-Review/docs/Requirements/Requirements%20Checking.pdf)
 
+MVC code [Here](https://github.com/soy-russ-bp/proyecto_poo/tree/Third-Review/src/ARJE/SignPractice)
 ---
+
 
 ## Reflections: [HERE](https://github.com/soy-russ-bp/proyecto_poo/blob/Third-Review/docs/Reflections/Reflections.md) 
+
 
 ---
 
 ## Video second-review:
 
 (Andry)
+
+_Arjé, the start of a new Journey..._
+
+[![](https://s1.eestatic.com/2018/09/13/elandroidelibre/el_androide_libre_337730763_179714641_1706x960.jpg)](https://youtu.be/MRGGo0NMGfY)
+
 
 ---

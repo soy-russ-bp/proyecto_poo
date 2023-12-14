@@ -33,17 +33,8 @@ namespace ARJE.Utils.Spectre.Console.Extensions
             Func<T, Style> converter)
             where T : notnull
         {
-            obj.Converter = (choice) =>
-            {
-                string? choiceString = choice.ToString();
-                if (choiceString == null)
-                {
-                    return null!;
-                }
-
-                Style style = converter.Invoke(choice);
-                return StyleUtils.MarkupWrap(choiceString, style);
-            };
+            Func<T, string> styledConverter = SelectionPromptUtils.CreateStyledConverter(converter);
+            obj.UseConverter(styledConverter);
             return obj;
         }
     }
