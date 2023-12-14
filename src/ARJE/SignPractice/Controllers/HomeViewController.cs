@@ -1,42 +1,26 @@
 ﻿using System;
-using System.IO;
 using System.Threading.Tasks;
 using ARJE.Shared.Models;
 using ARJE.Shared.Proxy;
 using ARJE.SignPractice.Models;
 using ARJE.SignPractice.Views;
 using ARJE.Utils.AI.Configuration;
-using ARJE.Utils.AI.Solutions.Hands;
 using ARJE.Utils.Avalonia.MVC.Controllers;
-using ARJE.Utils.Avalonia.MVC.Models;
 using ARJE.Utils.Avalonia.MVC.Views;
-using ARJE.Utils.OpenCvSharp;
-using ARJE.Utils.Video;
 using Avalonia.Threading;
-using Matrix = OpenCvSharp.Mat;
 
 namespace ARJE.SignPractice.Controllers
 {
-    public sealed class HomeViewController : ViewControllerBase<HomeView, NoDataModel>
+    public sealed class HomeViewController : ViewControllerBase<HomeView, HomeDataModel>
     {
         private readonly IViewDisplay viewDisplay;
-
-        private readonly IAsyncVideoSource<Matrix> videoSource =
-            new Webcam(outputFlipType: FlipType.Horizontal);
-
-        private readonly DirectoryInfo modelsDir = Directory.CreateDirectory("Models");
-
-        private readonly OnDiskModelTrainingConfigCollection configCollection;
-
-        private readonly HandsModel handsModel = new(new HandsModelConfig(1));
 
         private CustomModel? customModel;
 
         public HomeViewController(IViewDisplay viewDisplay)
-            : base(NoDataModel.None)
+            : base(HomeDataModel.Default)
         {
             Instance = this;
-            this.configCollection = new(this.modelsDir);
             this.viewDisplay = viewDisplay;
             this.UpdatePracticeEnabledState();
             this.View.OnPracticeBtnClick += this.GoToPractice;
@@ -60,7 +44,7 @@ namespace ARJE.SignPractice.Controllers
         {
             Dispatcher.UIThread.Invoke(this.GoToHome);
             CustomModel.InitializePythonEngine();
-            await this.handsModel.StartAsync(PythonProxyApp.AppInfo);
+            await this.Model.HandsModel.StartAsync(PythonProxyApp.AppInfo);
         }
 
         public void GoToHome()
@@ -72,13 +56,13 @@ namespace ARJE.SignPractice.Controllers
         {
             ArgumentNullException.ThrowIfNull(this.CustomModel);
 
-            var dataModel = new PracticeDataModel(this.videoSource, this.CustomModel);
+            var dataModel = new PracticeDataModel(this.Model.VideoSource, this.CustomModel);
             new PracticeViewController(dataModel).Run(this.viewDisplay);
         }
 
         public void GoToSelect()
         {
-            var dataModel = new SelectDataModel(this.configCollection);
+            var dataModel = new SelectDataModel(this.Model.ConfigCollection);
             var controller = new SelectViewController(dataModel);
             controller.Run(this.viewDisplay);
             controller.OnConfigSelected += this.OnConfigSelected;
@@ -91,7 +75,7 @@ namespace ARJE.SignPractice.Controllers
 
         private void OnConfigSelected(IModelTrainingConfig<IModelConfig> config)
         {
-            this.CustomModel = new CustomModel(this.handsModel, this.configCollection, config);
+            this.CustomModel = new CustomModel(this.Model.HandsModel, this.Model.ConfigCollection, config);
         }
 
         private void UpdatePracticeEnabledState()
