@@ -74,14 +74,6 @@ Several necessary utilities were programmed for the project's operation, such as
 Training the model, preparing the video and a video to "promote the project", and finishing final programming and documentation details.
 
 
-
-**Resultado:**
-
-_Arjé, the start of a new Journey..._
-
-[![](https://s1.eestatic.com/2018/09/13/elandroidelibre/el_androide_libre_337730763_179714641_1706x960.jpg)](https://www.youtube.com/watch?v=HpGk3YqiXy0)
-
-
 [:diamonds: Contributions All-reviews](https://github.com/soy-russ-bp/proyecto_poo/tree/Third-Review/docs/Contributions)
 
 [:diamonds: Binnacle Third-review](https://github.com/soy-russ-bp/proyecto_poo/blob/Third-Review/docs/Meetings/readme.md)
@@ -94,12 +86,19 @@ Aquí puede notar la correspondencia entre nuestros Requerimientos funcionales y
 
 ---
 
+
 ## Reflections: [HERE](https://github.com/soy-russ-bp/proyecto_poo/blob/Third-Review/docs/Reflections/Reflections.md) 
+
 
 ---
 
 ## Video second-review:
 
 (Andry)
+
+_Arjé, the start of a new Journey..._
+
+[![](https://s1.eestatic.com/2018/09/13/elandroidelibre/el_androide_libre_337730763_179714641_1706x960.jpg)](https://youtu.be/MRGGo0NMGfY)
+
 
 ---
