@@ -94,11 +94,12 @@ MVC code [here](src/ARJE/SignPractice).
 
 ---
 
-## Video third-review:
+## Video second-review:
 
-_Arjé, the start of a new Journey..._
+Arjé, the start of a new Journey...
 
-[![](Assets/Video3.png)](https://youtu.be/MRGGo0NMGfY)
+[![](https://s1.eestatic.com/2018/09/13/elandroidelibre/el_androide_libre_337730763_179714641_1706x960.jpg)](https://youtu.be/MRGGo0NMGfY)
 
+As yo can see exists diferent IA Models that allows you to learn Sign Language, you can download the models [here](https://github.com/soy-russ-bp/proyecto_poo/tree/Third-Review/root/ArjeModels_IA), or you can easily train a new model with the UI that you can find in [Andry](https://github.com/soy-russ-bp/proyecto_poo/tree/Andry) branch. 
 
 ---
