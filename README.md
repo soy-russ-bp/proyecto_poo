@@ -74,7 +74,7 @@ Several necessary utilities were programmed for the project's operation, such as
 Training the model, preparing the video and a video to "promote the project", and finishing final programming and documentation details.
 
 
-[:diamonds: Contributions All-reviews](https://github.com/soy-russ-bp/proyecto_poo/tree/Third-Review/docs/Contributions)
+[:diamonds: Contributions All-reviews](https://github.com/soy-russ-bp/proyecto_poo/blob/Third-Review/docs/Contributions/contribution.md)
 
 [:diamonds: Binnacle Third-review](https://github.com/soy-russ-bp/proyecto_poo/blob/Third-Review/docs/Meetings/readme.md)
 
@@ -85,6 +85,7 @@ Training the model, preparing the video and a video to "promote the project", an
 Here you can see the correspondence between our Functional Requirements and the final product: [:diamonds: Requeriments Cheking](https://github.com/soy-russ-bp/proyecto_poo/blob/Third-Review/docs/Requirements/Requirements%20Checking.pdf)
 
 MVC code [Here](https://github.com/soy-russ-bp/proyecto_poo/tree/Third-Review/src/ARJE/SignPractice)
+
 ---
 
 
@@ -94,8 +95,6 @@ MVC code [Here](https://github.com/soy-russ-bp/proyecto_poo/tree/Third-Review/sr
 ---
 
 ## Video second-review:
-
-(Andry)
 
 _Arjé, the start of a new Journey..._
 
