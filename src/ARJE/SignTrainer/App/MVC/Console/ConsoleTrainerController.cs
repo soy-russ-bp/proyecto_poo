@@ -26,7 +26,6 @@ namespace ARJE.SignTrainer.App.MVC.Console
         private enum MainMenuOption
         {
             Select,
-            Import,
             Create,
             Exit,
         }
@@ -58,7 +57,6 @@ namespace ARJE.SignTrainer.App.MVC.Console
                 option => option switch
                 {
                     MainMenuOption.Select => new Style(Color.Lime),
-                    MainMenuOption.Import => new Style(Color.Orange1),
                     MainMenuOption.Create => new Style(Color.Fuchsia),
                     MainMenuOption.Exit => new Style(Color.Red),
                     _ => throw new ArgumentOutOfRangeException(),
@@ -83,8 +81,6 @@ namespace ARJE.SignTrainer.App.MVC.Console
             {
                 case MainMenuOption.Select:
                     this.OnSelect();
-                    break;
-                case MainMenuOption.Import:
                     break;
                 case MainMenuOption.Create:
                     this.OnCreate();
